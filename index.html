@@ -427,7 +427,353 @@
         height: 1px;
         background: linear-gradient(90deg, var(--border), transparent);
       }
+      /* ── SERVICES ── */
+      .services-section {
+        margin-bottom: 60px;
+      }
 
+      .services-header {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+
+      .services-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 229, 160, 0.07);
+        border: 1px solid rgba(0, 229, 160, 0.18);
+        color: var(--green);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 6px 18px;
+        border-radius: 40px;
+        margin-bottom: 16px;
+      }
+
+      .services-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(32px, 6vw, 52px);
+        letter-spacing: 3px;
+        background: linear-gradient(135deg, #ffffff 30%, var(--green) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+
+      .services-sub {
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 300;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      @media (max-width: 580px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .service-card {
+        background: linear-gradient(145deg, var(--card), var(--surface));
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 28px 26px;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        transition:
+          transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1),
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .service-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 20px 55px rgba(0, 87, 255, 0.15);
+      }
+
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      /* Per-card accent colors */
+      .service-card.it {
+        --sc: rgba(0, 212, 255, 0.35);
+        --sg: linear-gradient(90deg, var(--accent2), var(--accent));
+      }
+      .service-card.job {
+        --sc: rgba(0, 229, 160, 0.35);
+        --sg: linear-gradient(90deg, #00b37a, var(--green));
+      }
+      .service-card.freelance {
+        --sc: rgba(255, 209, 102, 0.35);
+        --sg: linear-gradient(90deg, #ffaa00, var(--gold));
+      }
+      .service-card.training {
+        --sc: rgba(0, 87, 255, 0.35);
+        --sg: linear-gradient(90deg, #0057ff, #00d4ff);
+      }
+      .service-card.cert {
+        --sc: rgba(229, 100, 255, 0.35);
+        --sg: linear-gradient(90deg, #a855f7, #e564ff);
+      }
+
+      .service-card:hover {
+        border-color: var(--sc);
+      }
+      .service-card::before {
+        background: var(--sg);
+      }
+
+      .service-icon-wrap {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover .service-icon-wrap {
+        transform: rotate(-6deg) scale(1.12);
+      }
+
+      .service-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        border: 1px solid;
+      }
+
+      .service-card.it .service-badge {
+        color: var(--accent);
+        border-color: rgba(0, 212, 255, 0.2);
+        background: rgba(0, 212, 255, 0.06);
+      }
+      .service-card.job .service-badge {
+        color: var(--green);
+        border-color: rgba(0, 229, 160, 0.2);
+        background: rgba(0, 229, 160, 0.06);
+      }
+      .service-card.freelance .service-badge {
+        color: var(--gold);
+        border-color: rgba(255, 209, 102, 0.2);
+        background: rgba(255, 209, 102, 0.06);
+      }
+      .service-card.training .service-badge {
+        color: #60a5fa;
+        border-color: rgba(96, 165, 250, 0.2);
+        background: rgba(96, 165, 250, 0.06);
+      }
+      .service-card.cert .service-badge {
+        color: #e564ff;
+        border-color: rgba(229, 100, 255, 0.2);
+        background: rgba(229, 100, 255, 0.06);
+      }
+
+      .service-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        letter-spacing: 1.5px;
+        color: #fff;
+        margin-bottom: 8px;
+        line-height: 1.1;
+      }
+
+      .service-desc {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+
+      .service-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .service-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 6px;
+        padding: 4px 10px;
+        letter-spacing: 1px;
+        transition:
+          color 0.2s ease,
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .service-card:hover .service-tag {
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .service-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        cursor: pointer;
+        transition:
+          color 0.2s ease,
+          gap 0.2s ease;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+
+      .service-card:hover .service-cta {
+        gap: 12px;
+      }
+
+      .service-card.it:hover .service-cta {
+        color: var(--accent);
+      }
+      .service-card.job:hover .service-cta {
+        color: var(--green);
+      }
+      .service-card.freelance:hover .service-cta {
+        color: var(--gold);
+      }
+      .service-card.training:hover .service-cta {
+        color: #60a5fa;
+      }
+      .service-card.cert:hover .service-cta {
+        color: #e564ff;
+      }
+
+      /* Full-width card for IT Resources (parent) */
+      .service-card.it {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 40px;
+        align-items: start;
+      }
+
+      .service-card.it .service-left {
+      }
+      .service-card.it .service-right {
+        border-left: 1px solid var(--border);
+        padding-left: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 4px;
+      }
+
+      .it-sub-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .it-sub-item:hover {
+        background: rgba(0, 212, 255, 0.04);
+        border-color: rgba(0, 212, 255, 0.1);
+      }
+
+      .it-sub-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .it-sub-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin-bottom: 3px;
+      }
+
+      .it-sub-desc {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 580px) {
+        .service-card.it {
+          grid-template-columns: 1fr;
+        }
+        .service-card.it .service-right {
+          border-left: none;
+          border-top: 1px solid var(--border);
+          padding-left: 0;
+          padding-top: 20px;
+          margin-top: 16px;
+        }
+      }
       /* ── SKILLS ── */
       .skills-section {
         margin-bottom: 60px;
@@ -1854,7 +2200,111 @@
           <span>scroll to explore</span>
         </div>
       </section>
+      <!-- SERVICES -->
+      <section id="services" class="services-section reveal">
+        <div class="services-header">
+          <div class="services-eyebrow"><span>◈</span> What We Offer</div>
+          <div class="services-title">Our Services</div>
+          <p class="services-sub">
+            Beyond training — we support your entire SAP career journey from
+            learning to landing the role.
+          </p>
+        </div>
 
+        <div class="services-grid">
+          <!-- IT RESOURCES — full width -->
+          <div class="service-card it" id="sc-it">
+            <div class="service-left">
+              <div class="service-icon-wrap">🖥️</div>
+              <div class="service-badge">◈ IT Resources</div>
+              <div class="service-name">IT Resources & Staffing</div>
+              <div class="service-desc">
+                End-to-end IT resource solutions — from sourcing skilled SAP
+                professionals to fulfilling niche project requirements across
+                consulting, implementation, and support domains.
+              </div>
+              <div class="service-tags">
+                <span class="service-tag">SAP Consultants</span>
+                <span class="service-tag">Contract Staffing</span>
+                <span class="service-tag">Project Bench</span>
+                <span class="service-tag">Resource Mapping</span>
+              </div>
+              <button class="service-cta" onclick="scrollToEnquiry()">
+                Connect with us →
+              </button>
+            </div>
+            <div class="service-right">
+              <div class="it-sub-item">
+                <div class="it-sub-icon">💼</div>
+                <div>
+                  <div class="it-sub-name">Job Support</div>
+                  <div class="it-sub-desc">
+                    Real-time SAP job support for professionals working on live
+                    projects — get expert help when you need it most.
+                  </div>
+                </div>
+              </div>
+              <div class="it-sub-item">
+                <div class="it-sub-icon">🔄</div>
+                <div>
+                  <div class="it-sub-name">Freelancer Requirements</div>
+                  <div class="it-sub-desc">
+                    Connect with verified SAP freelancers for short-term
+                    projects, POC builds, and niche module expertise.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRAINING -->
+          <div class="service-card training" id="sc-training">
+            <div class="service-icon-wrap">🎓</div>
+            <div class="service-badge">◈ Training</div>
+            <div class="service-name">Training & Development</div>
+            <div class="service-desc">
+              Structured 1:1 and group SAP training programs across all major
+              modules. Designed for freshers, career switchers, and working
+              professionals looking to upskill fast.
+            </div>
+            <div class="service-tags">
+              <span class="service-tag">SAC</span>
+              <span class="service-tag">BPC</span>
+              <span class="service-tag">Datasphere</span>
+              <span class="service-tag">BW/4HANA</span>
+              <span class="service-tag">S/4HANA</span>
+              <span class="service-tag">BDC</span>
+            </div>
+            <button class="service-cta" onclick="scrollToEnquiry()">
+              Book a session →
+            </button>
+          </div>
+
+          <!-- CERTIFICATION -->
+          <div class="service-card cert" id="sc-cert">
+            <div class="service-icon-wrap">🏅</div>
+            <div class="service-badge">◈ Certification</div>
+            <div class="service-name">SAP Certification Assist</div>
+            <div class="service-desc">
+              Targeted preparation for SAP certification exams — topic-wise
+              coverage, practice questions, exam strategy, and last-mile
+              revision support to help you clear on the first attempt.
+            </div>
+            <div class="service-tags">
+              <span class="service-tag">Exam Strategy</span>
+              <span class="service-tag">Topic Revision</span>
+              <span class="service-tag">Mock Tests</span>
+              <span class="service-tag">C_SAC_2302</span>
+              <span class="service-tag">C_BW4H_214</span>
+            </div>
+            <button class="service-cta" onclick="scrollToEnquiry()">
+              Start prep →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"><span>// modules you can learn</span></div>
       <!-- SKILLS -->
       <section id="skills" class="skills-section">
         <div class="sec-label">// Skills You Can Learn</div>
@@ -2172,6 +2622,38 @@
                 value="Learning Session"
               />
 
+              <div class="form-group full" id="grp-desc">
+                <label class="form-label">What are you looking for?</label>
+                <select class="form-select" id="f-desc">
+                  <option value="" disabled selected>
+                    Select enquiry type
+                  </option>
+                  <option value="SAP Module Training">
+                    📚 SAP Module Training (SAC / BPC / Datasphere / BW / S4HANA
+                    / BDC)
+                  </option>
+                  <option value="Mock Interview – SAP Modules">
+                    🎯 Mock Interview – SAP Analytics Cloud
+                  </option>
+                  <option value="Job Support">
+                    💼 Job Support – Live Project Assistance
+                  </option>
+                  <option value="Freelancer Requirement">
+                    🔄 Freelancer Requirement
+                  </option>
+                  <option value="SAP Certification Assist">
+                    🏅 SAP Certification Preparation
+                  </option>
+                  <option value="IT Resource Staffing">
+                    🖥️ IT Resource / Staffing Requirement
+                  </option>
+                  <option value="Other">💬 Other – I'll describe below</option>
+                </select>
+                <span class="form-error" id="desc-error"
+                  >Please select an enquiry type</span
+                >
+              </div>
+
               <button
                 class="submit-btn"
                 id="submitBtn"
@@ -2384,7 +2866,20 @@
         { threshold: 0.1 },
       );
       skillCards.forEach((c) => cardIO.observe(c));
-
+      // ── SERVICE CARDS REVEAL ──
+      const serviceCards = document.querySelectorAll(".service-card");
+      const serviceIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, idx) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), idx * 100);
+              serviceIO.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      serviceCards.forEach((c) => serviceIO.observe(c));
       // ── SKILL CARD MOUSE GLOW ──
       skillCards.forEach((card) => {
         card.addEventListener("mousemove", (e) => {
@@ -2512,6 +3007,7 @@
           "grp-mobile",
           "grp-qual",
           "grp-status",
+          "grp-desc",
         ].forEach((id) => {
           document.getElementById(id).classList.remove("has-error");
         });
@@ -2545,6 +3041,12 @@
           document.getElementById("status-error").style.display = "block";
           valid = false;
         }
+        const desc = document.getElementById("f-desc");
+        if (!desc.value) {
+          document.getElementById("grp-desc").classList.add("has-error");
+          document.getElementById("desc-error").style.display = "block";
+          valid = false;
+        }
 
         if (!valid) return;
 
@@ -2566,6 +3068,7 @@
                 qualification: qual.value,
                 status: status.value,
                 interest: document.getElementById("f-interest").value,
+                enquiryType: document.getElementById("f-desc").value,
               }),
             },
           );
