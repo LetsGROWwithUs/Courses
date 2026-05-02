@@ -1720,6 +1720,74 @@
         display: block;
         overflow: auto;
       }
+      /* ── MOCK INTERVIEW ── */
+      .modal-interview-strip {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 209, 102, 0.07),
+          rgba(0, 229, 160, 0.05)
+        );
+        border: 1px solid rgba(255, 209, 102, 0.2);
+        border-radius: 14px;
+        padding: 14px 18px;
+      }
+      .modal-interview-icon {
+        font-size: 26px;
+        flex-shrink: 0;
+      }
+      .modal-interview-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 4px;
+      }
+      .modal-interview-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 1px;
+        color: #fff;
+      }
+      .modal-interview-price span {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 300;
+        letter-spacing: 0;
+      }
+      .modal-interview-btn {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 209, 102, 0.15),
+          rgba(255, 209, 102, 0.08)
+        );
+        border: 1px solid rgba(255, 209, 102, 0.3);
+        color: var(--gold);
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 15px;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          background 0.25s ease;
+      }
+      .modal-interview-btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 209, 102, 0.25),
+          rgba(255, 209, 102, 0.12)
+        );
+        box-shadow: 0 8px 24px rgba(255, 209, 102, 0.2);
+      }
     </style>
   </head>
   <body>
@@ -2097,6 +2165,13 @@
                 </div>
               </div>
 
+              <input
+                type="hidden"
+                id="f-interest"
+                name="interest"
+                value="Learning Session"
+              />
+
               <button
                 class="submit-btn"
                 id="submitBtn"
@@ -2186,9 +2261,30 @@
                   Per session · Final price decided on enquiry
                 </div>
               </div>
-              <button class="modal-enquire-btn" onclick="scrollToEnquiry()">
-                Enquire Now →
-              </button>
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <button class="modal-enquire-btn" onclick="scrollToEnquiry()">
+                  Enquire Now →
+                </button>
+                <button
+                  class="modal-interview-btn"
+                  onclick="scrollToInterview()"
+                >
+                  🎯 Book Mock Interview
+                </button>
+              </div>
+            </div>
+
+            <!-- MOCK INTERVIEW PRICING STRIP -->
+            <div class="modal-interview-strip">
+              <span class="modal-interview-icon">🎤</span>
+              <div>
+                <div class="modal-interview-label">
+                  Mock Interview Available
+                </div>
+                <div class="modal-interview-price">
+                  ₹400 – ₹800 <span>/ 30 min session</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2469,6 +2565,7 @@
                 mobile: mobile.value.trim(),
                 qualification: qual.value,
                 status: status.value,
+                interest: document.getElementById("f-interest").value,
               }),
             },
           );
@@ -2652,9 +2749,18 @@
         setTimeout(function () {
           var el = document.getElementById("enquiry");
           if (el) el.scrollIntoView({ behavior: "smooth" });
+          document.getElementById("f-interest").value = "Learning Session";
         }, 350);
       }
 
+      function scrollToInterview() {
+        closeModalDirect();
+        setTimeout(function () {
+          var el = document.getElementById("enquiry");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+          document.getElementById("f-interest").value = "Mock Interview";
+        }, 350);
+      }
       // Close on Escape key
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") closeModalDirect();
