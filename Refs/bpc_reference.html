@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP BPC 10.1 Standard — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #30363d;
+  --border: #30363d; --border2: #21262d;
+  --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+  --accent: #0ea5e9; --accent2: #38bdf8; --green: #3fb950;
+  --orange: #f0883e; --purple: #a371f7; --red: #f85149;
+  --yellow: #d29922; --teal: #2dd4bf; --sidebar-w: 280px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+#sidebar { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-logo .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: rgba(14,165,233,.12); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+.sidebar-logo h1 { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.sidebar-search { padding: 12px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-search input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .2s; }
+.sidebar-search input:focus { border-color: var(--accent); }
+.sidebar-nav { padding: 8px 0; flex: 1; }
+.nav-section-title { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 10px 20px 4px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 20px; cursor: pointer; font-size: 13px; color: var(--text2); border-left: 2px solid transparent; transition: all .15s; text-decoration: none; }
+.nav-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(14,165,233,.08); }
+.nav-item .nav-icon { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+#main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+.topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-breadcrumb { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+.topbar-breadcrumb span { color: var(--text2); }
+.theme-toggle { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.page { display: none; }
+.page.active { display: block; }
+.page-content { max-width: 860px; padding: 48px 48px 80px; }
+.page-hero { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); }
+.page-hero .badge { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
+.badge-blue { background: rgba(14,165,233,.15); color: var(--accent2); }
+.badge-green { background: rgba(63,185,80,.15); color: var(--green); }
+.badge-orange { background: rgba(240,136,62,.15); color: var(--orange); }
+.badge-purple { background: rgba(163,113,247,.15); color: var(--purple); }
+.badge-teal { background: rgba(45,212,191,.15); color: var(--teal); }
+.badge-red { background: rgba(248,81,73,.15); color: var(--red); }
+.page-hero h1 { font-size: 32px; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 10px; }
+.page-hero .lead { font-size: 16px; color: var(--text2); line-height: 1.7; max-width: 680px; }
+h2 { font-size: 20px; font-weight: 600; color: var(--text); margin: 36px 0 12px; padding-top: 4px; }
+h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+p { color: var(--text2); margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; }
+.info-box { background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.info-box strong { color: var(--accent2); }
+.warn-box { background: rgba(240,136,62,.07); border: 1px solid rgba(240,136,62,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.warn-box strong { color: var(--orange); }
+.tip-box { background: rgba(63,185,80,.07); border: 1px solid rgba(63,185,80,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.tip-box strong { color: var(--green); }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0 20px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+th { background: var(--bg3); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.6; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: border-color .2s; }
+.card:hover { border-color: var(--border); }
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.card-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.card p { font-size: 12.5px; color: var(--text2); margin: 0; line-height: 1.6; }
+code { font-family: 'DM Mono', monospace; font-size: 12.5px; background: var(--bg3); color: var(--teal); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+pre { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; overflow-x: auto; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--teal); margin: 14px 0; line-height: 1.6; }
+ul, ol { padding-left: 0; list-style: none; margin: 10px 0 14px; }
+ul li, ol li { font-size: 14px; color: var(--text2); padding: 4px 0 4px 20px; position: relative; line-height: 1.65; }
+ul li::before { content: "→"; position: absolute; left: 0; color: var(--text3); font-size: 12px; }
+ol { counter-reset: li; }
+ol li { counter-increment: li; }
+ol li::before { content: counter(li); position: absolute; left: 0; color: var(--accent); font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace; top: 6px; }
+.highlight { color: var(--accent2); font-weight: 500; }
+.step-list { margin: 14px 0; }
+.step-item { display: flex; gap: 14px; margin-bottom: 16px; }
+.step-num { width: 26px; height: 26px; background: rgba(14,165,233,.15); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; font-family: 'DM Mono', monospace; }
+.step-content { flex: 1; }
+.step-content strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 3px; }
+.step-content p { margin: 0; font-size: 13px; }
+body.light { --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e4e7eb; --border: #d0d7de; --border2: #eaeef2; --text: #1f2328; --text2: #4b5563; --text3: #8b949e; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+#progress { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--teal)); transform-origin: left; transform: scaleX(0); transition: transform .1s; z-index: 200; }
+#totop { position: fixed; bottom: 24px; right: 24px; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; pointer-events: none; transition: all .2s; font-size: 16px; z-index: 100; }
+#totop.visible { opacity: 1; pointer-events: all; }
+#totop:hover { background: var(--accent); color: white; border-color: var(--accent); }
+@media (max-width: 768px) { #sidebar { transform: translateX(-100%); transition: transform .3s; } #sidebar.open { transform: translateX(0); } #main { margin-left: 0; } .page-content { padding: 24px 20px 60px; } .topbar { padding: 12px 20px; } .card-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="progress"></div><div id="totop" onclick="scrollToTop()">↑</div>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">Reference Guide</div>
+    <h1>SAP BPC 10.1 Standard</h1>
+    <p>Planning & Consolidation</p>
+  </div>
+  <div class="sidebar-search"><input type="text" id="searchInput" placeholder="Search topics..." oninput="filterNav(this.value)"></div>
+  <div class="sidebar-nav" id="navTree">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-item active" onclick="showPage('overview')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>Overview & Architecture</a>
+    <a class="nav-item" onclick="showPage('environments')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">⬡</span>Environments & Models</a>
+    
+    <div class="nav-section-title">Data Modeling</div>
+    <a class="nav-item" onclick="showPage('dimensions')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">⋈</span>Dimensions & Properties</a>
+    <a class="nav-item" onclick="showPage('bwintegration')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">⇌</span>BW Backend Integration</a>
+
+    <div class="nav-section-title">Data Integration</div>
+    <a class="nav-item" onclick="showPage('datamanager')"><span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⟳</span>Data Manager Packages</a>
+    <a class="nav-item" onclick="showPage('transformations')"><span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⇶</span>Transformation & Conversion</a>
+
+    <div class="nav-section-title">Logic & Calculation</div>
+    <a class="nav-item" onclick="showPage('scriptlogic')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">{ }</span>Script Logic</a>
+    <a class="nav-item" onclick="showPage('badis')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">⚙</span>BAdIs & ABAP Integration</a>
+
+    <div class="nav-section-title">Reporting & UI</div>
+    <a class="nav-item" onclick="showPage('epm')"><span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">📊</span>EPM Add-in for Excel</a>
+    <a class="nav-item" onclick="showPage('webclient')"><span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">🌐</span>HTML5 Web Client</a>
+
+    <div class="nav-section-title">Process Management</div>
+    <a class="nav-item" onclick="showPage('bpf')"><span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">🔄</span>Business Process Flows (BPF)</a>
+    <a class="nav-item" onclick="showPage('workstatus')"><span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">🔒</span>Work Status</a>
+
+    <div class="nav-section-title">Administration</div>
+    <a class="nav-item" onclick="showPage('security')"><span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">⊗</span>Security & Profiles</a>
+
+    <div class="nav-section-title">Interview Prep</div>
+    <a class="nav-item" onclick="showPage('interview')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">★</span>Interview Quick Ref</a>
+  </div>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">SAP BPC 10.1 Standard <span>›</span> <span id="breadcrumb-current">Overview & Architecture</span></div>
+    <div class="topbar-right"><button class="theme-toggle" onclick="toggleTheme()">☀ Light Mode</button></div>
+  </div>
+
+  <!-- PAGE: OVERVIEW -->
+  <div class="page active" id="page-overview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Overview & Architecture</h1>
+      <p class="lead">SAP Business Planning and Consolidation (BPC) 10.1 Standard is a robust, unified application for enterprise financial planning, budgeting, forecasting, and statutory consolidation.</p>
+    </div>
+
+    <h2>Standard vs. Embedded Model</h2>
+    <p>BPC 10.1 introduced a major architectural split on the SAP NetWeaver platform: <span class="highlight">Standard</span> and <span class="highlight">Embedded</span>.</p>
+    <table>
+      <tr><th>Feature</th><th>Standard Model</th><th>Embedded Model</th></tr>
+      <tr><td><strong>Architecture</strong></td><td>Account-based, uses BPC-specific generated BW objects (<code>/CPMB/</code> namespace).</td><td>Key Figure-based, directly integrates with SAP BW-IP (Integrated Planning) objects.</td></tr>
+      <tr><td><strong>Data Persistence</strong></td><td>Data is loaded into BPC from BW via Data Manager.</td><td>Real-time access to BW data; no data duplication.</td></tr>
+      <tr><td><strong>Target User</strong></td><td>Business Users (Finance) - IT independent modeling.</td><td>IT & Data Modelers - strict BW governance.</td></tr>
+      <tr><td><strong>Logic Engine</strong></td><td>Script Logic and ABAP BAdIs.</td><td>FOX formulas and HANA SQLScript (AMDP).</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>Note:</strong> This guide strictly covers the <strong>BPC 10.1 Standard</strong> model, which maintains the classic BPC modeling approach favored by Finance departments.
+    </div>
+
+    <h2>System Architecture (NetWeaver)</h2>
+    <p>BPC Standard runs on the SAP NetWeaver ABAP stack, typically on top of a SAP HANA database (though classic DBs were supported historically).</p>
+    <ul>
+      <li><strong>Database Layer:</strong> Stores the actual physical tables (generated by BW).</li>
+      <li><strong>BW Application Layer:</strong> When you create an Environment and Model in the BPC web client, the system generates BW InfoCubes, InfoObjects, and MultiProviders in the background under the <code>/CPMB/</code> namespace.</li>
+      <li><strong>BPC Application Layer:</strong> The logic engine (Script Logic), security framework, and Data Manager reside here.</li>
+      <li><strong>Presentation Layer:</strong> The EPM Add-in for Microsoft Office (Excel, Word, PPT) and the HTML5 Web Client.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: ENVIRONMENTS -->
+  <div class="page" id="page-environments">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Environments & Models</h1>
+      <p class="lead">The fundamental containers of data and metadata in BPC Standard.</p>
+    </div>
+
+    <h2>Environment (AppSet)</h2>
+    <p>An <span class="highlight">Environment</span> is the highest-level container in BPC. It represents a complete business application (e.g., "Global Finance" or "Corporate Consolidation"). Security, Dimensions, and Data Manager packages are maintained at the Environment level.</p>
+
+    <h2>Models (Applications)</h2>
+    <p>Within an Environment, you create one or more <span class="highlight">Models</span>. A Model is a multidimensional data store (an InfoCube in the backend) designed for a specific business process.</p>
+    
+    <h3>Types of Models</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(14,165,233,.15)">📈</div><div class="card-title">Financial Model</div></div>
+        <p>Used for planning and reporting. Requires specific dimension types (Account, Category, Entity, Time).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(163,113,247,.15)">⚖️</div><div class="card-title">Consolidation Model</div></div>
+        <p>Requires strict dimension requirements including Group, Intercompany (INTCO), and specific properties to run statutory consolidation business rules.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">⚙️</div><div class="card-title">Generic Model</div></div>
+        <p>A flexible model without strict dimension requirements, often used for operational planning (e.g., HR headcount planning).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">🗂️</div><div class="card-title">Rate / Ownership Model</div></div>
+        <p>Supporting models used to store FX exchange rates or company ownership percentages for consolidation.</p>
+      </div>
+    </div>
+
+    <h2>Model Optimization</h2>
+    <p>In the BW backend, a standard BPC Model generates a real-time InfoCube. Over time, as planning data is written, the uncompressed Delta tables (F-Fact table) grow. BPC administrators must routinely run <span class="highlight">Light Optimize</span> (or Full Optimize) via Data Manager to compress data into the E-Fact table and update database statistics, ensuring sustained query performance.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DIMENSIONS -->
+  <div class="page" id="page-dimensions">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Modeling</div>
+      <h1>Dimensions & Properties</h1>
+      <p class="lead">Dimensions provide the analytical context for the numbers. BPC Standard requires specific dimension types for its internal logic to function.</p>
+    </div>
+
+    <h2>Required Dimension Types</h2>
+    <p>A Financial or Consolidation model must contain the following dimension types:</p>
+    <table>
+      <tr><th>Type</th><th>Code</th><th>Purpose</th><th>Required Properties</th></tr>
+      <tr><td><strong>Account</strong></td><td><code>A</code></td><td>Chart of accounts, measures, KPIs.</td><td>ACCTYPE (INC, EXP, AST, LEQ), RATETYPE</td></tr>
+      <tr><td><strong>Category</strong></td><td><code>C</code></td><td>Data versions (Actual, Budget, Forecast).</td><td>CATEGORY_FOR_OPE, YEAR</td></tr>
+      <tr><td><strong>Entity</strong></td><td><code>E</code></td><td>Cost centers, company codes, regions.</td><td>CURRENCY, INTCO</td></tr>
+      <tr><td><strong>Time</strong></td><td><code>T</code></td><td>Time periods (Year, Quarter, Month).</td><td>MONTHNUM, YEAR, PERIOD, TIMEID</td></tr>
+    </table>
+
+    <h2>Supporting Dimension Types</h2>
+    <ul>
+      <li><strong>Currency (<code>R</code>):</strong> Reporting currency (e.g., LC, USD, EUR). Required if the model supports currency translation.</li>
+      <li><strong>Intercompany (<code>I</code>):</strong> Represents the counter-party in an intercompany transaction. Required for consolidation eliminations.</li>
+      <li><strong>Audit / Data Source (<code>D</code>):</strong> Tracks where data came from (e.g., Input, BW Load, Allocation Logic).</li>
+      <li><strong>User Defined (<code>U</code>):</strong> Custom dimensions like Product, Customer, or Project.</li>
+    </ul>
+
+    <h2>Dimension Properties</h2>
+    <p>Properties are attributes attached to dimension members. They are critical for filtering in reports and driving Script Logic. For example, the <code>ACCTYPE</code> property on the Account dimension tells BPC whether to treat the account as Income (credit balance) or Expense (debit balance), which automatically flips the sign for reporting in the EPM Add-in.</p>
+
+    <h2>Hierarchies</h2>
+    <p>Dimensions can have one or more Hierarchies (e.g., a Geographical hierarchy and a Management hierarchy for Entities). In BPC Standard, hierarchies are Parent-Child based. The <code>PARENTH1</code> property defines the parent of a specific member.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: BW INTEGRATION -->
+  <div class="page" id="page-bwintegration">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Modeling</div>
+      <h1>BW Backend Integration</h1>
+      <p class="lead">Understanding how BPC Standard maps to SAP BW is critical for troubleshooting and data loading.</p>
+    </div>
+
+    <h2>The /CPMB/ Namespace</h2>
+    <p>When you create objects in the BPC web client, they are physically generated in BW within the <code>/CPMB/</code> namespace.</p>
+    <table>
+      <tr><th>BPC Object</th><th>BW Equivalent</th><th>Example Technical Name</th></tr>
+      <tr><td>Environment</td><td>InfoArea</td><td><code>/CPMB/ENV_NAME</code></td></tr>
+      <tr><td>Model</td><td>InfoCube (Real-time)</td><td><code>/CPMB/MODEL_ID</code></td></tr>
+      <tr><td>Dimension</td><td>InfoObject (Characteristic)</td><td><code>/CPMB/DIM_ID</code></td></tr>
+      <tr><td>Dimension Property</td><td>InfoObject Attribute</td><td><code>/CPMB/PROP_ID</code></td></tr>
+      <tr><td>Signed Data (Value)</td><td>InfoObject (Key Figure)</td><td><code>/CPMB/SDATA</code></td></tr>
+    </table>
+
+    <div class="warn-box">
+      <strong>Do not modify /CPMB/ objects directly in SAP GUI (RSA1).</strong> Any changes made to BPC-generated BW objects via SAP GUI will be overwritten or cause severe inconsistencies the next time the environment is processed in the BPC Web Client. Always use the BPC Web Admin interface for modeling.
+    </div>
+
+    <h2>Data Extraction from BW</h2>
+    <p>To load actuals from standard BW InfoCubes/DSOs into BPC Standard:</p>
+    <ol>
+      <li>Create a Data Manager Package using the process chain <code>/CPMB/LOAD_INFOPROV_UI</code>.</li>
+      <li>Create a Transformation File to map the BW InfoObjects to the BPC Dimensions.</li>
+      <li>Execute the package, which extracts data from the BW provider and writes it to the BPC InfoCube.</li>
+    </ol>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DATA MANAGER -->
+  <div class="page" id="page-datamanager">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Data Integration</div>
+      <h1>Data Manager Packages</h1>
+      <p class="lead">Data Manager (DM) is the ETL (Extract, Transform, Load) toolset within BPC Standard, executed via the EPM Add-in.</p>
+    </div>
+
+    <h2>What is a DM Package?</h2>
+    <p>A Data Manager Package is a user-friendly wrapper around a standard SAP BW Process Chain. It allows business users (planners) to execute complex background jobs without accessing the SAP GUI.</p>
+
+    <h2>Common DM Packages</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">📥</div><div class="card-title">Import / Export</div></div>
+        <p>Load flat files (CSV) from the BPC server repository into a model, or export data to a file. (e.g., <code>Import Transaction Data</code>).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">🗃️</div><div class="card-title">BW Integration</div></div>
+        <p>Load data from a BW InfoProvider directly into a BPC model.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">➗</div><div class="card-title">Logic Execution</div></div>
+        <p>Trigger Script Logic or Advanced Calculations (e.g., Currency Translation, Consolidation, Allocations).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">⚙️</div><div class="card-title">System Admin</div></div>
+        <p>Run database optimization (Light Optimize) to compress data and improve read performance.</p>
+      </div>
+    </div>
+
+    <h2>Delta vs. Full Load</h2>
+    <p>When loading data via Data Manager, BPC handles data updates based on the load type:</p>
+    <ul>
+      <li><strong>Update / Merge:</strong> Adds new records and overwrites existing records if the exact dimensional intersection matches. Does not clear other data.</li>
+      <li><strong>Replace & Clear:</strong> Clears the entire intersection of data specified in the scope before loading the new file. Crucial for ensuring deleted records in the source are removed from BPC.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: TRANSFORMATIONS -->
+  <div class="page" id="page-transformations">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Data Integration</div>
+      <h1>Transformation & Conversion Files</h1>
+      <p class="lead">These files dictate how source data is mapped, cleansed, and transformed as it enters a BPC Model via Data Manager.</p>
+    </div>
+
+    <h2>Transformation Files (.xls)</h2>
+    <p>A Transformation File maps the columns of a source file (or InfoProvider) to the Dimensions of the target BPC model. It contains three main sections:</p>
+    <pre>
+*OPTIONS
+FORMAT = DELIMITED
+HEADER = YES
+DELIMITER = ,
+
+*MAPPING
+ACCOUNT = col(1)
+ENTITY = col(2)
+TIME = col(3)
+SIGNEDDATA = col(4)
+
+*CONVERSION
+ACCOUNT = ACC_CONVERSION.xls
+    </pre>
+
+    <h2>Conversion Files (.xls)</h2>
+    <p>While the Transformation file handles column-to-dimension mapping, a <span class="highlight">Conversion File</span> handles row-by-row data translation. It acts as a lookup table.</p>
+    <table>
+      <tr><th>EXTERNAL (Source)</th><th>INTERNAL (Target in BPC)</th><th>FORMULA</th></tr>
+      <tr><td>1000</td><td>CC_1000</td><td></td></tr>
+      <tr><td>20*</td><td>CC_GENERIC</td><td></td></tr>
+      <tr><td>*</td><td>*</td><td></td></tr>
+    </table>
+    <div class="info-box">
+      <strong>Wildcards:</strong> The <code>*</code> wildcard is heavily used. <code>*</code> mapped to <code>*</code> means "if no other rule applies, pass the source value through exactly as it is."
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SCRIPT LOGIC -->
+  <div class="page" id="page-scriptlogic">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Logic & Calculation</div>
+      <h1>Script Logic</h1>
+      <p class="lead">Script Logic is BPC's proprietary, SQL-like scripting language used to perform bulk calculations, allocations, and data movements.</p>
+    </div>
+
+    <h2>Core Concepts</h2>
+    <p>Unlike Excel formulas that run in memory, Script Logic executes on the server against the database. It processes data in batches.</p>
+
+    <h3>Scoping (XDIM_MEMBERSET)</h3>
+    <p>The most important rule in Script Logic is defining the scope. Scoping restricts the dataset pulled into server memory for the calculation. Poor scoping leads to severe performance issues.</p>
+    <pre>
+// Restrict the memory scope to specific members
+*XDIM_MEMBERSET CATEGORY = Budget
+*XDIM_MEMBERSET TIME = 2026.JAN, 2026.FEB
+*XDIM_MEMBERSET ACCOUNT = 400000, 410000
+    </pre>
+
+    <h3>The WHEN / REC / ENDWHEN Loop</h3>
+    <p>This is the fundamental processing loop in Script Logic. It evaluates records in the scope and writes new records based on conditions.</p>
+    <pre>
+*WHEN ACCOUNT
+  *IS "400000" // If the account is Revenue
+    // Write a new record to the Tax account, calculating 5% of Revenue
+    *REC(FACTOR = 0.05, ACCOUNT = "210000")
+  *IS "410000"
+    // Move the value to a different Entity
+    *REC(EXPRESSION = %VALUE%, ENTITY = "US01")
+*ENDWHEN
+    </pre>
+
+    <h2>Default.LGF</h2>
+    <p>Every model has a special script file named <code>Default.lgf</code>. <span class="highlight">This logic runs automatically every time a user saves data</span> via an input schedule or journal. It should be kept extremely lightweight (e.g., simple sign-flipping or basic driver calculations) to prevent long wait times during data saves.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: BADIS -->
+  <div class="page" id="page-badis">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Logic & Calculation</div>
+      <h1>BAdIs & ABAP Integration</h1>
+      <p class="lead">When Script Logic is not powerful or fast enough, developers use ABAP BAdIs (Business Add-Ins) to execute complex, high-performance server-side logic.</p>
+    </div>
+
+    <h2>Why use a BAdI?</h2>
+    <p>Script Logic is great for simple math, but it struggles with complex loops, string manipulation, reading from external BW tables, or highly complex allocations. BAdIs allow you to write pure ABAP code to manipulate BPC data.</p>
+
+    <h2>The UJ_CUSTOM_LOGIC BAdI</h2>
+    <p>To integrate ABAP into a BPC process, developers implement the standard enhancement spot <code>BADI_UJ_CUSTOM_LOGIC</code>. The ABAP developer creates a filter value (e.g., <code>MY_ALLOCATION</code>).</p>
+
+    <p>The business user can then trigger this ABAP code from a standard Data Manager Package or within Script Logic using the <code>*START_BADI</code> command:</p>
+    <pre>
+*START_BADI MY_ALLOCATION
+  QUERY = ON
+  WRITE = ON
+*END_BADI
+    </pre>
+
+    <h2>Performance Implications</h2>
+    <p>BAdIs are generally much faster than Script Logic for large datasets because they use internal ABAP tables and optimized SQL reads/writes directly against the HANA database. However, they require IT dependency, removing the "Finance-owned" aspect of BPC.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: EPM -->
+  <div class="page" id="page-epm">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Reporting & UI</div>
+      <h1>EPM Add-in for Excel</h1>
+      <p class="lead">The Enterprise Performance Management (EPM) Add-in is the primary interface for Finance users to build reports, input schedules, and execute packages.</p>
+    </div>
+
+    <h2>Report Editor</h2>
+    <p>The Report Editor is a drag-and-drop interface used to define the Rows, Columns, and Page Axis of an Excel report. It automatically generates the EPM formulas needed to retrieve data.</p>
+
+    <h2>Key EPM Functions</h2>
+    <p>Advanced users build reports using direct cell-based EPM formulas rather than the Report Editor for ultimate formatting control.</p>
+    <table>
+      <tr><th>Function</th><th>Purpose</th></tr>
+      <tr><td><code>=EPMRetrieveData()</code></td><td>Fetches a single data intersection from the database based on dimension coordinates.</td></tr>
+      <tr><td><code>=EPMSaveData()</code></td><td>Allows a specific cell value to be saved back to the database.</td></tr>
+      <tr><td><code>=EPMSelectMember()</code></td><td>Creates a double-clickable cell that opens the dimension member selector UI.</td></tr>
+      <tr><td><code>=EPMContextMember()</code></td><td>Displays the current dimension member selected in the context pane.</td></tr>
+    </table>
+
+    <h2>Local Members</h2>
+    <p>A <span class="highlight">Local Member</span> is a calculated row or column that exists only in the Excel report, not in the BPC database (e.g., a "Gross Margin %" variance column). Local Members automatically expand and move dynamically with the report layout.</p>
+
+    <h2>Dynamic Formatting</h2>
+    <p>Because BPC reports are dynamic (rows expand and collapse), standard Excel formatting is destroyed upon refresh. EPM uses a <span class="highlight">Dynamic Formatting Sheet</span>. You define formatting rules based on dimension properties (e.g., "If Account property CALC=Y, make the row bold and blue"), and the EPM Add-in reapplies these formats perfectly after every refresh.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: WEB CLIENT -->
+  <div class="page" id="page-webclient">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Reporting & UI</div>
+      <h1>HTML5 Web Client</h1>
+      <p class="lead">The BPC Web Client is the central hub for system administration, workspace management, and process flow tracking.</p>
+    </div>
+
+    <h2>Administration Workspace</h2>
+    <p>Used by Modelers and Admins to manage the backend structure:</p>
+    <ul>
+      <li>Create and modify Dimensions and Properties.</li>
+      <li>Manage Models and Environment settings.</li>
+      <li>Configure Security Users, Teams, and Task Profiles.</li>
+      <li>Manage Business Rules for Consolidation (Currency Translation, Eliminations).</li>
+    </ul>
+
+    <h2>Business User Workspace</h2>
+    <p>Provides a web-based entry point for end-users:</p>
+    <ul>
+      <li>Launch the EPM Add-in contextualized to specific reports.</li>
+      <li>View and interact with Workspaces (web-based dashboards).</li>
+      <li>Execute and track Business Process Flows (BPF).</li>
+      <li>Manage Document repositories.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: BPF -->
+  <div class="page" id="page-bpf">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Process Management</div>
+      <h1>Business Process Flows (BPF)</h1>
+      <p class="lead">BPFs guide users through a predefined, sequential planning or consolidation process, ensuring steps are completed in the correct order.</p>
+    </div>
+
+    <h2>BPF Architecture</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Process Template</strong>
+          <p>The master blueprint designed by an admin. Defines the steps (e.g., 1. Enter Sales, 2. Enter OPEX, 3. Review).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Driving Dimension</strong>
+          <p>The dimension that splits the process among users. Typically the Entity dimension. (e.g., US creates a budget, UK creates a budget).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Process Instance</strong>
+          <p>A live, generated version of the template for a specific time period (e.g., "Q3 2026 Forecast").</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Workspaces within BPFs</h2>
+    <p>When a user clicks a step in their BPF inbox (e.g., "Enter OPEX"), the BPF automatically opens the correct EPM Input Schedule, pre-filtered to their specific Entity and Time context. This prevents users from entering data in the wrong place.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: WORK STATUS -->
+  <div class="page" id="page-workstatus">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Process Management</div>
+      <h1>Work Status</h1>
+      <p class="lead">Work Status is BPC's data locking and approval mechanism. It prevents unauthorized data changes based on the business lifecycle.</p>
+    </div>
+
+    <h2>Work States</h2>
+    <p>Admins define sequential states. A common sequence is:</p>
+    <ol>
+      <li><strong>Unlocked:</strong> Data entry allowed by all planners.</li>
+      <li><strong>Submitted:</strong> Planners can no longer edit; Managers can review.</li>
+      <li><strong>Approved:</strong> Data is locked for everyone except system administrators.</li>
+    </ol>
+
+    <h2>Controlling Dimensions</h2>
+    <p>Work Status is applied to a slice of data defined by specific dimensions (e.g., Entity, Category, Time). Example: You can lock "Actuals" for "Q1" for "Entity US", while leaving "Entity UK" open.</p>
+
+    <h2>Owner vs. Manager</h2>
+    <p>The Entity dimension typically contains an <code>OWNER</code> property and a <code>REVIEWER</code> (Manager) property. Only the Owner can transition the state from Unlocked to Submitted. Only the Reviewer can transition the state from Submitted to Approved, or reject it back to Unlocked.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SECURITY -->
+  <div class="page" id="page-security">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Administration</div>
+      <h1>Security & Profiles</h1>
+      <p class="lead">BPC has its own security layer that runs on top of the NetWeaver ABAP security model, managed entirely via the BPC Web Client.</p>
+    </div>
+
+    <h2>Security Components</h2>
+    <table>
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td><strong>Users</strong></td><td>Mapped directly to SAP NetWeaver ABAP user IDs (SU01).</td></tr>
+      <tr><td><strong>Teams</strong></td><td>Groups of users. Best practice is to assign profiles to Teams, not individual Users.</td></tr>
+      <tr><td><strong>Task Profiles</strong></td><td>Controls <em>what</em> a user can do (e.g., Create Reports, Save Data, Run Packages, Admin System).</td></tr>
+      <tr><td><strong>Data Access Profiles (DAP)</strong></td><td>Controls <em>where</em> a user can read/write data based on dimension members (e.g., Read/Write access to Entity 'US', Read-Only to Entity 'UK', Denied to Entity 'GER').</td></tr>
+    </table>
+
+    <div class="info-box">
+      <strong>Resolution of Conflicts:</strong> If a user belongs to multiple teams with different Data Access Profiles, BPC applies the <strong>least restrictive</strong> access (union of all privileges).
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: INTERVIEW -->
+  <div class="page" id="page-interview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-accent">Quick Reference</div>
+      <h1>Interview Quick Reference</h1>
+      <p class="lead">Key concepts and common interview questions for SAP BPC 10.1 Standard.</p>
+    </div>
+
+    <h2>Key Concepts to Know Cold</h2>
+    <ul>
+      <li><strong>/CPMB/ Namespace:</strong> Know that BPC Standard generates objects here and they shouldn't be edited via RSA1.</li>
+      <li><strong>Default.lgf:</strong> The script logic file that executes automatically on every data send.</li>
+      <li><strong>XDIM_MEMBERSET:</strong> The crucial script logic command used to restrict the data scope and ensure performance.</li>
+      <li><strong>Light Optimize:</strong> The Data Manager package used to compress the underlying BW InfoCube and update DB statistics.</li>
+      <li><strong>Data Access Profile vs Task Profile:</strong> DAP controls *what data* you see (Row-level). Task Profile controls *what actions* you can perform (App-level).</li>
+    </ul>
+
+    <h2>Common Interview Questions</h2>
+    <ol>
+      <li>What is the difference between BPC Standard and BPC Embedded?</li>
+      <li>Explain the difference between a Transformation File and a Conversion File.</li>
+      <li>How would you improve the performance of a slow-running Script Logic?</li>
+      <li>What is the difference between Update/Merge and Replace/Clear in Data Manager?</li>
+      <li>Explain the concept of Local Members in the EPM Add-in.</li>
+      <li>When would you choose to use an ABAP BAdI instead of Script Logic?</li>
+      <li>How does Work Status integrate with the Entity dimension? (Owner/Reviewer properties).</li>
+      <li>What BW objects are generated when you create a Model in BPC Standard?</li>
+    </ol>
+
+  </div>
+  </div>
+
+</div>
+
+<script>
+const pages = ['overview', 'environments', 'dimensions', 'bwintegration', 'datamanager', 'transformations', 'scriptlogic', 'badis', 'epm', 'webclient', 'bpf', 'workstatus', 'security', 'interview'];
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); document.getElementById('main').scrollTop = 0; window.scrollTo(0, 0); }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) { n.classList.add('active'); }
+  });
+}
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('light') ? '☾ Dark Mode' : '☀ Light Mode';
+}
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(n => { n.style.display = (!v || n.textContent.toLowerCase().includes(v)) ? '' : 'none'; });
+}
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.transform = `scaleX(${total > 0 ? scrolled/total : 0})`;
+  document.getElementById('totop').classList.toggle('visible', scrolled > 300);
+});
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>

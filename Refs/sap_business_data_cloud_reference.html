@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Business Data Cloud — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #30363d;
+  --border: #30363d; --border2: #21262d;
+  --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+  --accent: #0ea5e9; --accent2: #38bdf8; --green: #3fb950;
+  --orange: #f0883e; --purple: #a371f7; --red: #f85149;
+  --yellow: #d29922; --teal: #2dd4bf; --sidebar-w: 280px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+#sidebar { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-logo .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: rgba(14,165,233,.12); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+.sidebar-logo h1 { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.sidebar-search { padding: 12px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-search input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .2s; }
+.sidebar-search input:focus { border-color: var(--accent); }
+.sidebar-nav { padding: 8px 0; flex: 1; }
+.nav-section-title { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 10px 20px 4px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 20px; cursor: pointer; font-size: 13px; color: var(--text2); border-left: 2px solid transparent; transition: all .15s; text-decoration: none; }
+.nav-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(14,165,233,.08); }
+.nav-item .nav-icon { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+#main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+.topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-breadcrumb { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+.topbar-breadcrumb span { color: var(--text2); }
+.theme-toggle { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.page { display: none; }
+.page.active { display: block; }
+.page-content { max-width: 860px; padding: 48px 48px 80px; }
+.page-hero { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); }
+.page-hero .badge { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
+.badge-blue { background: rgba(14,165,233,.15); color: var(--accent2); }
+.badge-green { background: rgba(63,185,80,.15); color: var(--green); }
+.badge-orange { background: rgba(240,136,62,.15); color: var(--orange); }
+.badge-purple { background: rgba(163,113,247,.15); color: var(--purple); }
+.badge-teal { background: rgba(45,212,191,.15); color: var(--teal); }
+.badge-red { background: rgba(248,81,73,.15); color: var(--red); }
+.page-hero h1 { font-size: 32px; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 10px; }
+.page-hero .lead { font-size: 16px; color: var(--text2); line-height: 1.7; max-width: 680px; }
+h2 { font-size: 20px; font-weight: 600; color: var(--text); margin: 36px 0 12px; padding-top: 4px; }
+h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+p { color: var(--text2); margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; }
+.info-box { background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.info-box strong { color: var(--accent2); }
+.warn-box { background: rgba(240,136,62,.07); border: 1px solid rgba(240,136,62,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.warn-box strong { color: var(--orange); }
+.tip-box { background: rgba(63,185,80,.07); border: 1px solid rgba(63,185,80,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.tip-box strong { color: var(--green); }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0 20px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+th { background: var(--bg3); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.6; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: border-color .2s; }
+.card:hover { border-color: var(--border); }
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.card-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.card p { font-size: 12.5px; color: var(--text2); margin: 0; line-height: 1.6; }
+code { font-family: 'DM Mono', monospace; font-size: 12.5px; background: var(--bg3); color: var(--teal); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+pre { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; overflow-x: auto; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--teal); margin: 14px 0; line-height: 1.6; }
+ul, ol { padding-left: 0; list-style: none; margin: 10px 0 14px; }
+ul li, ol li { font-size: 14px; color: var(--text2); padding: 4px 0 4px 20px; position: relative; line-height: 1.65; }
+ul li::before { content: "→"; position: absolute; left: 0; color: var(--text3); font-size: 12px; }
+ol { counter-reset: li; }
+ol li { counter-increment: li; }
+ol li::before { content: counter(li); position: absolute; left: 0; color: var(--accent); font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace; top: 6px; }
+.highlight { color: var(--accent2); font-weight: 500; }
+.step-list { margin: 14px 0; }
+.step-item { display: flex; gap: 14px; margin-bottom: 16px; }
+.step-num { width: 26px; height: 26px; background: rgba(14,165,233,.15); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; font-family: 'DM Mono', monospace; }
+.step-content { flex: 1; }
+.step-content strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 3px; }
+.step-content p { margin: 0; font-size: 13px; }
+body.light { --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e4e7eb; --border: #d0d7de; --border2: #eaeef2; --text: #1f2328; --text2: #4b5563; --text3: #8b949e; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+#progress { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--teal)); transform-origin: left; transform: scaleX(0); transition: transform .1s; z-index: 200; }
+#totop { position: fixed; bottom: 24px; right: 24px; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; pointer-events: none; transition: all .2s; font-size: 16px; z-index: 100; }
+#totop.visible { opacity: 1; pointer-events: all; }
+#totop:hover { background: var(--accent); color: white; border-color: var(--accent); }
+@media (max-width: 768px) { #sidebar { transform: translateX(-100%); transition: transform .3s; } #sidebar.open { transform: translateX(0); } #main { margin-left: 0; } .page-content { padding: 24px 20px 60px; } .topbar { padding: 12px 20px; } .card-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="progress"></div><div id="totop" onclick="scrollToTop()">↑</div>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">Reference Guide</div>
+    <h1>SAP BDC</h1>
+    <p>Business Data Cloud</p>
+  </div>
+  <div class="sidebar-search"><input type="text" id="searchInput" placeholder="Search topics..." oninput="filterNav(this.value)"></div>
+  <div class="sidebar-nav" id="navTree">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-item active" onclick="showPage('overview')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>Overview & Strategy</a>
+    <a class="nav-item" onclick="showPage('fabric')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">⬡</span>Business Data Fabric</a>
+    
+    <div class="nav-section-title">Core Components</div>
+    <a class="nav-item" onclick="showPage('components')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">📦</span>The 6 Core Components</a>
+    <a class="nav-item" onclick="showPage('databricks')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">🔗</span>SAP Databricks Integration</a>
+    <a class="nav-item" onclick="showPage('bwmodernization')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">🔄</span>Legacy BW Modernization</a>
+
+    <div class="nav-section-title">AI & Governance</div>
+    <a class="nav-item" onclick="showPage('dataproducts')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🛍️</span>Data Products & Cockpit</a>
+    <a class="nav-item" onclick="showPage('semantic')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🧠</span>Semantic Metadata & KG</a>
+    <a class="nav-item" onclick="showPage('apps')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🤖</span>Intelligent Applications</a>
+
+    <div class="nav-section-title">Administration</div>
+    <a class="nav-item" onclick="showPage('pricing')"><span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">💳</span>Capacity Unit (CU) Pricing</a>
+
+    <div class="nav-section-title">Interview Prep</div>
+    <a class="nav-item" onclick="showPage('interview')"><span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">★</span>Interview Quick Ref</a>
+  </div>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">SAP Business Data Cloud <span>›</span> <span id="breadcrumb-current">Overview & Strategy</span></div>
+    <div class="topbar-right"><button class="theme-toggle" onclick="toggleTheme()">☀ Light Mode</button></div>
+  </div>
+
+  <!-- PAGE: OVERVIEW -->
+  <div class="page active" id="page-overview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Overview & Strategy</h1>
+      <p class="lead">SAP Business Data Cloud (BDC) is a fully managed SaaS solution that unifies and governs all SAP data and seamlessly connects with third-party data, preserving critical business context for AI-driven insights.</p>
+    </div>
+
+    <h2>What is SAP Business Data Cloud?</h2>
+    <p>Announced as a strategic evolution of SAP's data portfolio, SAP BDC signifies a major shift from disjointed, legacy data extraction mindsets. Rather than forcing customers to extract raw SAP data (and lose all its valuable business context and semantics) into third-party hyperscalers, SAP BDC unifies <span class="highlight">SAP ERP, big data, and analytics</span> into a single, cohesive ecosystem.</p>
+
+    <div class="info-box">
+      <strong>The Key Differentiator:</strong> Raw data is often useless for AI without context. SAP BDC ensures that data retains its original business logic, hierarchies, and security semantics as it moves into the cloud or into external AI platforms like Databricks.
+    </div>
+
+    <h2>The Rebranding & Evolution</h2>
+    <p>SAP BDC is not entirely built from scratch. It is an evolution that brings together SAP's flagship data management and analytics solutions—<strong>SAP Datasphere</strong>, <strong>SAP Analytics Cloud (SAC)</strong>, and <strong>SAP Business Warehouse (BW)</strong>—and embeds them with new capabilities like <strong>Managed SAP Databricks</strong> and <strong>Intelligent Applications</strong>.</p>
+    
+    <p>Existing installations of Datasphere and SAC continue to run without interruption, but BDC provides a unified commercial and technical framework to integrate them flawlessly.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: FABRIC -->
+  <div class="page" id="page-fabric">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>The Business Data Fabric</h1>
+      <p class="lead">SAP Business Data Cloud is the core technological pillar enabling SAP's "Business Data Fabric" architecture.</p>
+    </div>
+
+    <h2>What is a Data Fabric?</h2>
+    <p>Traditionally, organizations built Data Lakes or Data Warehouses, which required physically moving, copying, and transforming data into a single central repository. This process is slow, expensive, and error-prone.</p>
+    <p>A <span class="highlight">Data Fabric</span> is a modern architecture that focuses on data integration and governance across distributed landscapes. Instead of moving the data, a fabric <em>connects</em> the data virtually, placing a unified semantic layer over top of it.</p>
+
+    <h2>SAP's "Business" Data Fabric</h2>
+    <p>SAP adds the word "Business" because typical IT data fabrics lack the application context. SAP BDC’s Business Data Fabric specifically understands SAP S/4HANA domains, SuccessFactors structures, and Ariba documents natively. It harmonizes data from all SAP line-of-business (LoB) solutions automatically.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Connect, Don't Collect</strong>
+          <p>Leverage federation to query data directly from source systems or hyperscalers without physical replication where appropriate.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Preserve Context</strong>
+          <p>Maintain the rich semantic meaning (e.g., currency conversions, parent-child hierarchies) inherent in SAP source systems.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Govern Globally</strong>
+          <p>Apply data security and compliance (like GDPR tags) at the semantic layer, ensuring it follows the data everywhere it is consumed.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: COMPONENTS -->
+  <div class="page" id="page-components">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Core Components</div>
+      <h1>The 6 Core Components</h1>
+      <p class="lead">SAP Business Data Cloud comprises six primary pillars, integrating existing best-of-breed SAP solutions with new software engines.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">🌐</div><div class="card-title">1. SAP Datasphere</div></div>
+        <p>Provides the data integration, semantic modeling layer, and acts as the foundation of the data fabric.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">📊</div><div class="card-title">2. SAP Analytics Cloud (SAC)</div></div>
+        <p>The visualization layer. Brings together self-service analytics, dashboards, and enterprise planning.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">💾</div><div class="card-title">3. SAP Business Warehouse (BW)</div></div>
+        <p>Allows businesses to modernize their existing SAP BW data to the cloud in a hybrid fashion without disruption.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">⚙️</div><div class="card-title">4. SAP Databricks</div></div>
+        <p>A fully managed Databricks environment allowing seamless blending of contextual SAP data with third-party big data.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">🧠</div><div class="card-title">5. Intelligent Applications</div></div>
+        <p>Out-of-the-box, AI-powered analytical applications (e.g., the People Intelligence package) that continuously adapt to business conditions.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">🛍️</div><div class="card-title">6. Data Products & Cockpit</div></div>
+        <p>Curated, reusable data packages managed via a centralized BDC Cockpit to monitor usage and enforce governance.</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DATABRICKS -->
+  <div class="page" id="page-databricks">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Core Components</div>
+      <h1>SAP Databricks Integration</h1>
+      <p class="lead">One of the most powerful features of SAP BDC is its deep, native integration with Databricks, eliminating the need to build complex ETL pipelines.</p>
+    </div>
+
+    <h2>BDC Connect to Databricks</h2>
+    <p>Using the open standard of <span class="highlight">Delta Sharing</span>, SAP teams can publish governed SAP data products directly into the Databricks platform. This means Data Scientists using Databricks can access SAP data instantly without IT having to build fragile data extraction jobs.</p>
+
+    <h2>Syncing Semantic Metadata to Unity Catalog</h2>
+    <p>Traditionally, when data leaves SAP, it turns into meaningless tables with German abbreviations (e.g., <code>MARA</code>, <code>BUKRS</code>). SAP BDC solves this by automatically syncing <strong>Semantic Metadata</strong> into the Databricks Unity Catalog.</p>
+    <ul>
+      <li><strong>Descriptions:</strong> English business descriptions are synced.</li>
+      <li><strong>Relationships:</strong> Primary and Foreign key relationships are maintained, allowing GenAI to understand how tables join.</li>
+      <li><strong>Governance Tags:</strong> SAP PersonalData governance tags are automatically synced, enabling fine-grained Attribute-Based Access Control (ABAC) inside Databricks.</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>AI Readiness:</strong> By maintaining the embedded domain logic, Databricks AI agents and LLMs built on top of this data are highly accurate, as they understand the business context rather than just raw numbers.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: BW MODERNIZATION -->
+  <div class="page" id="page-bwmodernization">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Core Components</div>
+      <h1>Legacy BW Modernization</h1>
+      <p class="lead">SAP BDC provides a graceful path for organizations with massive investments in legacy SAP BW or BW/4HANA systems.</p>
+    </div>
+
+    <h2>Gradual Evolution, Not Rip-and-Replace</h2>
+    <p>SAP acknowledges that ripping out a mature BW system is often too risky and expensive. BDC allows for a <span class="highlight">hybrid transition</span>. Customers can optimize their existing SAP BW data by turning BW queries and models into "Data Products" exposed within the Business Data Cloud.</p>
+
+    <h2>Extended Data Integration</h2>
+    <p>Through SAP Datasphere (acting as the integration layer), existing BW models can be connected and federated with new third-party data sources. This allows organizations to leverage modern AI and machine learning capabilities on their historical BW data without forcing a massive, immediate migration.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DATA PRODUCTS -->
+  <div class="page" id="page-dataproducts">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">AI & Governance</div>
+      <h1>Data Products & BDC Cockpit</h1>
+      <p class="lead">SAP BDC adopts the "Data Mesh" philosophy by treating data as a product rather than a mere IT asset.</p>
+    </div>
+
+    <h2>What is a Data Product?</h2>
+    <p>A Data Product is a curated, governed, and reusable package of data, metadata, and business semantics. Instead of sharing raw tables, a business unit (e.g., HR) curates a "Headcount & Turnover" data product. This product has an owner, an SLA, and clear documentation.</p>
+
+    <div class="tip-box">
+      <strong>Industry Specificity:</strong> SAP provides pre-built data products. For example, Sustainability data products (for environment, health, and safety management) provide structured, validated information on emissions out-of-the-box.
+    </div>
+
+    <h2>The BDC Cockpit</h2>
+    <p>The BDC Cockpit is the central management interface for the entire ecosystem. Here, Data Stewards can:</p>
+    <ul>
+      <li>Centrally publish, manage, and discover Data Products in an enterprise catalog.</li>
+      <li>Monitor consumption and usage metrics across the organization.</li>
+      <li>Enforce global governance, security, and privacy policies.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SEMANTIC -->
+  <div class="page" id="page-semantic">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">AI & Governance</div>
+      <h1>Semantic Metadata & Knowledge Graph</h1>
+      <p class="lead">To drive powerful business AI, the system must understand the complex relationships and attributes hidden within enterprise data.</p>
+    </div>
+
+    <h2>The Value of Semantics</h2>
+    <p>SAP systems are highly normalized. A single business object (like a Sales Order) might span dozens of tables. The Semantic Layer in BDC abstracts this complexity, presenting the data as logical business entities that non-technical users and AI agents can understand.</p>
+
+    <h2>SAP Knowledge Graph</h2>
+    <p>Built directly into the core of SAP BDC (via Datasphere), the Knowledge Graph maps the connections between different data entities (e.g., linking an Employee to a Department, to a Cost Center, to a specific Procurement Request). </p>
+    <p>By exposing data as a graph rather than flat tables, organizations can execute highly complex, relationship-driven queries that are impossible in standard relational databases, unlocking entirely new capabilities for generative AI contextualization.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: APPS -->
+  <div class="page" id="page-apps">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">AI & Governance</div>
+      <h1>Intelligent Applications</h1>
+      <p class="lead">SAP BDC is not just a data backend; it provides front-end applications powered by AI that adapt in real-time.</p>
+    </div>
+
+    <h2>Beyond Static Dashboards</h2>
+    <p>While SAP Analytics Cloud provides traditional dashboards and reporting, <span class="highlight">Intelligent Applications</span> are proactive. They automate processes, adapt to changing data inputs, and learn over time.</p>
+
+    <h2>Example: People Intelligence Package</h2>
+    <p>Announced at SAP Sapphire, this package is an Intelligent Application built on BDC designed for HR. It analyzes workforce data across SAP SuccessFactors and external platforms to help leaders make proactive decisions, predict employee turnover, drive engagement, and ensure compliance autonomously.</p>
+
+    <p>Customers can also utilize the BTP foundation to build their own custom Intelligent Applications using BDC as the harmonized data source.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: PRICING -->
+  <div class="page" id="page-pricing">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Administration</div>
+      <h1>Capacity Unit (CU) Pricing</h1>
+      <p class="lead">With the introduction of SAP Business Data Cloud, SAP is heavily pivoting its licensing strategy from user-based seats to consumption-based Capacity Units (CUs).</p>
+    </div>
+
+    <h2>The Shift to Capacity Units</h2>
+    <p>Historically, products like SAP Analytics Cloud were licensed per user (e.g., a BI User license or a Planning Professional license). Under the BDC model, many of these are shifting:</p>
+    <ul>
+      <li><strong>SAC Public Cloud Edition (PCE):</strong> Will move out of the standard CPEA license model and transition from user-based licenses to capacity-units-based pricing.</li>
+      <li><strong>SAP Datasphere & BW PCE:</strong> Will continue to use capacity-based pricing (sizing based on compute and storage needs).</li>
+      <li><strong>SAP Databricks:</strong> Follows the CU pricing model for compute consumed during data processing and AI workloads.</li>
+    </ul>
+
+    <h2>Intelligent App Licensing</h2>
+    <p>Intelligent Apps (like Insight Apps) typically follow a different metric, often priced based on the source system's <strong>Full-User Equivalents (FUEs)</strong> rather than strict compute capacity.</p>
+
+    <div class="tip-box">
+      <strong>Transitioning:</strong> SAP provides pathways for existing Datasphere and SAC customers to transition their legacy licenses into the new unified Business Data Cloud commercial framework seamlessly.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: INTERVIEW -->
+  <div class="page" id="page-interview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Quick Reference</div>
+      <h1>Interview Quick Reference</h1>
+      <p class="lead">Key concepts and terminology for discussions regarding SAP Business Data Cloud.</p>
+    </div>
+
+    <h2>Key Terms to Know Cold</h2>
+    <ul>
+      <li><strong>Business Data Fabric:</strong> SAP's architecture that virtually connects SAP and non-SAP data without physical extraction, while retaining business context.</li>
+      <li><strong>Semantic Layer:</strong> The abstraction layer that translates cryptic ERP tables into understandable business entities.</li>
+      <li><strong>Data Products:</strong> Curated, governed, and reusable data assets treated as products with owners and SLAs.</li>
+      <li><strong>Unity Catalog Integration:</strong> SAP BDC's ability to sync data descriptions and governance tags directly into Databricks.</li>
+      <li><strong>Knowledge Graph:</strong> A feature mapping the intricate relationships between business entities to fuel GenAI.</li>
+    </ul>
+
+    <h2>Common Discussion Points / Questions</h2>
+    <ol>
+      <li>What are the 6 core software components that make up SAP Business Data Cloud?</li>
+      <li>How does SAP BDC differ from a traditional Data Lake approach? (Focus on Business Data Fabric and retaining context).</li>
+      <li>What is the significance of the SAP Databricks integration via Delta Sharing?</li>
+      <li>Explain the concept of a "Data Product" and how it is managed in the BDC Cockpit.</li>
+      <li>How does SAP BDC handle legacy SAP BW investments? (Hybrid transition, BW data exposed as products).</li>
+      <li>How is the licensing and pricing model shifting under SAP BDC? (Moving towards Capacity Units).</li>
+    </ol>
+
+  </div>
+  </div>
+
+</div>
+
+<script>
+const pages = ['overview', 'fabric', 'components', 'databricks', 'bwmodernization', 'dataproducts', 'semantic', 'apps', 'pricing', 'interview'];
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); document.getElementById('main').scrollTop = 0; window.scrollTo(0, 0); }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) { n.classList.add('active'); }
+  });
+}
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('light') ? '☾ Dark Mode' : '☀ Light Mode';
+}
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(n => { n.style.display = (!v || n.textContent.toLowerCase().includes(v)) ? '' : 'none'; });
+}
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.transform = `scaleX(${total > 0 ? scrolled/total : 0})`;
+  document.getElementById('totop').classList.toggle('visible', scrolled > 300);
+});
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>

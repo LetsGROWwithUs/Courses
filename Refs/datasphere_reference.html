@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Datasphere — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --bg4: #30363d;
+  --border: #30363d;
+  --border2: #21262d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #6e7681;
+  --accent: #0ea5e9;
+  --accent2: #38bdf8;
+  --green: #3fb950;
+  --orange: #f0883e;
+  --purple: #a371f7;
+  --red: #f85149;
+  --yellow: #d29922;
+  --teal: #2dd4bf;
+  --sidebar-w: 280px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* SIDEBAR */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+.sidebar-logo .logo-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(14,165,233,.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.sidebar-logo h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.sidebar-logo p {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 3px;
+}
+
+.sidebar-search {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+.sidebar-search input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.sidebar-search input:focus { border-color: var(--accent); }
+.sidebar-search input::placeholder { color: var(--text3); }
+
+.sidebar-nav { padding: 8px 0; flex: 1; }
+
+.nav-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 10px 20px 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  text-decoration: none;
+}
+
+.nav-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(14,165,233,.08); }
+
+.nav-item .nav-icon {
+  width: 16px; height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+}
+
+.nav-sub {
+  display: none;
+  padding-left: 44px;
+}
+
+.nav-sub.open { display: block; }
+
+.nav-sub a {
+  display: block;
+  font-size: 12px;
+  color: var(--text3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color .15s;
+  text-decoration: none;
+}
+
+.nav-sub a:hover { color: var(--text); }
+
+/* MAIN */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+
+.topbar-breadcrumb {
+  font-size: 13px;
+  color: var(--text3);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.topbar-breadcrumb span { color: var(--text2); }
+
+.topbar-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.theme-toggle {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-content {
+  max-width: 860px;
+  padding: 48px 48px 80px;
+}
+
+/* TYPOGRAPHY */
+.page-hero {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.page-hero .badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.badge-blue { background: rgba(14,165,233,.15); color: var(--accent2); }
+.badge-green { background: rgba(63,185,80,.15); color: var(--green); }
+.badge-orange { background: rgba(240,136,62,.15); color: var(--orange); }
+.badge-purple { background: rgba(163,113,247,.15); color: var(--purple); }
+.badge-teal { background: rgba(45,212,191,.15); color: var(--teal); }
+.badge-red { background: rgba(248,81,73,.15); color: var(--red); }
+
+.page-hero h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.page-hero .lead {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 680px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 36px 0 12px;
+  padding-top: 4px;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+
+p {
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* COMPONENTS */
+.info-box {
+  background: rgba(14,165,233,.07);
+  border: 1px solid rgba(14,165,233,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.info-box strong { color: var(--accent2); }
+
+.warn-box {
+  background: rgba(240,136,62,.07);
+  border: 1px solid rgba(240,136,62,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.warn-box strong { color: var(--orange); }
+
+.tip-box {
+  background: rgba(63,185,80,.07);
+  border: 1px solid rgba(63,185,80,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.tip-box strong { color: var(--green); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 14px 0 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border2);
+  color: var(--text2);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  transition: border-color .2s;
+}
+
+.card:hover { border-color: var(--border); }
+
+.card-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px;
+}
+
+.card-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card p {
+  font-size: 12.5px;
+  color: var(--text2);
+  margin: 0;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px;
+  background: var(--bg3);
+  color: var(--teal);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+pre {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--teal);
+  margin: 14px 0;
+  line-height: 1.6;
+}
+
+ul, ol {
+  padding-left: 0;
+  list-style: none;
+  margin: 10px 0 14px;
+}
+
+ul li, ol li {
+  font-size: 14px;
+  color: var(--text2);
+  padding: 4px 0 4px 20px;
+  position: relative;
+  line-height: 1.65;
+}
+
+ul li::before {
+  content: "→";
+  position: absolute; left: 0;
+  color: var(--text3);
+  font-size: 12px;
+}
+
+ol { counter-reset: li; }
+ol li { counter-increment: li; }
+ol li::before {
+  content: counter(li);
+  position: absolute; left: 0;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  top: 6px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border2);
+  margin: 32px 0;
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+
+.tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  background: var(--bg3);
+}
+
+.highlight { color: var(--accent2); font-weight: 500; }
+.highlight-green { color: var(--green); font-weight: 500; }
+.highlight-orange { color: var(--orange); font-weight: 500; }
+.highlight-purple { color: var(--purple); font-weight: 500; }
+
+.step-list { margin: 14px 0; }
+.step-item {
+  display: flex; gap: 14px; margin-bottom: 16px;
+}
+.step-num {
+  width: 26px; height: 26px;
+  background: rgba(14,165,233,.15);
+  color: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-family: 'DM Mono', monospace;
+}
+.step-content { flex: 1; }
+.step-content strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 3px; }
+.step-content p { margin: 0; font-size: 13px; }
+
+/* LIGHT MODE */
+body.light {
+  --bg: #f6f8fa;
+  --bg2: #ffffff;
+  --bg3: #f0f2f5;
+  --bg4: #e4e7eb;
+  --border: #d0d7de;
+  --border2: #eaeef2;
+  --text: #1f2328;
+  --text2: #4b5563;
+  --text3: #8b949e;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* PROGRESS BAR */
+#progress {
+  position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform .1s;
+  z-index: 200;
+}
+
+/* BACK TO TOP */
+#totop {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transition: all .2s;
+  font-size: 16px;
+  z-index: 100;
+}
+
+#totop.visible { opacity: 1; pointer-events: all; }
+#totop:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); transition: transform .3s; }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .page-content { padding: 24px 20px 60px; }
+  .topbar { padding: 12px 20px; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="totop" onclick="scrollToTop()">↑</div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">Reference Guide</div>
+    <h1>SAP Datasphere</h1>
+    <p>Complete Technical Documentation</p>
+  </div>
+
+  <div class="sidebar-search">
+    <input type="text" id="searchInput" placeholder="Search topics..." oninput="filterNav(this.value)">
+  </div>
+
+  <div class="sidebar-nav" id="navTree">
+
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-item active" onclick="showPage('overview')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>
+      Overview & Architecture
+    </a>
+    <a class="nav-item" onclick="showPage('spaces')">
+      <span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">⬡</span>
+      Spaces & Tenants
+    </a>
+    <a class="nav-item" onclick="showPage('personas')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">👤</span>
+      Roles & Personas
+    </a>
+
+    <div class="nav-section-title">Data Builder</div>
+    <a class="nav-item" onclick="showPage('tables')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">▦</span>
+      Tables
+    </a>
+    <a class="nav-item" onclick="showPage('views')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">◫</span>
+      Views & SQL Modeling
+    </a>
+    <a class="nav-item" onclick="showPage('joins')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">⋈</span>
+      Joins Deep Dive
+    </a>
+    <a class="nav-item" onclick="showPage('analyticmodel')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">★</span>
+      Analytic Model
+    </a>
+    <a class="nav-item" onclick="showPage('flows')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⇶</span>
+      Data Flows & Pipelines
+    </a>
+
+    <div class="nav-section-title">Integration</div>
+    <a class="nav-item" onclick="showPage('connections')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⟷</span>
+      Connections
+    </a>
+    <a class="nav-item" onclick="showPage('replication')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⟳</span>
+      Replication & Federation
+    </a>
+    <a class="nav-item" onclick="showPage('dpagent')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⬡</span>
+      DP Agent
+    </a>
+
+    <div class="nav-section-title">Business Layer</div>
+    <a class="nav-item" onclick="showPage('semanticlayer')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">◎</span>
+      Semantic Layer
+    </a>
+    <a class="nav-item" onclick="showPage('businessentities')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">◻</span>
+      Business Entities
+    </a>
+    <a class="nav-item" onclick="showPage('consumption')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">⬚</span>
+      Consumption Models
+    </a>
+
+    <div class="nav-section-title">Governance</div>
+    <a class="nav-item" onclick="showPage('catalog')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">⊞</span>
+      Data Catalog
+    </a>
+    <a class="nav-item" onclick="showPage('lineage')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">↝</span>
+      Lineage & Impact
+    </a>
+    <a class="nav-item" onclick="showPage('security')">
+      <span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">⊗</span>
+      Security & Access Control
+    </a>
+
+    <div class="nav-section-title">SAC Integration</div>
+    <a class="nav-item" onclick="showPage('saclive')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>
+      Live Connection to SAC
+    </a>
+    <a class="nav-item" onclick="showPage('planning')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">⊞</span>
+      Planning & Write-back
+    </a>
+    <a class="nav-item" onclick="showPage('bwbridge')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">⇌</span>
+      BW Bridge & Migration
+    </a>
+
+    <div class="nav-section-title">Advanced Topics</div>
+    <a class="nav-item" onclick="showPage('currency')">
+      <span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">₹</span>
+      Currency Conversion
+    </a>
+    <a class="nav-item" onclick="showPage('performance')">
+      <span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">⚡</span>
+      Performance & Partitioning
+    </a>
+    <a class="nav-item" onclick="showPage('openapi')">
+      <span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">{ }</span>
+      Open SQL & APIs
+    </a>
+    <a class="nav-item" onclick="showPage('interview')">
+      <span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">★</span>
+      Interview Quick Ref
+    </a>
+
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div id="main">
+
+  <div class="topbar">
+    <div class="topbar-breadcrumb">
+      SAP Datasphere <span>›</span> <span id="breadcrumb-current">Overview & Architecture</span>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" onclick="toggleTheme()">☀ Light Mode</button>
+    </div>
+  </div>
+
+  <!-- ======================== PAGE: OVERVIEW ======================== -->
+  <div class="page active" id="page-overview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Foundation</div>
+      <h1>Overview & Architecture</h1>
+      <p class="lead">SAP Datasphere is SAP's cloud-native, unified data platform that combines data integration, warehousing, federation, and semantic modeling — all on SAP Business Technology Platform (BTP).</p>
+    </div>
+
+    <h2>What is SAP Datasphere?</h2>
+    <p>Launched in 2023 as the evolution of SAP Data Warehouse Cloud (DWC), SAP Datasphere is not just a data warehouse — it is a <span class="highlight">Business Data Fabric</span>. The core philosophy is to connect and harmonize data from any source (SAP or non-SAP, cloud or on-premise) without necessarily copying it, and to expose it in a semantically meaningful, governed, and business-ready way.</p>
+    <p>It runs entirely on <span class="highlight">SAP HANA Cloud</span> as the in-memory database engine, hosted on SAP BTP. This means you get the full power of HANA (columnar storage, in-memory processing, calculation engine) without managing infrastructure.</p>
+
+    <div class="info-box">
+      <strong>Business Data Fabric:</strong> SAP's vision where data from all enterprise sources — S/4HANA, BW, third-party systems — is accessible through a unified semantic layer, regardless of where it physically resides. Datasphere is the technical implementation of this vision.
+    </div>
+
+    <h2>Evolution Timeline</h2>
+    <table>
+      <tr><th>Era</th><th>Product</th><th>Stack</th><th>Key characteristic</th></tr>
+      <tr><td>1990s–2010s</td><td><strong>SAP BW</strong></td><td>ABAP on-premise</td><td>Traditional star schema DW, InfoObjects, BEx Queries</td></tr>
+      <tr><td>2015+</td><td><strong>BW/4HANA</strong></td><td>ABAP + HANA</td><td>Simplified BW on HANA, adv. DSOs, Open ODS Views</td></tr>
+      <tr><td>2020–2022</td><td><strong>SAP Data Warehouse Cloud</strong></td><td>Cloud-native BTP</td><td>Graphical modeling, SAC integration, Spaces concept</td></tr>
+      <tr><td>2023–present</td><td><strong>SAP Datasphere</strong></td><td>Cloud-native BTP</td><td>DWC + Data Integration + Governance + BW Bridge + Federation</td></tr>
+    </table>
+
+    <h2>Core Capability Areas</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(14,165,233,.15)">⬡</div>
+          <div class="card-title">Data Integration</div>
+        </div>
+        <p>Replicate, federate, or transform data from SAP and non-SAP sources using Replication Flows, Data Flows, and Transformation Flows.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(63,185,80,.15)">◫</div>
+          <div class="card-title">Data Modeling</div>
+        </div>
+        <p>Build tables, graphical/SQL views, analytic models, and hierarchies in the Data Builder with a rich set of transformation nodes.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(163,113,247,.15)">◎</div>
+          <div class="card-title">Semantic Layer</div>
+        </div>
+        <p>Define Business Entities, Consumption Models, and KPIs in the Business Layer — a business-friendly layer on top of technical models.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(209,153,34,.15)">⊞</div>
+          <div class="card-title">Data Governance</div>
+        </div>
+        <p>Catalog all assets, track lineage, manage data quality, define glossary terms, and enforce row-level security via Data Access Controls.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(45,212,191,.15)">⇶</div>
+          <div class="card-title">Data Federation</div>
+        </div>
+        <p>Query source data in-place via virtual (remote) tables without copying it into Datasphere — useful for large infrequently queried datasets.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(248,81,73,.15)">⌗</div>
+          <div class="card-title">BW Bridge</div>
+        </div>
+        <p>Run existing BW/4HANA objects (InfoProviders, transformations, BEx queries) natively inside Datasphere as a migration bridge.</p>
+      </div>
+    </div>
+
+    <h2>How Datasphere Relates to Other SAP Products</h2>
+    <table>
+      <tr><th>Product</th><th>Relationship</th><th>Integration method</th></tr>
+      <tr><td><strong>S/4HANA Cloud</strong></td><td>Primary source for actuals, master data, transactional data</td><td>SAP S/4HANA Cloud connector via CDS views</td></tr>
+      <tr><td><strong>S/4HANA On-Premise</strong></td><td>Source system for actuals and master data</td><td>DP Agent + HANA SDI / SLT replication</td></tr>
+      <tr><td><strong>SAP Analytics Cloud</strong></td><td>Reporting and planning consumer — connects live</td><td>Live Connection (SAP Datasphere type)</td></tr>
+      <tr><td><strong>BW / BW4HANA</strong></td><td>Legacy warehouse being migrated — or active source</td><td>BW Bridge or BW connection</td></tr>
+      <tr><td><strong>SAP HANA Cloud</strong></td><td>Underlying database engine and storage</td><td>Native — Datasphere runs on top of HANA Cloud</td></tr>
+      <tr><td><strong>SAP BTP</strong></td><td>Cloud hosting platform for the entire service</td><td>Native — Datasphere is a BTP service</td></tr>
+      <tr><td><strong>Non-SAP (Azure, AWS, GCP)</strong></td><td>External data sources (data lakes, cloud DBs)</td><td>Native cloud connectors (ADLS, S3, BigQuery, Snowflake)</td></tr>
+    </table>
+
+    <h2>Deployment Model</h2>
+    <p>Datasphere is a <span class="highlight">fully managed cloud service</span> — SAP handles infrastructure, patching, scaling, and upgrades. You provision it through SAP BTP Cockpit as a subscription. There is no on-premise version of Datasphere itself, though it can connect to on-premise sources via the Data Provisioning Agent.</p>
+    <p>Each customer gets a <span class="highlight">Tenant</span> — a dedicated Datasphere instance. Within the tenant, workloads are organized into <span class="highlight">Spaces</span>.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SPACES ======================== -->
+  <div class="page" id="page-spaces">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Foundation</div>
+      <h1>Spaces & Tenants</h1>
+      <p class="lead">Spaces are the fundamental isolation unit in Datasphere — every object, user, connection, and data lives within a Space.</p>
+    </div>
+
+    <h2>What is a Space?</h2>
+    <p>A Space is an isolated, self-contained workspace within a Datasphere tenant. Think of it as a dedicated project room — it has its own storage allocation, compute resources, users, connections, and schema. Different business units, projects, or environments (Dev/QA/Prod) typically get separate Spaces.</p>
+
+    <div class="info-box">
+      <strong>Analogy:</strong> If Datasphere is a building, a Space is a secure room with its own key. Occupants of Room A cannot enter Room B unless explicitly given access — but the building admin can grant cross-room passes (cross-space sharing).
+    </div>
+
+    <h2>Space Properties & Configuration</h2>
+    <table>
+      <tr><th>Property</th><th>Description</th><th>Notes</th></tr>
+      <tr><td><strong>Space ID</strong></td><td>Technical identifier — used in SQL as the schema name</td><td>Immutable after creation</td></tr>
+      <tr><td><strong>Business Name</strong></td><td>Human-readable display name</td><td>Can be changed</td></tr>
+      <tr><td><strong>Storage (Disk)</strong></td><td>GB allocated for data stored in the space</td><td>Managed by tenant admin</td></tr>
+      <tr><td><strong>Memory</strong></td><td>RAM allocated for in-memory processing</td><td>Consumed by data loaded into memory</td></tr>
+      <tr><td><strong>Compute</strong></td><td>CPU/worker threads for query processing</td><td>Shared across space activities</td></tr>
+      <tr><td><strong>Priority</strong></td><td>Low/Medium/High — determines resource scheduling priority</td><td>Important for multi-space tenants</td></tr>
+      <tr><td><strong>Status</strong></td><td>Active / Locked / Disabled</td><td>Admin can lock a space to freeze changes</td></tr>
+    </table>
+
+    <h2>Space Types</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(14,165,233,.15)">⬡</div><div class="card-title">Standard Space</div></div>
+        <p>Regular workspace for data modeling, integration, and consumption. Most spaces are of this type.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(163,113,247,.15)">⬡</div><div class="card-title">BW Bridge Space</div></div>
+        <p>Special space type for running BW objects during BW-to-Datasphere migration. Contains BW-specific components.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">⬡</div><div class="card-title">SAP BTP Space</div></div>
+        <p>Spaces can also be linked to BTP subaccounts for integration with other BTP services.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(45,212,191,.15)">⬡</div><div class="card-title">HDI Container Space</div></div>
+        <p>Exposes an SAP HANA Deployment Infrastructure (HDI) container to Datasphere for advanced HANA development.</p>
+      </div>
+    </div>
+
+    <h2>Cross-Space Sharing</h2>
+    <p>Objects in one space can be <span class="highlight">shared</span> to other spaces. The sharing is always <span class="highlight">read-only</span> — the consuming space cannot modify the shared object. This enables a hub-and-spoke model where a central data space houses master data that other project spaces consume.</p>
+    <table>
+      <tr><th>Sharing rule</th><th>Details</th></tr>
+      <tr><td>Shared objects are read-only in target space</td><td>Only the source space can modify/delete them</td></tr>
+      <tr><td>Objects from multiple spaces can be joined</td><td>Cross-space join in SQL views is supported</td></tr>
+      <tr><td>Sharing must be explicitly enabled per object</td><td>Objects are private by default</td></tr>
+      <tr><td>Space Admin approves shares</td><td>Incoming shares must be accepted by the target space admin</td></tr>
+    </table>
+
+    <h2>Space SQL Schema</h2>
+    <p>Every Space is backed by a HANA Cloud schema with the same name as the Space ID. You can expose this via <span class="highlight">Open SQL Schema</span> to allow external JDBC/ODBC connections from tools like DBeaver, SAP HANA Studio, or Tableau.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PERSONAS ======================== -->
+  <div class="page" id="page-personas">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Foundation</div>
+      <h1>Roles & Personas</h1>
+      <p class="lead">Datasphere uses a role-based access model with predefined roles. Understanding who does what is critical for architecture and interview discussions.</p>
+    </div>
+
+    <h2>Tenant-Level Roles</h2>
+    <table>
+      <tr><th>Role</th><th>Scope</th><th>Can do</th></tr>
+      <tr><td><strong>Tenant Administrator</strong></td><td>Whole tenant</td><td>Create/delete spaces, manage global settings, user administration, monitor tenant health, manage licenses</td></tr>
+      <tr><td><strong>System Owner</strong></td><td>Whole tenant</td><td>Full administrative access — only one per tenant. Usually the initial SAP BTP provisioning account.</td></tr>
+    </table>
+
+    <h2>Space-Level Roles</h2>
+    <table>
+      <tr><th>Role</th><th>Persona</th><th>Typical activities</th></tr>
+      <tr><td><strong>Space Administrator</strong></td><td>IT Admin / Architect</td><td>Manage space settings, assign users to space, manage connections, monitor space resource usage</td></tr>
+      <tr><td><strong>DW Modeler</strong></td><td>Data Modeler</td><td>Create/edit tables, views, flows, analytic models in Data Builder. Full modeling capabilities.</td></tr>
+      <tr><td><strong>DW Integrator</strong></td><td>Data Engineer</td><td>Create connections, replication flows, data flows. Focus on data ingestion and movement.</td></tr>
+      <tr><td><strong>DW Viewer</strong></td><td>Business Analyst</td><td>Read-only access to Data Builder objects. Can preview data. Cannot create or modify.</td></tr>
+      <tr><td><strong>Catalog Administrator</strong></td><td>Data Steward</td><td>Manage catalog content, define glossary terms, assign tags and KPIs, manage data quality rules.</td></tr>
+      <tr><td><strong>Catalog User</strong></td><td>Any user</td><td>Search and discover catalog assets, read lineage and impact info, view glossary.</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>Interview tip:</strong> In SAC, a user needs the <em>DW Viewer</em> role (or higher) in Datasphere to execute queries via live connection. The SAC system itself connects using a technical user with at minimum DW Viewer rights.
+    </div>
+
+    <h2>Custom Roles</h2>
+    <p>Beyond predefined roles, Datasphere supports <span class="highlight">custom roles</span> — combinations of privileges that can be tailored for specific job functions. For example, a role that allows creating views but not connections, or reading certain spaces but not others.</p>
+
+    <h2>User Types</h2>
+    <table>
+      <tr><th>Type</th><th>Used for</th></tr>
+      <tr><td><strong>Named User</strong></td><td>Human users with individual logins. Consume against license quota.</td></tr>
+      <tr><td><strong>Technical User</strong></td><td>System-to-system connections (SAC live connection, API integrations). Do not consume named user licenses.</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: TABLES ======================== -->
+  <div class="page" id="page-tables">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Builder</div>
+      <h1>Tables</h1>
+      <p class="lead">Tables are the foundation of data storage in Datasphere. Understanding the three table types and their behaviors is essential for any modeling task.</p>
+    </div>
+
+    <h2>Local Tables</h2>
+    <p>A <span class="highlight">Local Table</span> is a table physically stored inside Datasphere's HANA Cloud schema. Data is written into this table and persisted in Datasphere. It is the only table type you can write data into.</p>
+    <ul>
+      <li><strong>Created by:</strong> Defining structure manually or importing CSV/data flow output</li>
+      <li><strong>Storage:</strong> Consumes your Space's disk quota</li>
+      <li><strong>Editable:</strong> Yes — you can add/delete rows, update data</li>
+      <li><strong>Used for:</strong> Planning data write-back, intermediate staging, master data uploads, target of Data Flows</li>
+    </ul>
+
+    <h3>Local Table — Record Flags</h3>
+    <p>Local tables support <span class="highlight">technical delta tracking</span>. Each row can have a record flag indicating its change type:</p>
+    <table>
+      <tr><th>Flag</th><th>Meaning</th></tr>
+      <tr><td><code>N</code></td><td>New — inserted record</td></tr>
+      <tr><td><code>U</code></td><td>Updated — modified record</td></tr>
+      <tr><td><code>D</code></td><td>Deleted — soft-deleted record (still physically present)</td></tr>
+      <tr><td><code>X</code></td><td>Reverse image — used in delta processing</td></tr>
+    </table>
+
+    <h2>Remote Tables</h2>
+    <p>A <span class="highlight">Remote Table</span> is a virtual representation of a table from a connected source system. The data physically stays at the source — Datasphere creates a metadata pointer to it. When you query a remote table, the query is pushed down to the source system.</p>
+    <ul>
+      <li><strong>Created by:</strong> Importing table metadata from a connected source</li>
+      <li><strong>Storage:</strong> Zero — data stays at source</li>
+      <li><strong>Editable:</strong> No — read-only</li>
+      <li><strong>Performance:</strong> Depends on source system and network latency</li>
+      <li><strong>Used for:</strong> Federation (accessing live source data), initial exploration before deciding to replicate</li>
+    </ul>
+
+    <h2>Replica Tables</h2>
+    <p>A <span class="highlight">Replica Table</span> is a remote table that has been replicated — its data has been copied into Datasphere's local HANA storage. It is still "owned" by the remote source but has a local copy for performance.</p>
+
+    <div class="info-box">
+      <strong>The progression:</strong> Remote Table (virtual, slow) → enable replication → Replica Table (copy in HANA, fast). You can switch between access modes in the remote table settings.
+    </div>
+
+    <table>
+      <tr><th></th><th>Local Table</th><th>Remote Table</th><th>Replica Table</th></tr>
+      <tr><td><strong>Data location</strong></td><td>Datasphere HANA</td><td>Source system</td><td>Datasphere HANA (copy)</td></tr>
+      <tr><td><strong>Writeable</strong></td><td>Yes</td><td>No</td><td>No</td></tr>
+      <tr><td><strong>Query performance</strong></td><td>Fast</td><td>Source-dependent</td><td>Fast</td></tr>
+      <tr><td><strong>Data freshness</strong></td><td>As of last write</td><td>Real-time</td><td>As of last replication</td></tr>
+      <tr><td><strong>Storage consumed</strong></td><td>Yes</td><td>No</td><td>Yes</td></tr>
+      <tr><td><strong>Use case</strong></td><td>Planning, staging</td><td>Infrequent queries, large data</td><td>Reporting, frequent queries</td></tr>
+    </table>
+
+    <h2>Table Semantic Types</h2>
+    <p>Every table (and view) in Datasphere has a <span class="highlight">Semantic Usage</span> setting that defines its role in the data model:</p>
+    <table>
+      <tr><th>Semantic Usage</th><th>Purpose</th><th>Key column required</th></tr>
+      <tr><td><strong>Relational Dataset</strong></td><td>Generic data, intermediate staging</td><td>No</td></tr>
+      <tr><td><strong>Dimension</strong></td><td>Master/reference data with unique keys</td><td>Yes — key attribute</td></tr>
+      <tr><td><strong>Text</strong></td><td>Language-dependent descriptions for a dimension</td><td>Key + Language columns</td></tr>
+      <tr><td><strong>Hierarchy</strong></td><td>Parent-child or level-based hierarchy</td><td>Node ID + Parent ID</td></tr>
+      <tr><td><strong>Analytical Dataset</strong></td><td>Fact data — has measures, associated to dimensions</td><td>Measure columns defined</td></tr>
+    </table>
+
+    <h2>Partitioning</h2>
+    <p>Local tables support <span class="highlight">table partitioning</span> to optimize query performance for large datasets. Partitioning splits the table into smaller physical segments based on a partition key.</p>
+    <ul>
+      <li><strong>Hash partitioning</strong> — distributes rows evenly across partitions</li>
+      <li><strong>Range partitioning</strong> — by date/value range (e.g. one partition per year)</li>
+      <li>Queries that filter on the partition key only scan relevant partitions — significantly faster for large tables</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: VIEWS ======================== -->
+  <div class="page" id="page-views">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Builder</div>
+      <h1>Views & SQL Modeling</h1>
+      <p class="lead">Views are virtual objects that transform and combine data without storing it. They are the backbone of semantic modeling in Datasphere.</p>
+    </div>
+
+    <h2>View Types</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">⬡</div><div class="card-title">Graphical View</div></div>
+        <p>Visual drag-and-drop canvas with transformation nodes. No SQL coding needed. Ideal for modelers who prefer visual tools. Internally generates SQL.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(14,165,233,.15)">{ }</div><div class="card-title">SQL View</div></div>
+        <p>Write raw SQL (SAP HANA SQL / Standard SQL). Full flexibility — subqueries, window functions, CASE expressions, complex joins.</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Both produce the same result:</strong> A virtual HANA view. You can toggle between graphical and SQL mode in the editor to see the generated SQL from a graphical view.
+    </div>
+
+    <h2>Graphical View Nodes</h2>
+    <table>
+      <tr><th>Node</th><th>Function</th><th>SQL equivalent</th></tr>
+      <tr><td><strong>Source</strong></td><td>Bring in a table or view as input</td><td>FROM clause</td></tr>
+      <tr><td><strong>Join</strong></td><td>Combine two sources on a condition</td><td>JOIN … ON</td></tr>
+      <tr><td><strong>Union</strong></td><td>Stack rows from two compatible sources</td><td>UNION / UNION ALL</td></tr>
+      <tr><td><strong>Projection</strong></td><td>Select, rename, hide, or reorder columns</td><td>SELECT col AS alias</td></tr>
+      <tr><td><strong>Filter</strong></td><td>Apply row-level conditions</td><td>WHERE clause</td></tr>
+      <tr><td><strong>Aggregation</strong></td><td>Group by dimensions, aggregate measures</td><td>GROUP BY + SUM/COUNT/AVG</td></tr>
+      <tr><td><strong>Calculated Column</strong></td><td>Add derived column with an expression</td><td>SELECT expr AS col</td></tr>
+      <tr><td><strong>Rank</strong></td><td>Row number / rank within a partition</td><td>RANK() OVER (PARTITION BY …)</td></tr>
+    </table>
+
+    <h2>SQL View — Key Syntax Features</h2>
+    <p>Datasphere SQL Views support <span class="highlight">SAP HANA SQL dialect</span> (Standard SQL mode). Key supported features:</p>
+    <pre>-- Basic join
+SELECT "Products"."PRODUCTID", "ProductTexts"."SHORT_DESCR"
+FROM "Products"
+INNER JOIN "ProductTexts" 
+  ON "Products"."PRODUCTID" = "ProductTexts"."PRODUCTID"
+  AND "ProductTexts"."LANGUAGE" = 'EN';
+
+-- Window function
+SELECT SALESORDERID, AMOUNT,
+  SUM(AMOUNT) OVER (PARTITION BY CUSTOMERID ORDER BY ORDERDATE) AS RUNNING_TOTAL
+FROM "SalesOrders";
+
+-- CASE expression
+SELECT PRODUCTID,
+  CASE WHEN PRICE > 1000 THEN 'Premium'
+       WHEN PRICE > 100  THEN 'Mid-range'
+       ELSE 'Budget' END AS PRICE_SEGMENT
+FROM "Products";</pre>
+
+    <h2>Input Parameters</h2>
+    <p>Views can define <span class="highlight">Input Parameters</span> — runtime variables that filter data when the view is queried. For example, a LANGUAGE parameter that limits text records to one language.</p>
+    <ul>
+      <li>Defined in the view properties panel</li>
+      <li>SAC prompts the user for input parameter values when opening a story based on such a view</li>
+      <li>Can have default values</li>
+      <li>Useful for multi-language models, fiscal year variants, company code filters</li>
+    </ul>
+
+    <h2>View Persistency</h2>
+    <p>By default views are <span class="highlight">virtual</span> — executed at query time. For complex views with many joins or aggregations, you can enable <span class="highlight">Persistency</span> to materialize the view result as a snapshot in HANA storage.</p>
+    <table>
+      <tr><th>Mode</th><th>When computed</th><th>Performance</th><th>Freshness</th></tr>
+      <tr><td>Virtual (default)</td><td>At every query</td><td>Slower for complex views</td><td>Always current</td></tr>
+      <tr><td>Persisted</td><td>On schedule (or manually)</td><td>Much faster</td><td>As of last refresh</td></tr>
+    </table>
+
+    <h2>Expose for Consumption</h2>
+    <p>The <span class="highlight">Expose for Consumption</span> toggle (found in Model Properties) makes a view or analytical dataset available for SAC live connections and external JDBC/ODBC access. When OFF, the object is internal-only and invisible to SAC.</p>
+
+    <div class="warn-box">
+      <strong>Common mistake:</strong> Building a complete view but forgetting to turn on "Expose for Consumption" — SAC will not show it as an available model. Also ensure the semantic type is Analytical Dataset (not Relational Dataset) for SAC direct connection.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: JOINS ======================== -->
+  <div class="page" id="page-joins">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Builder</div>
+      <h1>Joins Deep Dive</h1>
+      <p class="lead">Joins are how tables are combined in Datasphere. Understanding join types, their behavior, and when to use each is fundamental to correct data modeling.</p>
+    </div>
+
+    <h2>INNER JOIN</h2>
+    <p>Returns only rows that have a match in <em>both</em> tables. Non-matching rows from either side are dropped.</p>
+    <pre>SELECT P."PRODUCTID", P."PRICE", T."SHORT_DESCR"
+FROM "Products" P
+INNER JOIN "ProductTexts" T ON P."PRODUCTID" = T."PRODUCTID";</pre>
+    <div class="tip-box"><strong>Use when:</strong> You only want records that exist in both tables. If a product has no text, you don't want it in the result.</div>
+
+    <h2>LEFT JOIN (LEFT OUTER JOIN)</h2>
+    <p>Returns all rows from the left table plus matching rows from the right. Non-matching right rows → NULL.</p>
+    <pre>SELECT P."PRODUCTID", P."PRICE", T."SHORT_DESCR"
+FROM "Products" P
+LEFT JOIN "ProductTexts" T ON P."PRODUCTID" = T."PRODUCTID";</pre>
+    <div class="tip-box"><strong>Use when:</strong> You want all products regardless of whether they have a text entry. Missing text shows as NULL.</div>
+
+    <h2>RIGHT JOIN</h2>
+    <p>Returns all rows from the right table plus matching rows from the left. Non-matching left rows → NULL. Rarely used — usually rewritten as LEFT JOIN with tables swapped.</p>
+
+    <h2>FULL OUTER JOIN</h2>
+    <p>Returns all rows from both tables. NULLs fill in where there is no match on either side.</p>
+    <div class="warn-box"><strong>Performance note:</strong> FULL JOINs can be expensive on large tables. Use only when genuinely needed to preserve orphan records from both sides.</div>
+
+    <h2>CROSS JOIN</h2>
+    <p>Cartesian product — every row from left × every row from right. No ON condition. Rows = left_count × right_count.</p>
+    <pre>-- 100 products × 12 months = 1,200 rows
+SELECT P."PRODUCTID", M."MONTH"
+FROM "Products" P CROSS JOIN "MonthDim" M;</pre>
+    <div class="info-box"><strong>Valid use case:</strong> Generating a planning grid (all product × period combinations) as a starting template. Otherwise almost never intentional.</div>
+
+    <h2>Join Cardinality</h2>
+    <p>In Datasphere's graphical view join node, you must specify <span class="highlight">cardinality</span> — the expected relationship between the two tables. This helps the HANA optimizer generate better query plans.</p>
+    <table>
+      <tr><th>Cardinality</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>1:1</td><td>One row in each table matches at most one row in the other</td><td>Employee ↔ EmployeeDetails</td></tr>
+      <tr><td>1:N</td><td>One row in left matches many rows in right</td><td>SalesOrder → SalesOrderItems</td></tr>
+      <tr><td>N:1</td><td>Many rows in left match one row in right</td><td>SalesOrderItems → Product</td></tr>
+      <tr><td>N:M</td><td>Many-to-many — avoid if possible, or resolve via a bridge table</td><td>Products ↔ Suppliers</td></tr>
+    </table>
+
+    <h2>Multi-column Join Conditions</h2>
+    <p>Joins can have multiple conditions using AND. A common example in Datasphere's sample data:</p>
+    <pre>-- Ensures product text language matches category text language
+INNER JOIN "ProductTexts" AS T 
+  ON T."PRODUCTID" = P."PRODUCTID" 
+  AND T."LANGUAGE" = C."LANGUAGE"</pre>
+    <p>Without the LANGUAGE condition, each product row would join to all language variants of its text — multiplying rows unintentionally.</p>
+
+    <h2>Join Ordering Impact</h2>
+    <p>In nested joins (chained in graphical view), the <span class="highlight">order matters</span> for two reasons:</p>
+    <ul>
+      <li>A table can only reference columns from tables already joined above/before it in the chain</li>
+      <li>Join order affects intermediate result set sizes, which impacts performance</li>
+      <li>Moving a table to an earlier join point may lose reference to columns it needs (like LANGUAGE from a table joined later)</li>
+    </ul>
+    <div class="warn-box"><strong>Practical example:</strong> ProductTexts joins on both PRODUCTID and LANGUAGE — the LANGUAGE comes from ProductCategoryTexts. If you move ProductTexts before ProductCategoryTexts in the join, the LANGUAGE reference breaks.</div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: ANALYTIC MODEL ======================== -->
+  <div class="page" id="page-analyticmodel">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Builder</div>
+      <h1>Analytic Model</h1>
+      <p class="lead">The Analytic Model is the star-schema assembly layer — it combines an Analytical Dataset (fact) with Dimensions, Hierarchies, and Measures into a query-ready structure for SAC.</p>
+    </div>
+
+    <h2>What is an Analytic Model?</h2>
+    <p>An Analytic Model sits on top of an <span class="highlight">Analytical Dataset</span> (your fact view) and assembles the complete analytical structure — dimensions, attributes, hierarchies, measures, filters, and currency settings. It is the primary object that SAC consumes for reports and stories.</p>
+
+    <div class="info-box">
+      <strong>BW equivalent:</strong> Analytic Model ≈ BEx Query / Analytical Query. It defines what the business user sees — which dimensions to slice by, which measures to aggregate, what hierarchies to drill through.
+    </div>
+
+    <h2>Building Blocks</h2>
+    <table>
+      <tr><th>Component</th><th>Role</th><th>Source</th></tr>
+      <tr><td><strong>Fact Source</strong></td><td>The Analytical Dataset — contains measures and foreign keys</td><td>A view with Semantic Usage = Analytical Dataset</td></tr>
+      <tr><td><strong>Dimension</strong></td><td>Reference/master data joined to the fact</td><td>A view with Semantic Usage = Dimension</td></tr>
+      <tr><td><strong>Measure</strong></td><td>A numeric column that can be aggregated (SUM, AVG, MIN, MAX, COUNT)</td><td>Defined in the Analytic Model on top of fact columns</td></tr>
+      <tr><td><strong>Attribute</strong></td><td>A column used for grouping/filtering — not aggregated</td><td>From fact or dimension</td></tr>
+      <tr><td><strong>Hierarchy</strong></td><td>Navigation path for drill-down (e.g. Year → Quarter → Month)</td><td>A view with Semantic Usage = Hierarchy, linked to Dimension</td></tr>
+      <tr><td><strong>Variable</strong></td><td>Runtime parameter for filtering (prompted at query time)</td><td>Defined in Analytic Model properties</td></tr>
+    </table>
+
+    <h2>Measures — Types</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">Σ</div><div class="card-title">Simple Measure</div></div>
+        <p>Direct aggregation of a fact column. E.g. SUM("AMOUNT"). Aggregation type: SUM, COUNT, MIN, MAX, AVG, COUNT DISTINCT.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(163,113,247,.15)">f(x)</div><div class="card-title">Calculated Measure</div></div>
+        <p>Derived from other measures using a formula. E.g. Profit Margin = (Revenue - Cost) / Revenue × 100. Computed at query time.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(45,212,191,.15)">₹</div><div class="card-title">Currency Measure</div></div>
+        <p>A measure tagged with a currency column, enabling automatic currency conversion when queried from SAC.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">⚖</div><div class="card-title">Restricted Measure</div></div>
+        <p>A measure pre-filtered on a dimension value. E.g. "Revenue for Product Category = Electronics only" — visible as a standalone measure in SAC.</p>
+      </div>
+    </div>
+
+    <h2>Analytic Model vs Analytical Dataset — when to use which</h2>
+    <table>
+      <tr><th></th><th>Analytical Dataset</th><th>Analytic Model</th></tr>
+      <tr><td>Complexity</td><td>Single fact view with associations</td><td>Full star schema — fact + multiple dimensions</td></tr>
+      <tr><td>SAC consumption</td><td>Yes (simple stories)</td><td>Yes (preferred for complex reports)</td></tr>
+      <tr><td>Hierarchies</td><td>Basic</td><td>Full hierarchy support with drill paths</td></tr>
+      <tr><td>Calculated measures</td><td>Via view calculated columns</td><td>Native measure formulas</td></tr>
+      <tr><td>Variables</td><td>Via Input Parameters</td><td>Native Variables with LOV support</td></tr>
+      <tr><td>BW equivalent</td><td>Multiprovider / composite</td><td>BEx Query</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: FLOWS ======================== -->
+  <div class="page" id="page-flows">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Data Builder</div>
+      <h1>Data Flows & Pipelines</h1>
+      <p class="lead">Flows are executable objects that move and transform data. Datasphere offers three flow types — each serving a distinct integration or transformation purpose.</p>
+    </div>
+
+    <h2>Flow Type Comparison</h2>
+    <table>
+      <tr><th>Flow Type</th><th>Purpose</th><th>Source → Target</th><th>BW/ETL Equivalent</th></tr>
+      <tr><td><strong>Replication Flow</strong></td><td>Copy data from external source into Datasphere</td><td>External source → Local/Replica Table</td><td>SLT / ODP Replication</td></tr>
+      <tr><td><strong>Data Flow</strong></td><td>ETL — extract, transform, load between any objects</td><td>Any source → Local Table</td><td>SAP Data Services / BODS</td></tr>
+      <tr><td><strong>Transformation Flow</strong></td><td>Lightweight transformation between local objects</td><td>Local Table → Local Table</td><td>BW DTP + Transformation</td></tr>
+    </table>
+
+    <h2>Replication Flow</h2>
+    <p>A Replication Flow connects to an external source and replicates tables — either as a one-time full load or continuously with delta (changes). It is the recommended way to bring source system data into Datasphere at scale.</p>
+    <ul>
+      <li><strong>Initial Load:</strong> Full copy of the source table</li>
+      <li><strong>Delta:</strong> Continuous or scheduled replication of changes (INSERT/UPDATE/DELETE) using the source's change capture mechanism</li>
+      <li><strong>Supported sources:</strong> S/4HANA, BW, ABAP systems, SAP HANA, ODP sources (BW extractors)</li>
+      <li>Multiple tables can be added to one Replication Flow — batch replication management</li>
+      <li>Target is always a <span class="highlight">Local Table</span> (auto-created with matching structure)</li>
+    </ul>
+
+    <h2>Data Flow</h2>
+    <p>A Data Flow is a visual ETL pipeline — similar to a mapping in SAP Data Services or an SSIS package. It has sources, transformation operators, and a target local table.</p>
+    <h3>Data Flow Operators</h3>
+    <table>
+      <tr><th>Operator</th><th>Function</th></tr>
+      <tr><td><strong>Join</strong></td><td>Combine two datasets during transformation</td></tr>
+      <tr><td><strong>Union</strong></td><td>Stack rows from multiple sources</td></tr>
+      <tr><td><strong>Projection</strong></td><td>Select and rename columns</td></tr>
+      <tr><td><strong>Aggregation</strong></td><td>Pre-aggregate data before loading</td></tr>
+      <tr><td><strong>Filter</strong></td><td>Filter rows during transformation</td></tr>
+      <tr><td><strong>Script</strong></td><td>Custom Python/SQL logic within the flow</td></tr>
+    </table>
+
+    <h2>Transformation Flow</h2>
+    <p>A Transformation Flow is a lightweight, SQL-based flow that reads from one or more local tables or views and writes into a local table. It supports <span class="highlight">UPSERT</span> (update if exists, insert if not) and <span class="highlight">Full Load</span> modes.</p>
+    <div class="tip-box"><strong>When to use:</strong> Post-replication transformations — e.g. after replicating S/4HANA ACDOCA into Datasphere, run a Transformation Flow to derive a clean Financial Actuals table with only the required columns and calculations.</div>
+
+    <h2>Scheduling</h2>
+    <p>All flow types support scheduling via the built-in Datasphere scheduler:</p>
+    <ul>
+      <li>One-time execution</li>
+      <li>Recurring: Hourly, Daily, Weekly, Monthly</li>
+      <li>Cron-based for precise scheduling</li>
+      <li>Flows can be chained — a completed replication triggers a transformation flow</li>
+    </ul>
+
+    <h2>Task Chains</h2>
+    <p>A <span class="highlight">Task Chain</span> is an orchestration object that sequences multiple flows, view persistency refreshes, or other tasks in a defined order with dependency handling — similar to a BW Process Chain.</p>
+    <table>
+      <tr><th>Feature</th><th>Details</th></tr>
+      <tr><td>Sequential execution</td><td>Task B runs only after Task A succeeds</td></tr>
+      <tr><td>Parallel execution</td><td>Multiple tasks run simultaneously when no dependency</td></tr>
+      <tr><td>Error handling</td><td>Define behavior on failure — stop chain or continue</td></tr>
+      <tr><td>Notifications</td><td>Email alerts on success or failure</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CONNECTIONS ======================== -->
+  <div class="page" id="page-connections">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Integration</div>
+      <h1>Connections</h1>
+      <p class="lead">Connections are the bridges between Datasphere and external source systems. They define the protocol, credentials, and parameters for communicating with each system.</p>
+    </div>
+
+    <h2>Connection Architecture</h2>
+    <p>Connections are defined at the <span class="highlight">Space level</span> — each space maintains its own set of connections. A connection can be shared from one space to another (like other objects). Connections are created by the Space Administrator or DW Integrator role.</p>
+
+    <h2>SAP Source Connections</h2>
+    <table>
+      <tr><th>Source</th><th>Connection Type</th><th>Protocol</th><th>Key requirement</th></tr>
+      <tr><td>S/4HANA Cloud (Public)</td><td>SAP S/4HANA Cloud</td><td>OData / CDS views</td><td>Communication arrangement in S4</td></tr>
+      <tr><td>S/4HANA On-Premise</td><td>SAP ABAP</td><td>RFC / BAPI over DP Agent</td><td>DP Agent installed on-premise</td></tr>
+      <tr><td>SAP BW / BW4HANA</td><td>SAP BW</td><td>RFC over DP Agent</td><td>DP Agent + RFC destination</td></tr>
+      <tr><td>SAP HANA (on-prem)</td><td>SAP HANA</td><td>JDBC over DP Agent</td><td>DP Agent + HANA user</td></tr>
+      <tr><td>SAP HANA Cloud</td><td>SAP HANA Cloud</td><td>JDBC (direct)</td><td>HANA Cloud instance URL</td></tr>
+      <tr><td>SAP SuccessFactors</td><td>SAP SuccessFactors</td><td>OData API</td><td>SF API credentials</td></tr>
+    </table>
+
+    <h2>Cloud & Third-Party Connections</h2>
+    <table>
+      <tr><th>Source</th><th>Connection Type</th></tr>
+      <tr><td>Azure Data Lake Storage (ADLS Gen2)</td><td>Microsoft Azure Data Lake Store</td></tr>
+      <tr><td>AWS S3</td><td>Amazon Simple Storage Service</td></tr>
+      <tr><td>Google BigQuery</td><td>Google BigQuery</td></tr>
+      <tr><td>Google Cloud Storage</td><td>Google Cloud Storage</td></tr>
+      <tr><td>Snowflake</td><td>Snowflake</td></tr>
+      <tr><td>Microsoft SQL Server</td><td>Microsoft SQL Server (via DP Agent)</td></tr>
+      <tr><td>Oracle Database</td><td>Oracle Database (via DP Agent)</td></tr>
+      <tr><td>Amazon Redshift</td><td>Amazon Redshift</td></tr>
+      <tr><td>Generic OData</td><td>OData</td></tr>
+    </table>
+
+    <h2>Connection Status Monitoring</h2>
+    <p>Each connection shows a <span class="highlight">connection status</span> — you can test it at any time from the connection editor. Common status values:</p>
+    <ul>
+      <li><strong>OK</strong> — connection is healthy and reachable</li>
+      <li><strong>Error</strong> — credentials invalid, network unreachable, or DP Agent offline</li>
+      <li><strong>Warning</strong> — connected but with degraded performance or partial access</li>
+    </ul>
+
+    <h2>Secure Credential Storage</h2>
+    <p>Connection credentials (usernames, passwords, API keys) are stored encrypted in Datasphere's secure store — they are never displayed in plain text after initial entry. Service accounts (technical users) should be used rather than personal credentials.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: REPLICATION ======================== -->
+  <div class="page" id="page-replication">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Integration</div>
+      <h1>Replication & Federation</h1>
+      <p class="lead">Two fundamental data access patterns in Datasphere — understanding when to replicate vs federate is a key architectural decision.</p>
+    </div>
+
+    <h2>Federation (Virtual Access)</h2>
+    <p>In federation mode, data stays at the source. Datasphere creates a virtual (remote) table that, when queried, sends the query to the source system and returns results in real time. There is zero data copy and zero storage consumed in Datasphere.</p>
+    <ul>
+      <li><strong>Latency:</strong> Network + source system query time (can be slow)</li>
+      <li><strong>Freshness:</strong> Always live — reflects the source at query time</li>
+      <li><strong>Good for:</strong> Large infrequently queried tables, operational reporting where freshness > speed, initial exploration</li>
+      <li><strong>Risk:</strong> Adds load to source system; source outage = no data in Datasphere</li>
+    </ul>
+
+    <h2>Replication (Physical Copy)</h2>
+    <p>In replication mode, data is physically copied from the source into Datasphere's HANA Cloud storage. The replica table contains an up-to-date local copy of source data, refreshed on schedule or via delta capture.</p>
+    <ul>
+      <li><strong>Latency:</strong> Fast — query hits local HANA</li>
+      <li><strong>Freshness:</strong> As of last replication (may be seconds to hours depending on mode)</li>
+      <li><strong>Good for:</strong> Reporting, SAC stories, joined analytics, high-frequency queries</li>
+      <li><strong>Cost:</strong> Consumes storage quota in the Space</li>
+    </ul>
+
+    <h2>Replication Modes</h2>
+    <table>
+      <tr><th>Mode</th><th>How it works</th><th>Source requirement</th></tr>
+      <tr><td><strong>Initial Load (Full)</strong></td><td>One-time full copy of all records</td><td>Any connected source</td></tr>
+      <tr><td><strong>Real-Time Replication</strong></td><td>Changes captured immediately as they happen at source</td><td>Source must support change data capture (SAP sources via ODP/SLT)</td></tr>
+      <tr><td><strong>Scheduled Replication</strong></td><td>Delta loaded on a schedule (e.g. every hour)</td><td>Source must provide delta capability</td></tr>
+    </table>
+
+    <div class="info-box">
+      <strong>ODP (Operational Data Provisioning):</strong> SAP's framework for delta-enabled data extraction from ABAP systems. Replication Flows for SAP sources use ODP under the hood — it tracks which records changed since the last extraction and provides only those deltas.
+    </div>
+
+    <h2>Switching Between Modes</h2>
+    <p>For a remote table, you can switch between Federation and Replication at any time in the remote table editor — under <span class="highlight">Data Access</span> → Remote / Replicated. Switching to Replicated triggers an initial load to copy data into HANA.</p>
+
+    <h2>Federation Decision Framework</h2>
+    <table>
+      <tr><th>Factor</th><th>Choose Federation</th><th>Choose Replication</th></tr>
+      <tr><td>Query frequency</td><td>Low (weekly/on-demand)</td><td>High (daily reports, SAC)</td></tr>
+      <tr><td>Data volume</td><td>Very large (multi-TB)</td><td>Manageable (MB–low GB)</td></tr>
+      <tr><td>Freshness requirement</td><td>Real-time critical</td><td>Near-real-time acceptable</td></tr>
+      <tr><td>Source availability</td><td>Always online</td><td>Source sometimes offline</td></tr>
+      <tr><td>Storage budget</td><td>Limited</td><td>Available quota</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: DP AGENT ======================== -->
+  <div class="page" id="page-dpagent">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Integration</div>
+      <h1>Data Provisioning Agent (DP Agent)</h1>
+      <p class="lead">The DP Agent is the secure bridge between Datasphere (cloud) and on-premise or private-network source systems.</p>
+    </div>
+
+    <h2>Why DP Agent?</h2>
+    <p>Datasphere runs in the cloud. On-premise systems (S/4HANA on-premise, BW, Oracle, SQL Server) are behind firewalls and not directly reachable from the internet. The DP Agent is a <span class="highlight">lightweight Java agent</span> installed on a server in your on-premise network that:</p>
+    <ul>
+      <li>Initiates an <strong>outbound HTTPS connection</strong> to Datasphere (no inbound firewall rules needed)</li>
+      <li>Acts as a proxy — Datasphere sends queries/commands to the agent, which executes them locally against the source</li>
+      <li>Returns results securely over the same HTTPS tunnel</li>
+    </ul>
+
+    <h2>DP Agent Architecture</h2>
+    <div class="info-box">
+      <strong>Direction:</strong> DP Agent → Datasphere (outbound only). Your firewall only needs to allow outbound HTTPS from the agent server to Datasphere's URL. No inbound port opening required — a significant security advantage.
+    </div>
+
+    <h2>DP Agent Setup Steps</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Download DP Agent installer</strong>
+          <p>Download from SAP Software Center. Supported on Windows Server and Linux.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Install on on-premise server</strong>
+          <p>Install on a server with network access to both the source system and the internet (for Datasphere).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Register agent in Datasphere</strong>
+          <p>In Datasphere System → Configuration → Data Provisioning Agents, register the agent using its Agent Name and credentials.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Install adapters</strong>
+          <p>DP Agent uses adapters for each source type (ABAP adapter for SAP BW/S4, JDBC adapter for Oracle/SQL Server). Install the required adapters on the agent.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Create connection in Datasphere</strong>
+          <p>Create a connection in the Space that uses the DP Agent — specify the agent name in the connection settings.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>DP Agent vs HANA Cloud Connector</h2>
+    <table>
+      <tr><th></th><th>DP Agent</th><th>Cloud Connector (SAP CC)</th></tr>
+      <tr><td>Purpose</td><td>Data replication/federation to Datasphere</td><td>General BTP service connectivity</td></tr>
+      <tr><td>Protocol</td><td>HTTPS with proprietary DPServer protocol</td><td>HTTPS tunnel</td></tr>
+      <tr><td>Used by</td><td>Datasphere connections</td><td>Other BTP services (SAP Integration Suite etc.)</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SEMANTIC LAYER ======================== -->
+  <div class="page" id="page-semanticlayer">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Business Layer</div>
+      <h1>Semantic Layer Overview</h1>
+      <p class="lead">The Business Layer is Datasphere's semantic abstraction layer — it transforms technical data models into business-friendly structures that analysts can use without SQL knowledge.</p>
+    </div>
+
+    <h2>Why a Semantic Layer?</h2>
+    <p>Data Builder views are technically correct but often use technical column names like <code>KBETR</code>, <code>WAERS</code>, <code>MENGE_ST</code>. A business analyst working in SAC needs to see <em>Rate, Currency, Quantity</em>. The Business Layer bridges this gap — it adds business names, descriptions, relationships, and KPI logic on top of the technical model.</p>
+
+    <div class="info-box">
+      <strong>Two-layer architecture:</strong><br>
+      Layer 1 — Data Builder: Technical tables, views, SQL logic, joins<br>
+      Layer 2 — Business Layer: Business names, measures, KPIs, associations, perspectives<br>
+      SAC consumes Layer 2 (or directly Layer 1 Analytic Models).
+    </div>
+
+    <h2>Business Layer Objects Overview</h2>
+    <table>
+      <tr><th>Object</th><th>Think of it as</th><th>BW equivalent</th></tr>
+      <tr><td><strong>Business Entity</strong></td><td>A semantically enriched view of a Data Builder object</td><td>InfoObject / DSO with business metadata</td></tr>
+      <tr><td><strong>Consumption Model</strong></td><td>Query-ready model combining business entities for SAC</td><td>BEx Query / Analytical Query</td></tr>
+      <tr><td><strong>Perspective</strong></td><td>A focused subset/view of a Consumption Model</td><td>BEx Query Variant / BW View</td></tr>
+    </table>
+
+    <h2>Associations</h2>
+    <p>In the Business Layer, <span class="highlight">Associations</span> define relationships between Business Entities — similar to foreign key relationships but declared at the semantic level rather than enforced at the database level.</p>
+    <p>For example: a SalesOrders business entity → associated to BusinessPartners via PARTNERID. When SAC queries through this model, HANA automatically resolves the join at query time.</p>
+
+    <div class="tip-box">
+      <strong>Associations vs Data Builder Joins:</strong> Data Builder joins physically embed the SQL join in the view definition. Business Layer associations are metadata — the join is generated dynamically at query execution. This makes associations more flexible (different query tools can navigate differently) but slightly less predictable in behavior.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: BUSINESS ENTITIES ======================== -->
+  <div class="page" id="page-businessentities">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Business Layer</div>
+      <h1>Business Entities</h1>
+      <p class="lead">A Business Entity wraps a Data Builder object (table or view) with semantic annotations — business names, descriptions, key definitions, and KPIs.</p>
+    </div>
+
+    <h2>Creating a Business Entity</h2>
+    <p>You create a Business Entity on top of an existing Data Builder view or table. The entity inherits all columns from the source and you annotate them:</p>
+    <ul>
+      <li><strong>Business Name:</strong> User-friendly label (e.g. "Sales Amount" instead of "NETWR")</li>
+      <li><strong>Description:</strong> Full definition visible in catalog and SAC</li>
+      <li><strong>Key:</strong> Mark columns that uniquely identify a record</li>
+      <li><strong>Attribute Type:</strong> Text, ID, Amount, Quantity, Date, etc.</li>
+      <li><strong>Semantic Type:</strong> Fact, Dimension, Measure</li>
+    </ul>
+
+    <h2>KPIs (Key Performance Indicators)</h2>
+    <p>Business Entities support defining <span class="highlight">KPIs</span> — business metrics with target values, thresholds, and trend direction. KPIs appear in the Data Catalog and can be surfaced in SAC dashboards.</p>
+    <table>
+      <tr><th>KPI property</th><th>Description</th></tr>
+      <tr><td>Measure</td><td>The underlying measure the KPI is based on</td></tr>
+      <tr><td>Target</td><td>Desired value or formula for the target</td></tr>
+      <tr><td>Thresholds</td><td>Good/Warning/Critical bands for traffic-light coloring in SAC</td></tr>
+      <tr><td>Trend</td><td>Whether higher is better (Revenue) or lower is better (Cost, Defects)</td></tr>
+    </table>
+
+    <h2>Calculated Attributes</h2>
+    <p>Beyond simple column mappings, Business Entities support <span class="highlight">Calculated Attributes</span> — new columns derived by formula at the semantic level. Similar to a calculated column in a view, but defined in the business layer without modifying the underlying technical model.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CONSUMPTION ======================== -->
+  <div class="page" id="page-consumption">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Business Layer</div>
+      <h1>Consumption Models & Perspectives</h1>
+      <p class="lead">Consumption Models assemble multiple Business Entities into a single, query-ready model. They are the most business-friendly consumption object in Datasphere.</p>
+    </div>
+
+    <h2>Consumption Model Structure</h2>
+    <p>A Consumption Model takes one <span class="highlight">Fact Business Entity</span> as its center and associates multiple <span class="highlight">Dimension Business Entities</span> to it — forming a semantic star schema. Additional properties like filters, variables, and currency settings can be defined at this level.</p>
+
+    <h2>Consumption Model vs Analytic Model</h2>
+    <table>
+      <tr><th>Feature</th><th>Analytic Model (Data Builder)</th><th>Consumption Model (Business Layer)</th></tr>
+      <tr><td>Based on</td><td>Analytical Dataset (view)</td><td>Business Entities</td></tr>
+      <tr><td>Business naming</td><td>Limited</td><td>Full business name + description</td></tr>
+      <tr><td>KPI support</td><td>No</td><td>Yes — KPIs from Business Entities</td></tr>
+      <tr><td>Perspective support</td><td>No</td><td>Yes</td></tr>
+      <tr><td>Governance visibility</td><td>In Data Catalog</td><td>In Data Catalog + Business Glossary</td></tr>
+      <tr><td>Recommended for</td><td>Technical teams, direct SAC connection</td><td>Business users, governed enterprise models</td></tr>
+    </table>
+
+    <h2>Perspectives</h2>
+    <p>A <span class="highlight">Perspective</span> is a subset of a Consumption Model tailored for a specific audience or use case. For example, a single "Sales" Consumption Model can have:</p>
+    <ul>
+      <li>A <em>Regional Manager Perspective</em> — pre-filtered to the manager's region, showing only regional KPIs</li>
+      <li>A <em>Finance Perspective</em> — showing revenue and cost measures, hiding operational metrics</li>
+      <li>A <em>Product Analysis Perspective</em> — focused on product dimension drill-down</li>
+    </ul>
+    <p>Perspectives reduce the need to build multiple separate models for different audiences.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CATALOG ======================== -->
+  <div class="page" id="page-catalog">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Governance</div>
+      <h1>Data Catalog</h1>
+      <p class="lead">The Data Catalog automatically indexes all objects in Datasphere and provides a searchable, governed inventory of your data assets.</p>
+    </div>
+
+    <h2>What gets cataloged automatically?</h2>
+    <p>Every object created in Datasphere is <span class="highlight">automatically indexed</span> by the catalog — no manual registration needed:</p>
+    <div class="tag-row">
+      <span class="tag">Local Tables</span>
+      <span class="tag">Remote Tables</span>
+      <span class="tag">Views</span>
+      <span class="tag">Analytic Models</span>
+      <span class="tag">Data Flows</span>
+      <span class="tag">Replication Flows</span>
+      <span class="tag">Business Entities</span>
+      <span class="tag">Consumption Models</span>
+      <span class="tag">Connections</span>
+      <span class="tag">Spaces</span>
+    </div>
+
+    <h2>Catalog Asset Page</h2>
+    <p>Every cataloged asset has a detail page showing:</p>
+    <ul>
+      <li><strong>Overview:</strong> Technical name, business name, type, space, owner, dates</li>
+      <li><strong>Schema/Structure:</strong> Columns with types, keys, measures</li>
+      <li><strong>Lineage:</strong> Visual diagram of upstream sources and downstream consumers</li>
+      <li><strong>Impact:</strong> List of objects that depend on this asset</li>
+      <li><strong>Tags:</strong> Classification labels attached by data stewards</li>
+      <li><strong>Glossary Terms:</strong> Business definitions linked to columns</li>
+      <li><strong>Data Quality:</strong> Quality score and rule results</li>
+      <li><strong>Sample Data:</strong> Preview of actual data (permission-dependent)</li>
+    </ul>
+
+    <h2>Business Glossary</h2>
+    <p>The Glossary is a curated dictionary of business terms. Each term has a name, definition, owner, status (Draft/Approved/Deprecated), and can be linked to specific columns in catalog assets.</p>
+    <div class="info-box">
+      <strong>Example:</strong> Glossary term "Net Revenue" = "Total invoiced amount after all discounts and returns, excluding VAT, in transaction currency." This term is linked to the NETWR column in the SalesOrders table and the Revenue measure in the Sales Analytic Model.
+    </div>
+
+    <h2>Tags & Classifications</h2>
+    <p>Tags are free-form labels for organizing and filtering catalog assets. Classifications are structured tags (hierarchical) for formal governance programs like GDPR or data sensitivity classification.</p>
+    <table>
+      <tr><th>Use case</th><th>Example tags</th></tr>
+      <tr><td>Domain classification</td><td>Finance, Supply Chain, HR, Sales</td></tr>
+      <tr><td>Certification status</td><td>Certified, In Review, Deprecated</td></tr>
+      <tr><td>Sensitivity</td><td>Public, Internal, Confidential, PII</td></tr>
+      <tr><td>Project</td><td>S4-Migration-2024, BW-Bridge-Phase1</td></tr>
+    </table>
+
+    <h2>Data Quality Rules</h2>
+    <p>Data quality rules run on local tables and produce a <span class="highlight">Data Quality Score</span> (0–100%). Rules are defined on specific columns:</p>
+    <ul>
+      <li><strong>Completeness:</strong> % of non-null values in a column</li>
+      <li><strong>Uniqueness:</strong> % of unique values (identifies duplicates)</li>
+      <li><strong>Validity:</strong> % matching a defined pattern or range (e.g. date format, positive amounts)</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: LINEAGE ======================== -->
+  <div class="page" id="page-lineage">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Governance</div>
+      <h1>Lineage & Impact Analysis</h1>
+      <p class="lead">Lineage traces where data comes from. Impact shows what breaks when you change something. Together they are essential for governed data management.</p>
+    </div>
+
+    <h2>Lineage Analysis (Upstream)</h2>
+    <p>Lineage traces data <span class="highlight">backward</span> through the dependency chain — from the consumer all the way to the original source system. The lineage diagram shows every table, view, flow, and model that data passed through.</p>
+    <div class="info-box">
+      <strong>Example lineage chain:</strong><br>
+      SAC Story → Analytic Model → Analytical Dataset View → Join View → Remote Table → S/4HANA ACDOCA table
+    </div>
+    <p>This answers the question: <em>"Where exactly does the Revenue figure in my SAC report come from?"</em></p>
+
+    <h2>Impact Analysis (Downstream)</h2>
+    <p>Impact analysis looks <span class="highlight">forward</span> — given an object, what downstream objects depend on it? This answers: <em>"If I change or delete this table, what reports/views/models will be affected?"</em></p>
+    <div class="warn-box">
+      <strong>Critical before making changes:</strong> Always run Impact Analysis before modifying a source table schema (adding/removing columns, changing data types). A single column rename in a remote table can cascade and break dozens of downstream views and SAC stories.
+    </div>
+
+    <h2>Column-Level Lineage</h2>
+    <p>Datasphere provides <span class="highlight">column-level lineage</span> — not just object lineage. You can trace a specific column (e.g. "Gross Margin %") through every transformation and calculation to its source column(s). This is critical for audit and data certification.</p>
+
+    <h2>Cross-Space Lineage</h2>
+    <p>Lineage tracks objects <span class="highlight">across Spaces</span>. If Space A's table is shared to Space B and used in a view there, the lineage diagram shows the cross-space dependency. This provides full tenant-wide visibility.</p>
+
+    <h2>Lineage from External Sources</h2>
+    <p>For objects originating from external connections (S/4HANA, BW, cloud storage), lineage shows the source system as the origin node — even though it's outside Datasphere. The connection metadata enables this cross-system tracing.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SECURITY ======================== -->
+  <div class="page" id="page-security">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Governance</div>
+      <h1>Security & Access Control</h1>
+      <p class="lead">Datasphere provides multi-level security — from tenant-level user management down to row-level data access controls.</p>
+    </div>
+
+    <h2>Security Layers</h2>
+    <table>
+      <tr><th>Layer</th><th>Controls what</th><th>Managed by</th></tr>
+      <tr><td><strong>Tenant level</strong></td><td>Who can log into the tenant, global admin rights</td><td>Tenant Administrator</td></tr>
+      <tr><td><strong>Space level</strong></td><td>Who can access a Space and with which role</td><td>Space Administrator</td></tr>
+      <tr><td><strong>Object level</strong></td><td>Which objects are shared and visible across Spaces</td><td>Space Admin + sharing settings</td></tr>
+      <tr><td><strong>Row level</strong></td><td>Which data rows a user can see (Data Access Control)</td><td>DAC definition in Space</td></tr>
+    </table>
+
+    <h2>Data Access Controls (DAC) — Row-Level Security</h2>
+    <p>A <span class="highlight">Data Access Control</span> is a criteria-based filter automatically applied to queries based on the logged-in user's assignments. It restricts which rows of data a user can see, transparently — the user doesn't know the filter exists.</p>
+    <h3>DAC Types</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(248,81,73,.15)">⊗</div><div class="card-title">SQL-Based DAC</div></div>
+        <p>A view or table maps user IDs to permitted dimension values. E.g. user "JOHN" → allowed COMPANY_CODE = 1000 and 2000.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(248,81,73,.15)">⊗</div><div class="card-title">External Hierarchy DAC</div></div>
+        <p>Restrictions based on hierarchy node assignments. A manager is granted access to their org node, inheriting access to all subordinate nodes automatically.</p>
+      </div>
+    </div>
+
+    <h3>DAC Assignment</h3>
+    <p>DACs are attached to Analytical Datasets or Analytic Models. When SAC queries the model, Datasphere automatically appends the user's access filter before executing the query — no SAC-side configuration needed.</p>
+
+    <div class="tip-box">
+      <strong>Interview tip:</strong> DAC in Datasphere is equivalent to Data Access Control in SAC — but enforced at the Datasphere engine level, before data reaches SAC. This is considered more secure as it cannot be bypassed by any SAC user, including story editors.
+    </div>
+
+    <h2>IDP Integration (SSO)</h2>
+    <p>Datasphere integrates with any SAML 2.0-compatible Identity Provider (IdP) — Azure AD, Okta, SAP IAS (Identity Authentication Service). Users authenticate through their corporate SSO; Datasphere maps the IdP user to a Datasphere user account.</p>
+
+    <h2>Audit Logging</h2>
+    <p>Datasphere maintains <span class="highlight">audit logs</span> for security-relevant actions — user logins, data access, configuration changes, connection usage. Audit logs can be forwarded to SAP Cloud ALM or SIEM tools for compliance monitoring.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SAC LIVE ======================== -->
+  <div class="page" id="page-saclive">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">SAC Integration</div>
+      <h1>Live Connection to SAC</h1>
+      <p class="lead">SAC connects to Datasphere via a Live Connection — real-time queries without data import into SAC. This is the standard consumption pattern.</p>
+    </div>
+
+    <h2>Setting Up the Live Connection</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>In Datasphere — create a technical user</strong>
+          <p>Create a dedicated technical user in Datasphere for SAC to connect with. Assign it DW Viewer role (minimum) in the relevant Space.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>In SAC — create a new connection</strong>
+          <p>Go to Connections → Add Connection → SAP Datasphere. Enter the Datasphere tenant URL, technical user credentials.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>In Datasphere — expose objects</strong>
+          <p>Ensure the Analytic Model or Analytical Dataset has "Expose for Consumption" turned ON.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>In SAC — create a model using the connection</strong>
+          <p>In SAC Modeler, create a new model → Live Data Model → select the Datasphere connection → browse and select the Analytic Model.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Build stories</strong>
+          <p>The SAC model is now live — build stories, charts, and dashboards. Every chart query goes live to Datasphere's HANA engine.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>What SAC Can Consume</h2>
+    <table>
+      <tr><th>Datasphere Object</th><th>SAC Consumption</th><th>Notes</th></tr>
+      <tr><td><strong>Analytic Model</strong></td><td>Live Data Model in SAC</td><td>Preferred — full star schema, hierarchies, variables</td></tr>
+      <tr><td><strong>Analytical Dataset</strong></td><td>Live Data Model in SAC</td><td>Simpler, no full star schema assembly</td></tr>
+      <tr><td><strong>Consumption Model (Business Layer)</strong></td><td>Live Data Model in SAC</td><td>Most business-friendly, includes KPIs</td></tr>
+      <tr><td><strong>BEx Query (BW Bridge)</strong></td><td>Via BW Live connection</td><td>For migrated BW queries during transition</td></tr>
+    </table>
+
+    <h2>Query Flow</h2>
+    <p>When an SAC story user opens a chart:</p>
+    <ol>
+      <li>SAC translates the chart definition into an <span class="highlight">OLAP query</span></li>
+      <li>Query is sent to Datasphere via the live connection (HTTPS)</li>
+      <li>Datasphere's HANA engine executes the query — applying DAC filters, join logic, measure calculations</li>
+      <li>Result set is returned to SAC and rendered in the chart</li>
+      <li>No data is cached or stored in SAC — every interaction re-queries Datasphere</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>Performance implication:</strong> Live connections mean SAC performance is directly tied to Datasphere query performance. Slow Datasphere views = slow SAC stories. Use view persistency, partitioning, and proper aggregation to keep query times acceptable.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PLANNING ======================== -->
+  <div class="page" id="page-planning">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">SAC Integration</div>
+      <h1>Planning & Write-back</h1>
+      <p class="lead">SAC Planning can use Datasphere Local Tables as the planning data store — enabling a modern, decoupled planning architecture.</p>
+    </div>
+
+    <h2>Architecture Overview</h2>
+    <p>In the traditional BPC architecture, planning data was stored inside BPC's own proprietary storage. The modern Datasphere+SAC architecture separates storage from UI:</p>
+    <ul>
+      <li><strong>Storage layer:</strong> Datasphere Local Tables (HANA Cloud)</li>
+      <li><strong>Modeling layer:</strong> Datasphere views + Analytic Models</li>
+      <li><strong>Planning UI:</strong> SAC Planning models and Input Tasks</li>
+      <li><strong>Write-back:</strong> SAC writes plan data directly into Datasphere Local Tables</li>
+    </ul>
+
+    <h2>Setting Up Planning on Datasphere</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Create a Local Table in Datasphere</strong>
+          <p>Design the table structure to hold planning data — dimensions as columns (Company Code, Cost Center, Period, Version) and measure columns (Budget Amount, Quantity).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Build an Analytical Dataset on top</strong>
+          <p>Create a view on the planning table. Set semantic type = Analytical Dataset. Define measures and dimension associations. Turn on Expose for Consumption.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>In SAC — create a Planning Model</strong>
+          <p>Create new Planning Model → Live Connection → SAP Datasphere → select the Analytical Dataset. SAC will map dimensions and measures from the Datasphere model.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Build Input Forms in SAC</strong>
+          <p>Create SAC stories with Input Tasks / planning tables. Users enter plan data in SAC.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Write-back to Datasphere</strong>
+          <p>When users submit/publish in SAC, plan data is written back to the Datasphere Local Table. The data is immediately available for reporting queries.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Datasphere + SAC vs BPC Architecture</h2>
+    <table>
+      <tr><th>Aspect</th><th>BPC (Standard / Embedded)</th><th>Datasphere + SAC Planning</th></tr>
+      <tr><td>Storage</td><td>BPC proprietary (InfoCube-like or AMDP)</td><td>Datasphere HANA Cloud Local Tables</td></tr>
+      <tr><td>Modeling</td><td>BPC dimensions, models, business rules</td><td>Datasphere views + Analytic Models</td></tr>
+      <tr><td>Planning logic</td><td>Script Logic / Data Actions</td><td>SAC Data Actions + Transformation Flows</td></tr>
+      <tr><td>Reporting</td><td>SAC or EPM Add-in</td><td>SAC only</td></tr>
+      <tr><td>Integration with actuals</td><td>Via BW extractors</td><td>Direct — actuals and plan in same HANA</td></tr>
+      <tr><td>Scalability</td><td>Limited by BPC infrastructure</td><td>HANA Cloud — scales on demand</td></tr>
+    </table>
+
+    <h2>Data Actions in this Architecture</h2>
+    <p>SAC <span class="highlight">Data Actions</span> still work in Datasphere-backed planning models. They execute against the Datasphere Local Table and can perform calculations, copy versions, allocate values across periods — same as BPC Script Logic but defined in SAC.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: BW BRIDGE ======================== -->
+  <div class="page" id="page-bwbridge">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">SAC Integration</div>
+      <h1>BW Bridge & Migration</h1>
+      <p class="lead">BW Bridge enables running existing BW/4HANA objects natively within Datasphere — the transition path for organizations moving from BW to Datasphere.</p>
+    </div>
+
+    <h2>What is BW Bridge?</h2>
+    <p>BW Bridge is a special component of Datasphere that hosts a BW-compatible runtime. It allows organizations to <span class="highlight">lift and shift</span> existing BW/4HANA objects into Datasphere without full re-development, while gradually migrating them to native Datasphere objects over time.</p>
+
+    <h2>What BW Bridge Supports</h2>
+    <table>
+      <tr><th>BW Object</th><th>BW Bridge support</th><th>Migration path</th></tr>
+      <tr><td>InfoObjects (Characteristics)</td><td>Full support — run as-is</td><td>Convert to Datasphere Dimension</td></tr>
+      <tr><td>InfoObjects (Key Figures)</td><td>Full support</td><td>Convert to Datasphere Measure</td></tr>
+      <tr><td>Advanced DSO (aDSO)</td><td>Full support</td><td>Convert to Local Table + Transformation Flow</td></tr>
+      <tr><td>CompositeProvider</td><td>Full support</td><td>Convert to Datasphere View (Union/Join)</td></tr>
+      <tr><td>BEx Queries</td><td>Full support — consumable by SAC</td><td>Convert to Analytic Model</td></tr>
+      <tr><td>Transformations & DTPs</td><td>Supported</td><td>Convert to Replication/Transformation Flows</td></tr>
+      <tr><td>Process Chains</td><td>Partial — basic chains</td><td>Re-build as Task Chains</td></tr>
+      <tr><td>ABAP routines in transformations</td><td>Limited — simple routines only</td><td>Re-implement in SAP HANA SQL/scripting</td></tr>
+    </table>
+
+    <h2>BW Bridge Migration Approach</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Assess BW landscape</strong>
+          <p>Inventory all BW objects. Identify which are actively used. Use SAP's Migration Assessment tool to get a complexity rating per object.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Provision BW Bridge Space</strong>
+          <p>Create a dedicated BW Bridge Space in Datasphere. This space has BW runtime capabilities.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Transfer BW objects</strong>
+          <p>Use the BW-to-Datasphere transfer tools to move BW objects into the BW Bridge Space. This is largely automated for standard objects.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Validate and connect SAC</strong>
+          <p>Connect SAC to BW Bridge via BW Live Connection. Validate that existing BEx Query-based SAC stories still work.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Gradual native migration</strong>
+          <p>Over time, re-build BW objects as native Datasphere objects (Replication Flows replace DTPs, SQL Views replace transformations, Analytic Models replace BEx Queries).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>BW Bridge is a bridge, not a destination.</strong> SAP's recommendation is to eventually migrate all objects to native Datasphere. BW Bridge provides continuity during the transition, but long-term all new development should be in native Datasphere.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CURRENCY ======================== -->
+  <div class="page" id="page-currency">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Advanced Topics</div>
+      <h1>Currency Conversion</h1>
+      <p class="lead">Datasphere has built-in currency conversion using SAP's standard TCURR/TCURF exchange rate tables, enabling multi-currency reporting without manual conversion logic.</p>
+    </div>
+
+    <h2>How It Works</h2>
+    <p>When a measure is tagged with a <span class="highlight">currency column</span> (e.g. transaction currency WAERS), Datasphere can automatically convert amounts to a target currency at query time using exchange rates stored in the system.</p>
+
+    <h2>Exchange Rate Tables</h2>
+    <p>Datasphere uses the standard SAP exchange rate tables, typically replicated from S/4HANA:</p>
+    <table>
+      <tr><th>Table</th><th>Content</th></tr>
+      <tr><td><code>TCURR</code></td><td>Exchange rates — from/to currency pairs with date validity</td></tr>
+      <tr><td><code>TCURF</code></td><td>Exchange rate factors (for currencies with large rate differences)</td></tr>
+      <tr><td><code>TCURX</code></td><td>Currency decimal places</td></tr>
+      <tr><td><code>TCURN</code></td><td>Exchange rate type descriptions (M=average, B=buying, S=selling)</td></tr>
+    </table>
+
+    <h2>Currency Conversion Configuration</h2>
+    <p>On a measure in an Analytic Model, you configure:</p>
+    <ul>
+      <li><strong>Source currency column:</strong> The column containing the transaction currency code (e.g. WAERS)</li>
+      <li><strong>Target currency:</strong> Fixed (e.g. always EUR) or variable (SAC user chooses at runtime)</li>
+      <li><strong>Exchange rate type:</strong> M (monthly average), B (bank buying), S (bank selling), or custom</li>
+      <li><strong>Date for rate lookup:</strong> Fixed date, or dynamic (e.g. posting period date column)</li>
+    </ul>
+
+    <div class="tip-box">
+      <strong>Interview tip:</strong> Currency conversion in Datasphere is equivalent to translation settings in a BPC model or the CURRENCY_TRANSLATION function in BW/HANA. The mechanics are the same — exchange rate type, source/target currency, and a reference date determine which TCURR entry is used.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PERFORMANCE ======================== -->
+  <div class="page" id="page-performance">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Advanced Topics</div>
+      <h1>Performance & Partitioning</h1>
+      <p class="lead">Query performance in Datasphere depends on data modeling, storage choices, and HANA-specific optimization techniques.</p>
+    </div>
+
+    <h2>Performance Levers</h2>
+    <table>
+      <tr><th>Technique</th><th>When to use</th><th>Effect</th></tr>
+      <tr><td><strong>View Persistency</strong></td><td>Complex multi-join views used in SAC reports</td><td>Materializes view — query reads snapshot instead of re-computing</td></tr>
+      <tr><td><strong>Table Partitioning</strong></td><td>Large local tables queried with date/period filters</td><td>Partition pruning — only relevant partitions scanned</td></tr>
+      <tr><td><strong>Replica Table</strong></td><td>Remote tables queried frequently in reports</td><td>Query hits local HANA instead of remote source</td></tr>
+      <tr><td><strong>Table Indexing</strong></td><td>Columns used in JOIN conditions or WHERE clauses</td><td>Faster lookup — avoids full table scan</td></tr>
+      <tr><td><strong>Aggregation node</strong></td><td>Fact views with high row counts</td><td>Pre-aggregates before presenting to SAC</td></tr>
+      <tr><td><strong>Column Store</strong></td><td>Default in HANA — analytical queries</td><td>Columnar compression + parallel scan</td></tr>
+    </table>
+
+    <h2>Monitoring Tools</h2>
+    <ul>
+      <li><strong>Space Monitor:</strong> CPU, memory, disk usage per Space. Identify resource-intensive flows or queries.</li>
+      <li><strong>Data Integration Monitor:</strong> Status and logs for all Replication Flows, Data Flows, and Task Chains. Shows run duration, row counts, errors.</li>
+      <li><strong>Database Explorer (HANA):</strong> Open via Datasphere to run SQL queries, inspect execution plans, view column statistics.</li>
+      <li><strong>SAC Performance Monitor:</strong> In SAC, story-level query performance metrics showing which queries are slow.</li>
+    </ul>
+
+    <h2>Common Performance Anti-Patterns</h2>
+    <div class="warn-box">
+      <strong>Anti-pattern 1 — Stacking virtual views:</strong> Building 5+ levels of virtual views (view on view on view) creates deep execution plans. Use view persistency at intermediate levels or flatten the logic into a single view.
+    </div>
+    <div class="warn-box">
+      <strong>Anti-pattern 2 — Federation for reporting:</strong> Using remote (federated) tables as the base for SAC stories hits the source system for every user interaction. Replicate first, then report.
+    </div>
+    <div class="warn-box">
+      <strong>Anti-pattern 3 — Missing join cardinality:</strong> Wrong cardinality settings in graphical view joins mislead the HANA optimizer. Always set correct cardinality (1:N, N:1 etc.).
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: OPEN API ======================== -->
+  <div class="page" id="page-openapi">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Advanced Topics</div>
+      <h1>Open SQL Schema & APIs</h1>
+      <p class="lead">Datasphere exposes multiple programmatic interfaces for external tools and custom integration — Open SQL, OData, and REST APIs.</p>
+    </div>
+
+    <h2>Open SQL Schema</h2>
+    <p>Every Space can optionally expose an <span class="highlight">Open SQL Schema</span> — a direct HANA SQL access point to the space's objects. External tools connect via standard JDBC/ODBC.</p>
+    <ul>
+      <li>Query views and tables directly using HANA SQL</li>
+      <li>Compatible with SAP HANA Studio, DBeaver, Tableau, Power BI, Excel (via ODBC)</li>
+      <li>Read-only — cannot INSERT/UPDATE/DELETE via Open SQL</li>
+      <li>Access is subject to Datasphere role/DAC restrictions</li>
+    </ul>
+    <pre>-- Connect via JDBC, then query a Datasphere view
+SELECT "PRODUCTID", "SHORT_DESCR", "PRICE"
+FROM "MY_SPACE"."ProductCatalogView"
+WHERE "PRODCATEGORYID" = 'LT';</pre>
+
+    <h2>OData API</h2>
+    <p>Datasphere exposes OData v4 endpoints for consuming data programmatically. When an Analytical Dataset or Consumption Model has "Expose for Consumption" enabled, it can be accessed via OData.</p>
+    <pre>GET https://&lt;tenant&gt;/api/v1/datasphere/spaces/MY_SPACE
+    /objects/SalesAnalyticModel
+    ?$select=PERIOD,AMOUNT&$filter=YEAR eq '2024'&$format=json</pre>
+
+    <h2>Datasphere REST API</h2>
+    <p>Datasphere provides a <span class="highlight">Management REST API</span> for administrative operations — automating space creation, user management, flow execution, and catalog operations. Useful for CI/CD pipelines and automated deployment.</p>
+    <table>
+      <tr><th>API category</th><th>Operations</th></tr>
+      <tr><td>Space Management</td><td>Create, update, delete spaces; manage users</td></tr>
+      <tr><td>Data Provisioning</td><td>Trigger replication flow runs, check status</td></tr>
+      <tr><td>Catalog</td><td>Search assets, retrieve lineage, update tags/glossary</td></tr>
+      <tr><td>Monitoring</td><td>Get space resource usage, flow run history</td></tr>
+    </table>
+
+    <h2>HDI Containers</h2>
+    <p>For advanced SAP HANA developers, Datasphere supports connecting <span class="highlight">HDI (HANA Deployment Infrastructure) Containers</span> — allowing deployment of custom HANA database objects (calculation views, procedures, synonyms) that can be consumed in Datasphere alongside native objects.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: INTERVIEW ======================== -->
+  <div class="page" id="page-interview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Quick Reference</div>
+      <h1>Interview Quick Reference</h1>
+      <p class="lead">Key concepts, comparison tables, and common interview questions across all Datasphere topics.</p>
+    </div>
+
+    <h2>Most Asked Comparison Questions</h2>
+
+    <h3>Local Table vs Remote Table vs Replica</h3>
+    <table>
+      <tr><th></th><th>Local</th><th>Remote</th><th>Replica</th></tr>
+      <tr><td>Data in Datasphere</td><td>Yes</td><td>No</td><td>Yes (copy)</td></tr>
+      <tr><td>Writeable</td><td>Yes</td><td>No</td><td>No</td></tr>
+      <tr><td>Performance</td><td>Fast</td><td>Slow</td><td>Fast</td></tr>
+      <tr><td>Freshness</td><td>On write</td><td>Real-time</td><td>On schedule</td></tr>
+    </table>
+
+    <h3>Replication Flow vs Data Flow vs Transformation Flow</h3>
+    <table>
+      <tr><th></th><th>Replication Flow</th><th>Data Flow</th><th>Transformation Flow</th></tr>
+      <tr><td>Source</td><td>External (connected source)</td><td>Any</td><td>Local objects only</td></tr>
+      <tr><td>Target</td><td>Local/Replica Table</td><td>Local Table</td><td>Local Table</td></tr>
+      <tr><td>Delta support</td><td>Yes — ODP/SLT</td><td>Manual logic needed</td><td>Manual logic needed</td></tr>
+      <tr><td>Best for</td><td>Initial load + ongoing replication</td><td>Complex ETL</td><td>Post-load transformations</td></tr>
+    </table>
+
+    <h3>Analytic Model vs Consumption Model</h3>
+    <table>
+      <tr><th></th><th>Analytic Model</th><th>Consumption Model</th></tr>
+      <tr><td>Layer</td><td>Data Builder</td><td>Business Layer</td></tr>
+      <tr><td>Based on</td><td>Analytical Dataset</td><td>Business Entities</td></tr>
+      <tr><td>KPI support</td><td>No</td><td>Yes</td></tr>
+      <tr><td>Business names</td><td>Limited</td><td>Full</td></tr>
+      <tr><td>Perspective support</td><td>No</td><td>Yes</td></tr>
+    </table>
+
+    <h3>Federation vs Replication</h3>
+    <table>
+      <tr><th></th><th>Federation</th><th>Replication</th></tr>
+      <tr><td>Data location</td><td>Source system</td><td>Datasphere HANA</td></tr>
+      <tr><td>Storage cost</td><td>None</td><td>Yes — space quota</td></tr>
+      <tr><td>Query speed</td><td>Source-dependent</td><td>Fast (local HANA)</td></tr>
+      <tr><td>Use for SAC reports</td><td>Not recommended</td><td>Yes — recommended</td></tr>
+    </table>
+
+    <h2>Key Terms to Know Cold</h2>
+    <table>
+      <tr><th>Term</th><th>One-line definition</th></tr>
+      <tr><td>Space</td><td>Isolated workspace in Datasphere with its own storage, users, and objects</td></tr>
+      <tr><td>Semantic Usage</td><td>The role of a table/view — Relational Dataset, Dimension, Analytical Dataset, Text, Hierarchy</td></tr>
+      <tr><td>Expose for Consumption</td><td>Toggle that makes an object available for SAC live connection</td></tr>
+      <tr><td>Data Access Control</td><td>Row-level filter applied automatically based on logged-in user</td></tr>
+      <tr><td>BW Bridge</td><td>Datasphere component that runs BW/4HANA objects during migration</td></tr>
+      <tr><td>DP Agent</td><td>On-premise agent that bridges Datasphere cloud to on-premise sources</td></tr>
+      <tr><td>Lineage</td><td>Upstream trace — where did this data come from</td></tr>
+      <tr><td>Impact Analysis</td><td>Downstream trace — what breaks if I change this object</td></tr>
+      <tr><td>Perspective</td><td>A filtered subset of a Consumption Model for a specific audience</td></tr>
+      <tr><td>Task Chain</td><td>Orchestration object that sequences flows and tasks (equivalent to BW Process Chain)</td></tr>
+      <tr><td>View Persistency</td><td>Materializing a virtual view as a stored snapshot for performance</td></tr>
+      <tr><td>HDI Container</td><td>SAP HANA Deployment Infrastructure — for custom HANA development connected to Datasphere</td></tr>
+    </table>
+
+    <h2>Common Interview Questions</h2>
+    <ol>
+      <li>What is the difference between a remote table and a replica table in Datasphere?</li>
+      <li>When would you use a Data Flow vs a Replication Flow?</li>
+      <li>How does SAC connect to Datasphere and what objects can it consume?</li>
+      <li>Explain the role of the Data Provisioning Agent.</li>
+      <li>What is the purpose of the Business Layer in Datasphere?</li>
+      <li>How does row-level security (DAC) work in Datasphere?</li>
+      <li>What is BW Bridge and what is its purpose?</li>
+      <li>What is the difference between Impact Analysis and Lineage Analysis?</li>
+      <li>How is planning write-back to Datasphere different from BPC planning?</li>
+      <li>What does "Expose for Consumption" do and when must it be enabled?</li>
+      <li>What is a Task Chain and what is its BW equivalent?</li>
+      <li>How would you model a multi-currency financial report in Datasphere and SAC?</li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>STAR method reminder:</strong> For scenario questions (e.g. "How did you handle a BPC migration?"), structure your answer as: Situation → Task → Action → Result. Always tie back to what you did specifically, the tool used, and the business outcome.
+    </div>
+
+  </div>
+  </div>
+
+</div><!-- end main -->
+
+<script>
+const pages = {
+  'overview': 'Overview & Architecture',
+  'spaces': 'Spaces & Tenants',
+  'personas': 'Roles & Personas',
+  'tables': 'Tables',
+  'views': 'Views & SQL Modeling',
+  'joins': 'Joins Deep Dive',
+  'analyticmodel': 'Analytic Model',
+  'flows': 'Data Flows & Pipelines',
+  'connections': 'Connections',
+  'replication': 'Replication & Federation',
+  'dpagent': 'DP Agent',
+  'semanticlayer': 'Semantic Layer',
+  'businessentities': 'Business Entities',
+  'consumption': 'Consumption Models',
+  'catalog': 'Data Catalog',
+  'lineage': 'Lineage & Impact',
+  'security': 'Security & Access Control',
+  'saclive': 'Live Connection to SAC',
+  'planning': 'Planning & Write-back',
+  'bwbridge': 'BW Bridge & Migration',
+  'currency': 'Currency Conversion',
+  'performance': 'Performance & Partitioning',
+  'openapi': 'Open SQL & APIs',
+  'interview': 'Interview Quick Reference'
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.classList.add('active');
+    document.getElementById('main').scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) {
+      n.classList.add('active');
+    }
+  });
+  document.getElementById('breadcrumb-current').textContent = pages[id] || id;
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('light') ? '☾ Dark Mode' : '☀ Light Mode';
+}
+
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.style.display = (!v || n.textContent.toLowerCase().includes(v)) ? '' : 'none';
+  });
+}
+
+// Progress bar on scroll
+const mainEl = document.getElementById('main');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.transform = `scaleX(${total > 0 ? scrolled/total : 0})`;
+  document.getElementById('totop').classList.toggle('visible', scrolled > 300);
+});
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>

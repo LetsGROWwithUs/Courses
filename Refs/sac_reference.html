@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Analytics Cloud — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --bg4: #30363d;
+  --border: #30363d;
+  --border2: #21262d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #6e7681;
+  --accent: #0ea5e9;
+  --accent2: #38bdf8;
+  --green: #3fb950;
+  --orange: #f0883e;
+  --purple: #a371f7;
+  --red: #f85149;
+  --yellow: #d29922;
+  --teal: #2dd4bf;
+  --sidebar-w: 280px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* SIDEBAR */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+.sidebar-logo .logo-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(14,165,233,.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.sidebar-logo h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.sidebar-logo p {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 3px;
+}
+
+.sidebar-search {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+.sidebar-search input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.sidebar-search input:focus { border-color: var(--accent); }
+.sidebar-search input::placeholder { color: var(--text3); }
+
+.sidebar-nav { padding: 8px 0; flex: 1; }
+
+.nav-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 10px 20px 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  text-decoration: none;
+}
+
+.nav-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(14,165,233,.08); }
+
+.nav-item .nav-icon {
+  width: 16px; height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+}
+
+/* MAIN */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+
+.topbar-breadcrumb {
+  font-size: 13px;
+  color: var(--text3);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.topbar-breadcrumb span { color: var(--text2); }
+
+.topbar-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.theme-toggle {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-content {
+  max-width: 860px;
+  padding: 48px 48px 80px;
+}
+
+/* TYPOGRAPHY */
+.page-hero {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.page-hero .badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.badge-blue { background: rgba(14,165,233,.15); color: var(--accent2); }
+.badge-green { background: rgba(63,185,80,.15); color: var(--green); }
+.badge-orange { background: rgba(240,136,62,.15); color: var(--orange); }
+.badge-purple { background: rgba(163,113,247,.15); color: var(--purple); }
+.badge-teal { background: rgba(45,212,191,.15); color: var(--teal); }
+.badge-red { background: rgba(248,81,73,.15); color: var(--red); }
+
+.page-hero h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.page-hero .lead {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 680px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 36px 0 12px;
+  padding-top: 4px;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+
+p {
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* COMPONENTS */
+.info-box {
+  background: rgba(14,165,233,.07);
+  border: 1px solid rgba(14,165,233,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.info-box strong { color: var(--accent2); }
+
+.warn-box {
+  background: rgba(240,136,62,.07);
+  border: 1px solid rgba(240,136,62,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.warn-box strong { color: var(--orange); }
+
+.tip-box {
+  background: rgba(63,185,80,.07);
+  border: 1px solid rgba(63,185,80,.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.tip-box strong { color: var(--green); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 14px 0 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border2);
+  color: var(--text2);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  transition: border-color .2s;
+}
+
+.card:hover { border-color: var(--border); }
+
+.card-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px;
+}
+
+.card-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card p {
+  font-size: 12.5px;
+  color: var(--text2);
+  margin: 0;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px;
+  background: var(--bg3);
+  color: var(--teal);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+ul, ol {
+  padding-left: 0;
+  list-style: none;
+  margin: 10px 0 14px;
+}
+
+ul li, ol li {
+  font-size: 14px;
+  color: var(--text2);
+  padding: 4px 0 4px 20px;
+  position: relative;
+  line-height: 1.65;
+}
+
+ul li::before {
+  content: "→";
+  position: absolute; left: 0;
+  color: var(--text3);
+  font-size: 12px;
+}
+
+ol { counter-reset: li; }
+ol li { counter-increment: li; }
+ol li::before {
+  content: counter(li);
+  position: absolute; left: 0;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  top: 6px;
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  background: var(--bg3);
+}
+
+.highlight { color: var(--accent2); font-weight: 500; }
+
+.step-list { margin: 14px 0; }
+.step-item {
+  display: flex; gap: 14px; margin-bottom: 16px;
+}
+.step-num {
+  width: 26px; height: 26px;
+  background: rgba(14,165,233,.15);
+  color: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-family: 'DM Mono', monospace;
+}
+.step-content { flex: 1; }
+.step-content strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 3px; }
+.step-content p { margin: 0; font-size: 13px; }
+
+/* LIGHT MODE */
+body.light {
+  --bg: #f6f8fa;
+  --bg2: #ffffff;
+  --bg3: #f0f2f5;
+  --bg4: #e4e7eb;
+  --border: #d0d7de;
+  --border2: #eaeef2;
+  --text: #1f2328;
+  --text2: #4b5563;
+  --text3: #8b949e;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* PROGRESS BAR */
+#progress {
+  position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform .1s;
+  z-index: 200;
+}
+
+/* BACK TO TOP */
+#totop {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transition: all .2s;
+  font-size: 16px;
+  z-index: 100;
+}
+
+#totop.visible { opacity: 1; pointer-events: all; }
+#totop:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); transition: transform .3s; }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .page-content { padding: 24px 20px 60px; }
+  .topbar { padding: 12px 20px; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="totop" onclick="scrollToTop()">↑</div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">Reference Guide</div>
+    <h1>SAP Analytics Cloud</h1>
+    <p>Complete Technical Documentation</p>
+  </div>
+
+  <div class="sidebar-search">
+    <input type="text" id="searchInput" placeholder="Search topics..." oninput="filterNav(this.value)">
+  </div>
+
+  <div class="sidebar-nav" id="navTree">
+
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-item active" onclick="showPage('overview')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>
+      Overview & Architecture
+    </a>
+    <a class="nav-item" onclick="showPage('connections')">
+      <span class="nav-icon" style="background:rgba(45,212,191,.15);color:var(--teal)">⟷</span>
+      Live vs Import Connections
+    </a>
+    <a class="nav-item" onclick="showPage('personas')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">👤</span>
+      Roles & Licenses
+    </a>
+
+    <div class="nav-section-title">Data Modeling</div>
+    <a class="nav-item" onclick="showPage('models')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">◫</span>
+      Classic vs New Models
+    </a>
+    <a class="nav-item" onclick="showPage('dimensions')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">⋈</span>
+      Dimensions & Measures
+    </a>
+    <a class="nav-item" onclick="showPage('wrangling')">
+      <span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">⇶</span>
+      Data Preparation
+    </a>
+
+    <div class="nav-section-title">Story Design</div>
+    <a class="nav-item" onclick="showPage('stories')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">⊞</span>
+      Optimized Design Experience
+    </a>
+    <a class="nav-item" onclick="showPage('charts')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">📊</span>
+      Charts & Tables
+    </a>
+    <a class="nav-item" onclick="showPage('filters')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">⚡</span>
+      Filters & Linked Analysis
+    </a>
+    <a class="nav-item" onclick="showPage('scripting')">
+      <span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">{ }</span>
+      Advanced Scripting
+    </a>
+
+    <div class="nav-section-title">Planning</div>
+    <a class="nav-item" onclick="showPage('planning')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">📝</span>
+      Planning Basics & Versions
+    </a>
+    <a class="nav-item" onclick="showPage('dataactions')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⚙</span>
+      Data Actions & Formulas
+    </a>
+    <a class="nav-item" onclick="showPage('allocations')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">⬡</span>
+      Allocations
+    </a>
+    <a class="nav-item" onclick="showPage('vdt')">
+      <span class="nav-icon" style="background:rgba(240,136,62,.15);color:var(--orange)">🌳</span>
+      Value Driver Trees
+    </a>
+
+    <div class="nav-section-title">Augmented Analytics</div>
+    <a class="nav-item" onclick="showPage('predictive')">
+      <span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🔮</span>
+      Smart Predict & Insights
+    </a>
+
+    <div class="nav-section-title">Administration</div>
+    <a class="nav-item" onclick="showPage('security')">
+      <span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">⊗</span>
+      Security & Teams
+    </a>
+    <a class="nav-item" onclick="showPage('lifecycle')">
+      <span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">⟳</span>
+      Lifecycle Management
+    </a>
+
+    <div class="nav-section-title">Interview Prep</div>
+    <a class="nav-item" onclick="showPage('interview')">
+      <span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">★</span>
+      Interview Quick Ref
+    </a>
+
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div id="main">
+
+  <div class="topbar">
+    <div class="topbar-breadcrumb">
+      SAP Analytics Cloud <span>›</span> <span id="breadcrumb-current">Overview & Architecture</span>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" onclick="toggleTheme()">☀ Light Mode</button>
+    </div>
+  </div>
+
+  <!-- ======================== PAGE: OVERVIEW ======================== -->
+  <div class="page active" id="page-overview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Overview & Architecture</h1>
+      <p class="lead">SAP Analytics Cloud (SAC) is a single, cloud-based solution that integrates Business Intelligence (BI), Augmented Analytics, and Enterprise Planning into one user interface.</p>
+    </div>
+
+    <h2>What is SAP Analytics Cloud?</h2>
+    <p>Built natively on the SAP Business Technology Platform (BTP) and powered by SAP HANA in-memory technology, SAC removes the need for standalone reporting, planning, and predictive tools. It provides a <span class="highlight">unified platform</span> for all analytics use cases.</p>
+
+    <div class="info-box">
+      <strong>Core Philosophy:</strong> Discover, Visualize, Plan, and Predict in a single workflow. Instead of jumping between SAP BPC for planning, SAP Lumira/WebI for reporting, and SAP Predictive Analytics, users can do it all within an SAC Story.
+    </div>
+
+    <h2>Core Capability Areas</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(14,165,233,.15)">📊</div>
+          <div class="card-title">Business Intelligence (BI)</div>
+        </div>
+        <p>Connect to live or imported data to create interactive dashboards, self-service data exploration, and formatted reporting.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(240,136,62,.15)">📝</div>
+          <div class="card-title">Enterprise Planning</div>
+        </div>
+        <p>Create and distribute budgets, run predictive forecasts, execute advanced allocation rules, and write data back to SAP systems.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(163,113,247,.15)">🔮</div>
+          <div class="card-title">Augmented Analytics</div>
+        </div>
+        <p>Leverage machine learning algorithms to uncover hidden drivers (Smart Discovery), automate insights (Smart Insights), and forecast future values.</p>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(63,185,80,.15)">{ }</div>
+          <div class="card-title">Application Design</div>
+        </div>
+        <p>Build custom, complex analytic applications with sophisticated scripting, custom widgets, and advanced UI interactions.</p>
+      </div>
+    </div>
+
+    <h2>Architecture & Hosting</h2>
+    <p>SAC is offered purely as a <span class="highlight">Software-as-a-Service (SaaS)</span>. Customers access it via a web browser. There is no on-premise installation. Updates are pushed out by SAP automatically (either on a Fast Track or Quarterly Release Cycle).</p>
+
+    <table>
+      <tr><th>Layer</th><th>Technology</th></tr>
+      <tr><td><strong>User Interface</strong></td><td>Web Browser (HTML5/Fiori design guidelines)</td></tr>
+      <tr><td><strong>Application Layer</strong></td><td>SAP Analytics Cloud core services running on SAP BTP</td></tr>
+      <tr><td><strong>Database Layer</strong></td><td>SAP HANA Cloud (tenant database for imported data and metadata)</td></tr>
+      <tr><td><strong>Connectivity</strong></td><td>SAP Cloud Connector & SAP Analytics Cloud Agent (for on-premise)</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CONNECTIONS ======================== -->
+  <div class="page" id="page-connections">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-teal">Getting Started</div>
+      <h1>Live vs Import Connections</h1>
+      <p class="lead">Understanding how SAC connects to data is the most critical architectural decision. SAC offers two fundamental connectivity paradigms: Live Data and Acquired (Import) Data.</p>
+    </div>
+
+    <h2>Live Data Connection</h2>
+    <p>In a Live connection, data <span class="highlight">never leaves the source system</span>. SAC only retrieves metadata (to build the model) and queries the source system in real-time when a user opens a story. The heavy lifting (aggregations, calculations) is done by the source database.</p>
+    <ul>
+      <li><strong>Data Privacy:</strong> Highly secure; sensitive data remains behind your corporate firewall.</li>
+      <li><strong>Freshness:</strong> Real-time. What you see is exactly what is in the source at that second.</li>
+      <li><strong>Authorization:</strong> Security roles defined in the source system (e.g., SAP BW Analysis Authorizations or HANA privileges) are strictly applied.</li>
+      <li><strong>Supported Sources:</strong> SAP HANA, SAP BW/4HANA, SAP S/4HANA, SAP Datasphere, SAP BPC, SAP Universe (BOBJ).</li>
+    </ul>
+
+    <h2>Acquired (Import) Data Connection</h2>
+    <p>In an Import connection, data is physical copied (extracted) from the source system and stored securely inside SAC's internal HANA database. Data can be refreshed via scheduled jobs.</p>
+    <ul>
+      <li><strong>Data Blending:</strong> Allows joining data from multiple disparate sources (e.g., SAP S/4HANA + Salesforce + flat files) inside the SAC model.</li>
+      <li><strong>Smart Features:</strong> Full access to Smart Predict and advanced wrangling features.</li>
+      <li><strong>Planning:</strong> Requires imported models (except when planning against SAP BPC live or specific Datasphere architectures).</li>
+      <li><strong>Supported Sources:</strong> Almost anything (OData, SQL databases, SuccessFactors, Concur, Google Drive, Excel, flat files).</li>
+    </ul>
+
+    <div class="tip-box">
+      <strong>Best Practice Rule of Thumb:</strong> If your data is in an SAP system (HANA, BW, Datasphere), use a <strong>Live Connection</strong> unless you specifically need robust data blending across disparate sources or require extensive machine learning/predictive workflows not supported live.
+    </div>
+
+    <h2>Comparison Matrix</h2>
+    <table>
+      <tr><th>Capability</th><th>Live Connection</th><th>Import Connection</th></tr>
+      <tr><td>Data Storage</td><td>Remains in source system</td><td>Copied to SAC internal HANA</td></tr>
+      <tr><td>Data Freshness</td><td>Real-time</td><td>Scheduled / Manual Refresh</td></tr>
+      <tr><td>Data Volume Limit</td><td>Source system limits</td><td>SAC tenant memory limits</td></tr>
+      <tr><td>Data Security applied by</td><td>Source system</td><td>SAC (Data Access Control)</td></tr>
+      <tr><td>Data Blending</td><td>Limited (Browser-based blending)</td><td>Full capability in Data Preparation</td></tr>
+      <tr><td>Planning Workflows</td><td>Limited (BPC / Datasphere)</td><td>Fully Supported</td></tr>
+    </table>
+
+    <h2>SAP Cloud Connector & SAC Agent</h2>
+    <p>To connect to <em>on-premise</em> systems (both Live and Import), you must install the <span class="highlight">SAP Cloud Connector</span>. For Import connections specifically from on-premise sources (like SQL Server or older SAP ERP), the <span class="highlight">SAP Analytics Cloud Agent</span> is also required to facilitate data extraction.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PERSONAS ======================== -->
+  <div class="page" id="page-personas">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Getting Started</div>
+      <h1>Roles & Licenses</h1>
+      <p class="lead">SAC uses a combination of Licenses, Roles, and Teams to control what users can do and see within the tenant.</p>
+    </div>
+
+    <h2>License Types</h2>
+    <p>Licenses represent the commercial entitlement. A user must be assigned a license type before they can do anything. The primary licenses are:</p>
+    <table>
+      <tr><th>License Type</th><th>Target Audience</th><th>Key Capabilities</th></tr>
+      <tr><td><strong>Business Intelligence (BI)</strong></td><td>Analysts, Report Consumers</td><td>View stories, create stories, data modeling, use Smart Insights. Cannot perform planning.</td></tr>
+      <tr><td><strong>Planning Standard</strong></td><td>Contributors</td><td>Everything in BI + execute data actions, input planning data, view public versions.</td></tr>
+      <tr><td><strong>Planning Professional</strong></td><td>Planners, Controllers</td><td>Everything in Standard + create planning models, configure allocations, create Value Driver Trees.</td></tr>
+      <tr><td><strong>Analytics Hub</strong></td><td>Consumers</td><td>Access to the centralized Analytics Hub catalog only.</td></tr>
+    </table>
+
+    <h2>Standard Roles</h2>
+    <p>While licenses grant the capability, <span class="highlight">Roles</span> grant the actual permission to execute actions. SAC comes with standard roles, and administrators can create custom roles.</p>
+    <ul>
+      <li><strong>Admin:</strong> Full access to system configuration, security, and all objects.</li>
+      <li><strong>Modeller:</strong> Create and maintain connections, dimensions, and models.</li>
+      <li><strong>Viewer:</strong> Read-only access to stories and dashboards.</li>
+      <li><strong>Planner:</strong> Can input data into planning models and publish versions.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>License vs. Role:</strong> A user might have a <em>Planning Professional</em> license, but if they are only assigned a <em>Viewer</em> role, they will only be able to view stories. The role cannot exceed the capabilities granted by the license.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: MODELS ======================== -->
+  <div class="page" id="page-models">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Modeling</div>
+      <h1>Classic vs New Models</h1>
+      <p class="lead">The Model is the core data foundation in SAC. It defines the structure (dimensions and measures) that stories and planning processes run on.</p>
+    </div>
+
+    <h2>Datasets vs Models</h2>
+    <p>Before diving into models, it's important to understand datasets:</p>
+    <ul>
+      <li><strong>Dataset:</strong> A flat, unstructured table of data. Excellent for quick, ad-hoc data exploration and Smart Predict. Less rigid.</li>
+      <li><strong>Model:</strong> A structured star-schema. Enforces data governance, hierarchies, and planning logic. Essential for enterprise reporting and planning.</li>
+    </ul>
+
+    <h2>The Classic Model (Account-Based)</h2>
+    <p>Historically, SAC utilized an <span class="highlight">Account-based model</span>. In this architecture, all numeric data is stored in a single generic measure column, and an "Account" dimension dictates what that number means (e.g., Revenue, Cost, Quantity).</p>
+    <ul>
+      <li>Rigid structure: Always requires an Account dimension.</li>
+      <li>Familiar to SAP BPC and Finance users.</li>
+      <li>Currency conversion and aggregations are defined on the Account members.</li>
+    </ul>
+
+    <h2>The New Model (Measure-Based)</h2>
+    <p>Introduced to align with modern data warehousing (like SAP Datasphere and Snowflake), the <span class="highlight">New Model</span> allows for multiple explicit measure columns (e.g., one column for Revenue, one for Quantity, one for Discount).</p>
+    <div class="info-box">
+      <strong>Key Benefit:</strong> The New Model provides massive flexibility. You can still use an Account dimension if you want (for financial statements), but you don't have to. You can also mix Accounts and Measures.
+    </div>
+
+    <h3>New Model Features</h3>
+    <table>
+      <tr><th>Feature</th><th>Advantage</th></tr>
+      <tr><td><strong>Multiple Measures</strong></td><td>Store Quantity, Amount, and Price in separate columns without needing a complex Account dimension.</td></tr>
+      <tr><td><strong>Calculated Measures</strong></td><td>Define complex calculations directly in the model rather than in the story.</td></tr>
+      <tr><td><strong>Flexible Currency</strong></td><td>Supports currency variables and converting a single base measure into multiple target currencies at runtime.</td></tr>
+      <tr><td><strong>Data Integration</strong></td><td>Closer alignment with SAP S/4HANA CDS views and Datasphere analytical datasets.</td></tr>
+    </table>
+
+    <div class="warn-box">
+      <strong>Migration:</strong> SAP is actively encouraging users to migrate Classic models to the New Model type. All new SAP standard business content utilizes the New Model.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: DIMENSIONS ======================== -->
+  <div class="page" id="page-dimensions">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Modeling</div>
+      <h1>Dimensions & Measures</h1>
+      <p class="lead">Dimensions provide the context to your data, while measures provide the quantifiable numbers.</p>
+    </div>
+
+    <h2>Dimension Types</h2>
+    <p>SAC enforces specific dimension types to ensure data behaves correctly, especially for time-series charts and planning.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">📅</div><div class="card-title">Date Dimension</div></div>
+        <p>Crucial for time-series analysis and planning. Supports automatic generation of hierarchies (Year > Quarter > Month).</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">🏢</div><div class="card-title">Organization</div></div>
+        <p>Used to represent company hierarchy (Cost Centers, Regions). Vital for planning data locking and security.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">#</div><div class="card-title">Generic</div></div>
+        <p>Standard dimensions like Product, Customer, or Material. Supports custom properties (attributes) and hierarchies.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">V</div><div class="card-title">Version</div></div>
+        <p>Specific to planning models. Separates Actuals from Budget, Forecast, and custom simulation scenarios.</p>
+      </div>
+    </div>
+
+    <h2>Hierarchies</h2>
+    <p>Hierarchies allow users to drill down from high-level summaries to granular details. SAC supports two main types:</p>
+    <ul>
+      <li><strong>Level-based Hierarchies:</strong> Defined by columns (e.g., Country Column > State Column > City Column).</li>
+      <li><strong>Parent-Child Hierarchies:</strong> Defined by relationships within members of a single dimension (e.g., Employee ID and Manager ID). Best for unbalanced organizational charts.</li>
+    </ul>
+
+    <h2>Public vs Private Dimensions</h2>
+    <table>
+      <tr><th>Type</th><th>Scope</th><th>Use Case</th></tr>
+      <tr><td><strong>Public Dimension</strong></td><td>Can be shared across multiple models in the tenant.</td><td>Master data like Cost Centers, Accounts, or Employees that should be consistent across all dashboards.</td></tr>
+      <tr><td><strong>Private Dimension</strong></td><td>Exists only within a single specific model.</td><td>Model-specific categorizations (e.g., a custom grouping for a one-off marketing campaign).</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: WRANGLING ======================== -->
+  <div class="page" id="page-wrangling">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Modeling</div>
+      <h1>Data Preparation (Wrangling)</h1>
+      <p class="lead">When importing data, the Data Preparation space allows you to clean, format, and transform your data before it enters the model.</p>
+    </div>
+
+    <h2>Transformations</h2>
+    <p>SAC provides an Excel-like grid interface for data wrangling. Common operations include:</p>
+    <ul>
+      <li><strong>Concatenate / Split:</strong> Combine First Name and Last Name, or split a composite string.</li>
+      <li><strong>Replace / Fill:</strong> Replace null values with a default string (e.g., "Unassigned").</li>
+      <li><strong>Change Data Type:</strong> Convert a string representation of a date into an actual Date format SAC can recognize.</li>
+    </ul>
+
+    <h2>Custom Expressions</h2>
+    <p>For advanced transformations, SAC uses a formula language similar to Excel. You can create custom columns based on logic:</p>
+    <pre>-- Example: Creating a Region column based on Country
+IF([Country] = 'US' OR [Country] = 'CA', 'North America', 'Other')</pre>
+
+    <div class="tip-box">
+      <strong>Smart Transformations:</strong> SAC utilizes machine learning to suggest transformations. If it detects a column of dates in different formats, it will prompt a suggestion to harmonize them into a single ISO format.
+    </div>
+
+    <h2>Mapping to the Model</h2>
+    <p>During the data import process, you map the columns from your flat file or SQL query to the Dimensions and Measures defined in your SAC Model. If a member exists in your incoming data that doesn't exist in a Public Dimension, you can configure the job to either reject the row or auto-create the new master data member.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: STORIES ======================== -->
+  <div class="page" id="page-stories">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Story Design</div>
+      <h1>Optimized Design Experience</h1>
+      <p class="lead">A Story is where data comes to life. It is the presentation layer consisting of charts, tables, text, and interactive elements.</p>
+    </div>
+
+    <h2>Optimized Story Experience (ODE)</h2>
+    <p>Historically, SAC had separate interfaces for "Stories" (BI) and "Analytic Applications" (advanced scripting). The <span class="highlight">Optimized Story Experience</span> unifies these. ODE offers faster loading times, smoother interactions, and the ability to seamlessly transition from a standard dashboard to a highly customized scripted application.</p>
+
+    <h2>Page Types</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Responsive Page</strong>
+          <p>Organizes content into lanes. Lanes automatically reflow and stack based on the screen size (desktop vs. tablet vs. mobile). Required for viewing on the SAC Mobile App.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Canvas Page</strong>
+          <p>Pixel-perfect placement. You control the exact X and Y coordinates of every chart. Elements do not move or resize based on the screen. Best for strict formatting (like financial statements).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Grid Page</strong>
+          <p>An Excel-like interface used primarily for high-volume data entry in planning scenarios or rapid tabular analysis.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Story Structure & Theming</h2>
+    <p>Good story design utilizes <strong>Themes</strong> (to consistently apply corporate colors and fonts across all charts) and <strong>Templates</strong> (to ensure standardized layouts across departments).</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: CHARTS ======================== -->
+  <div class="page" id="page-charts">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Story Design</div>
+      <h1>Charts & Tables</h1>
+      <p class="lead">Choosing the right visualization is key to communicating data effectively. SAC provides a rich library of standard and advanced widgets.</p>
+    </div>
+
+    <h2>Chart Types</h2>
+    <table>
+      <tr><th>Category</th><th>Chart Types</th><th>Best Used For</th></tr>
+      <tr><td><strong>Comparison</strong></td><td>Bar, Column, Waterfall</td><td>Comparing values across categories (e.g., Sales by Region). Waterfall is excellent for showing impacts to a total.</td></tr>
+      <tr><td><strong>Trend</strong></td><td>Line, Area, Time Series</td><td>Showing how a measure changes over time (e.g., Revenue over 12 months).</td></tr>
+      <tr><td><strong>Distribution</strong></td><td>Scatter Plot, Bubble, Heat Map</td><td>Identifying correlations or outliers among many data points.</td></tr>
+      <tr><td><strong>Indicator</strong></td><td>Numeric Point, Bullet</td><td>Highlighting a single high-level KPI and comparing it to a target.</td></tr>
+    </table>
+
+    <h2>Advanced Table Features</h2>
+    <p>Tables in SAC are incredibly powerful, acting as more than just data grids:</p>
+    <ul>
+      <li><strong>In-Cell Charts:</strong> Display micro-bar charts directly inside table cells to visualize magnitudes instantly.</li>
+      <li><strong>Thresholds:</strong> Apply conditional formatting (red, yellow, green) based on rules or target comparisons.</li>
+      <li><strong>Responsive Styling:</strong> Tables can auto-hide columns on smaller screens while preserving key data.</li>
+    </ul>
+
+    <h2>Variances</h2>
+    <p>Instead of manually calculating differences, SAC allows you to add <span class="highlight">Variances</span> directly to charts. You can instantly show the difference between Actuals vs. Budget (both absolute value and percentage) integrated visually into a bar chart.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: FILTERS ======================== -->
+  <div class="page" id="page-filters">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Story Design</div>
+      <h1>Filters & Linked Analysis</h1>
+      <p class="lead">Interactivity turns a static report into an analytical tool. Filters and Linked Analysis dictate how user selections impact the data shown.</p>
+    </div>
+
+    <h2>Filter Scope</h2>
+    <p>Filters can be applied at different levels of the story hierarchy:</p>
+    <table>
+      <tr><th>Scope</th><th>Effect</th></tr>
+      <tr><td><strong>Story Filter</strong></td><td>Applies to all pages and all charts within the story. (Often placed in the top filter bar).</td></tr>
+      <tr><td><strong>Page Filter</strong></td><td>Applies only to the widgets on the current active page.</td></tr>
+      <tr><td><strong>Widget Filter</strong></td><td>Applied locally to a single chart or table. Hidden from the end-user by default.</td></tr>
+    </table>
+
+    <h2>Linked Analysis</h2>
+    <p>Linked Analysis allows widgets to interact with each other. If you click on "North America" in a pie chart, you can configure it so that a bar chart next to it automatically filters to show only North American sales.</p>
+    <div class="info-box">
+      <strong>Configuration:</strong> You can set Linked Analysis to affect: Only the selected widget (default), all widgets on the page, or only specific widgets you select manually.
+    </div>
+
+    <h2>Input Controls</h2>
+    <p>Input controls are UI elements (like dropdowns, sliders, or radio buttons) placed directly on the canvas. They allow users to easily toggle filters or swap measures/dimensions dynamically without opening complex menus.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SCRIPTING ======================== -->
+  <div class="page" id="page-scripting">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">Story Design</div>
+      <h1>Advanced Scripting</h1>
+      <p class="lead">With the Optimized Story Experience, you can use JavaScript-based scripting to build custom application logic, complex navigations, and tailored user experiences.</p>
+    </div>
+
+    <h2>When to use Scripting</h2>
+    <p>While SAC's drag-and-drop interface is powerful, scripting is necessary when you need:</p>
+    <ul>
+      <li><strong>Custom Workflows:</strong> Guiding a user through a multi-step planning process with "Next" and "Back" buttons.</li>
+      <li><strong>Dynamic UI Changes:</strong> Hiding/showing charts, changing colors, or swapping data sources based on a specific button click or variable state.</li>
+      <li><strong>Custom API Calls:</strong> Sending data to external systems or triggering BTP integration flows via REST APIs.</li>
+    </ul>
+
+    <h2>Scripting Environment</h2>
+    <p>Scripts are attached to <span class="highlight">Events</span>. For example, a Button widget has an <code>onClick</code> event. A Dropdown has an <code>onSelect</code> event. You write code that executes when that event fires.</p>
+
+    <pre>-- Example: Changing a chart dimension via a dropdown selection
+var selection = Dropdown_1.getSelectedKey();
+Chart_1.removeDimension("Product", Feed.CategoryAxis);
+Chart_1.addDimension(selection, Feed.CategoryAxis);</pre>
+
+    <h2>Custom Widgets</h2>
+    <p>If SAC's standard chart library doesn't meet a specific need (e.g., a highly specific network diagram or D3.js visualization), developers can create <span class="highlight">Custom Web Components</span> and import them into SAC to be used alongside standard charts.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PLANNING ======================== -->
+  <div class="page" id="page-planning">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Planning</div>
+      <h1>Planning Basics & Versions</h1>
+      <p class="lead">SAC Enterprise Planning allows organizations to collaboratively build budgets, execute advanced modeling, and write data back to the database.</p>
+    </div>
+
+    <h2>Versions (Public vs Private)</h2>
+    <p>Version management is central to SAC Planning. Versions allow multiple "truths" to exist simultaneously without overwriting Actuals.</p>
+    <table>
+      <tr><th>Type</th><th>Description</th></tr>
+      <tr><td><strong>Public Version</strong></td><td>Visible to everyone with appropriate access (e.g., Actuals, Approved Budget 2024). Changes are saved directly to the database.</td></tr>
+      <tr><td><strong>Private Version</strong></td><td>A personal sandbox. Created when a user starts adjusting data. Only visible to the creator until they choose to "Publish" it back to a Public Version.</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <strong>Data Entry:</strong> Users enter data directly into Tables within stories. SAC automatically handles disaggregation (e.g., if you type $12,000 for the Year, it automatically splits it into $1,000 per month based on historical weighting or equal distribution).
+    </div>
+
+    <h2>Data Locking & Validation</h2>
+    <p>To control the planning cycle, administrators use <span class="highlight">Data Locking</span>. You can lock specific slices of data (e.g., locking Q1 Actuals so they cannot be changed, while leaving Q2-Q4 Open for forecasting).</p>
+    <p><strong>Validation Rules</strong> ensure data integrity (e.g., preventing users from planning Headcount expenses against a non-HR cost center).</p>
+
+    <h2>Calendar & Tasks</h2>
+    <p>The SAC Calendar is a workflow orchestration tool. Managers can create Tasks (e.g., "Complete Regional Q3 Budget"), assign them to specific planners, set deadlines, and track the progress of the entire planning cycle.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: DATAACTIONS ======================== -->
+  <div class="page" id="page-dataactions">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Planning</div>
+      <h1>Data Actions & Formulas</h1>
+      <p class="lead">Data Actions are predefined sequences of operations that execute complex planning logic, calculate values, and move data in bulk.</p>
+    </div>
+
+    <h2>What is a Data Action?</h2>
+    <p>A Data Action is triggered by the end-user via a button in the story. It acts as a batch processor. Common uses include:</p>
+    <ul>
+      <li>Copying Actuals from last year into the Budget version for next year.</li>
+      <li>Calculating depreciation across hundreds of assets.</li>
+      <li>Applying a blanket 5% inflation increase to all operational expenses.</li>
+    </ul>
+
+    <h2>Data Action Steps</h2>
+    <p>A single Data Action can contain multiple sequential steps:</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">⎘</div><div class="card-title">Copy Step</div></div>
+        <p>Simple slice-and-dice copying across versions, periods, or other dimension members.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">∑</div><div class="card-title">Advanced Formula</div></div>
+        <p>Write custom script (similar to BPC script logic) with FOREACH loops and complex IF statements.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(240,136,62,.15)">⬡</div><div class="card-title">Allocation Step</div></div>
+        <p>Execute an allocation rule (e.g., spreading IT overhead costs) as part of the sequence.</p>
+      </div>
+    </div>
+
+    <h2>Advanced Formula Scripting</h2>
+    <p>Advanced Formulas allow you to execute logic that cannot be achieved with simple visual rules.</p>
+    <pre>-- Example: Increase next year's budget by a parameter variable
+DATA([d/Version]="Budget", [d/Date]="2025") = 
+  RESULTLOOKUP([d/Version]="Actuals", [d/Date]="2024") * @InflationRate</pre>
+    <div class="info-box">
+      <strong>Parameters:</strong> Data actions can utilize parameters, prompting the user via a popup to select a specific variable (like the target year or an inflation percentage) before the action runs.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: ALLOCATIONS ======================== -->
+  <div class="page" id="page-allocations">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Planning</div>
+      <h1>Allocations</h1>
+      <p class="lead">Allocations are used to distribute costs or revenues from a high-level bucket down to granular dimensions based on specific drivers.</p>
+    </div>
+
+    <h2>The Allocation Process</h2>
+    <p>A typical scenario: The IT department has a total cost of $1,000,000 stored at a generic "Corporate" level. This cost needs to be allocated to the Sales, Marketing, and HR departments based on their respective headcount.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Source</strong>
+          <p>Where is the money coming from? (e.g., IT Cost Center, Unassigned Product).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Driver</strong>
+          <p>What determines the split? This can be direct (evenly split), based on another measure (Headcount, Square Footage), or based on historical actuals.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Target</strong>
+          <p>Where does the money go? (e.g., Receiver Cost Centers, specific Product lines).</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Visual Allocation Rules</h2>
+    <p>SAC provides a visual designer to build these steps without scripting. You create an <span class="highlight">Allocation Process</span> containing multiple Allocation Steps. These processes can be attached to a Data Action button so end-users can run them on demand after inputting driver data.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: VDT ======================== -->
+  <div class="page" id="page-vdt">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-orange">Planning</div>
+      <h1>Value Driver Trees (VDT)</h1>
+      <p class="lead">Value Driver Trees are interactive, visual models used for what-if simulations and top-down/bottom-up scenario planning.</p>
+    </div>
+
+    <h2>What is a VDT?</h2>
+    <p>A VDT links various business drivers mathematically in a visual flowchart. For example, a tree might show: <code>Gross Margin = Revenue - Cost of Goods Sold</code>. Where <code>Revenue = Volume * Price</code>.</p>
+    <p>Nodes in the tree represent measures and dimensions from your planning model.</p>
+
+    <h2>Simulation & What-If Analysis</h2>
+    <p>The primary use case for a VDT is rapid simulation. In an SAC Story, a user can interact with the VDT directly:</p>
+    <ul>
+      <li>Change the "Price" node by +5%.</li>
+      <li>The VDT instantly calculates the ripple effect through the tree, updating Revenue and ultimately Gross Margin.</li>
+      <li>This creates a Private Version, allowing the user to simulate multiple "what-if" scenarios (e.g., Best Case vs. Worst Case) before finalizing the plan.</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>YOY Nodes:</strong> VDTs support special Year-Over-Year nodes that automatically handle time-based calculations, making it easy to project growth based on historical trends without complex formulas.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: PREDICTIVE ======================== -->
+  <div class="page" id="page-predictive">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">Augmented Analytics</div>
+      <h1>Smart Predict & Insights</h1>
+      <p class="lead">SAC integrates machine learning directly into the workflow, empowering business users to leverage data science without writing code.</p>
+    </div>
+
+    <h2>Smart Predict</h2>
+    <p>Smart Predict creates dedicated predictive scenarios. It automatically tests multiple ML algorithms behind the scenes and selects the most accurate one for your dataset.</p>
+    <table>
+      <tr><th>Model Type</th><th>Use Case</th></tr>
+      <tr><td><strong>Time Series Forecasting</strong></td><td>Predicting future numeric values based on historical trends (e.g., forecasting next quarter's sales volume). Output can be written back into a planning model.</td></tr>
+      <tr><td><strong>Classification</strong></td><td>Predicting a binary outcome or category (e.g., Will this customer churn? Yes/No).</td></tr>
+      <tr><td><strong>Regression</strong></td><td>Predicting a continuous numeric value based on various independent drivers (e.g., Predicting the maintenance cost of a machine based on age, usage, and temperature).</td></tr>
+    </table>
+
+    <h2>Smart Insights</h2>
+    <p>Smart Insights works directly within a story. By clicking the "lightbulb" icon on a data point (e.g., a dip in Q2 Revenue), SAC analyzes the underlying data and generates natural language explanations and charts highlighting the top contributors to that value (e.g., "Revenue is down because Product X sales dropped 40% in Germany").</p>
+
+    <h2>Smart Discovery</h2>
+    <p>Smart Discovery automates dashboard creation. You select a target measure (e.g., Profit), and SAC runs a machine learning algorithm against the entire model to discover key influencers, outliers, and patterns. It then automatically generates a multi-page story visualizing these findings.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: SECURITY ======================== -->
+  <div class="page" id="page-security">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Administration</div>
+      <h1>Security & Teams</h1>
+      <p class="lead">SAC employs a robust security model combining Roles, Folders, and Data Access Controls to ensure users only see what they are authorized to see.</p>
+    </div>
+
+    <h2>Folder & Object Level Security</h2>
+    <p>Stories, Models, and files are organized into <span class="highlight">Folders</span>. Access rights (View, Edit, Delete, Share) are applied to these folders. Users or Teams are granted access to the folders, inheriting the permissions for the objects inside.</p>
+
+    <h2>Teams</h2>
+    <p>Instead of assigning roles and folder access to individual users, best practice is to use Teams (e.g., "Finance Planners US"). When a new employee joins, you simply add them to the Team, and they inherit all necessary roles and folder access.</p>
+
+    <h2>Data Access Control (DAC)</h2>
+    <p>While folder security controls access to the <em>Story</em>, Data Access Control restricts access to the <em>rows of data</em> within the model.</p>
+    <ul>
+      <li>Enabled at the Dimension level (e.g., turning on DAC for the 'Region' dimension).</li>
+      <li>You map users or teams to specific dimension members (e.g., User A can only see data where Region = 'North America').</li>
+      <li>When User A opens a story, the data is automatically filtered to their authorized regions.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>Live Connection Security:</strong> If you are using a Live Connection (e.g., to HANA or BW), SAC's internal DAC is usually bypassed. The data security is handled entirely by the backend system's authorizations.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: LIFECYCLE ======================== -->
+  <div class="page" id="page-lifecycle">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Administration</div>
+      <h1>Lifecycle Management</h1>
+      <p class="lead">Lifecycle Management (Transporting) is the process of moving content (Models, Stories, Connections) between different SAC environments (e.g., Dev > QA > Prod).</p>
+    </div>
+
+    <h2>Content Network</h2>
+    <p>The <span class="highlight">Content Network</span> is SAC's internal mechanism for transporting objects.</p>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Export (Dev)</strong>
+          <p>An admin bundles the Story, its underlying Model, and necessary Dimensions into an Export Package.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Transport</strong>
+          <p>The package is published to the Content Network, making it visible to linked tenant systems.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Import (Prod)</strong>
+          <p>An admin in the Production tenant selects the package and imports it. SAC handles object ID mapping and dependency resolution.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>SAP Business Content</h2>
+    <p>The Content Network is also where customers can download <span class="highlight">SAP Standard Business Content</span>. These are free, pre-built packages created by SAP for specific industries (e.g., Retail, Banking) or Lines of Business (e.g., HR, Finance, S/4HANA integrations). They provide best-practice models, stories, and data actions out-of-the-box, significantly accelerating implementation time.</p>
+
+  </div>
+  </div>
+
+  <!-- ======================== PAGE: INTERVIEW ======================== -->
+  <div class="page" id="page-interview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-accent">Quick Reference</div>
+      <h1>Interview Quick Reference</h1>
+      <p class="lead">Key concepts, comparison tables, and common interview questions across SAP Analytics Cloud topics.</p>
+    </div>
+
+    <h2>Most Asked Comparison Questions</h2>
+
+    <h3>Live vs Import Connection</h3>
+    <table>
+      <tr><th>Feature</th><th>Live</th><th>Import</th></tr>
+      <tr><td>Data Location</td><td>Source</td><td>SAC HANA</td></tr>
+      <tr><td>Performance Dependency</td><td>Source DB</td><td>SAC Tenant</td></tr>
+      <tr><td>Smart Predict</td><td>No (Mostly)</td><td>Yes</td></tr>
+      <tr><td>Data Blending</td><td>Limited</td><td>Full</td></tr>
+    </table>
+
+    <h3>Classic Model vs New Model</h3>
+    <table>
+      <tr><th>Feature</th><th>Classic Model</th><th>New Model</th></tr>
+      <tr><td>Measure Structure</td><td>Single measure, Account-driven</td><td>Multiple explicit measures</td></tr>
+      <tr><td>Calculations</td><td>Often story-level</td><td>Model-level calculated measures</td></tr>
+      <tr><td>Alignment</td><td>Legacy BPC</td><td>Modern BW/Datasphere</td></tr>
+    </table>
+
+    <h3>Story Filters vs Page Filters vs Input Controls</h3>
+    <table>
+      <tr><th>Type</th><th>Scope</th><th>Interaction</th></tr>
+      <tr><td>Story Filter</td><td>All pages</td><td>Top filter bar</td></tr>
+      <tr><td>Page Filter</td><td>Current page only</td><td>Top filter bar</td></tr>
+      <tr><td>Input Control</td><td>Specific/All widgets</td><td>On-canvas UI element</td></tr>
+    </table>
+
+    <h2>Key Terms to Know Cold</h2>
+    <table>
+      <tr><th>Term</th><th>One-line definition</th></tr>
+      <tr><td>Data Action</td><td>Batch process for planning logic (copy, calculate, allocate).</td></tr>
+      <tr><td>Value Driver Tree</td><td>Visual what-if simulation tool linking business drivers mathematically.</td></tr>
+      <tr><td>Smart Discovery</td><td>ML feature that auto-generates a story identifying key influencers of a measure.</td></tr>
+      <tr><td>Optimized Design Exp.</td><td>Unified UI for building both standard dashboards and scripted analytical apps.</td></tr>
+      <tr><td>Private Version</td><td>A planner's personal sandbox of data, not visible to others until published.</td></tr>
+      <tr><td>Data Access Control</td><td>Row-level security applied to dimensions to restrict data visibility.</td></tr>
+    </table>
+
+    <h2>Common Interview Questions</h2>
+    <ol>
+      <li>What are the primary differences between a Live and an Import connection? When would you use each?</li>
+      <li>Explain the difference between an Account-based (Classic) model and a Measure-based (New) model.</li>
+      <li>How does SAC handle data security at both the object (folder) level and the data row level?</li>
+      <li>Walk me through the steps to set up a basic allocation process in SAC Planning.</li>
+      <li>What is a Data Action, and what are the different types of steps you can include in one?</li>
+      <li>How does Smart Predict differ from Smart Insights?</li>
+      <li>What is the difference between a Responsive page and a Canvas page in an SAC Story?</li>
+      <li>How do you transport content from a Development SAC tenant to a Production tenant?</li>
+    </ol>
+
+  </div>
+  </div>
+
+</div><!-- end main -->
+
+<script>
+const pages = {
+  'overview': 'Overview & Architecture',
+  'connections': 'Live vs Import Connections',
+  'personas': 'Roles & Licenses',
+  'models': 'Classic vs New Models',
+  'dimensions': 'Dimensions & Measures',
+  'wrangling': 'Data Preparation',
+  'stories': 'Optimized Design Experience',
+  'charts': 'Charts & Tables',
+  'filters': 'Filters & Linked Analysis',
+  'scripting': 'Advanced Scripting',
+  'planning': 'Planning Basics & Versions',
+  'dataactions': 'Data Actions & Formulas',
+  'allocations': 'Allocations',
+  'vdt': 'Value Driver Trees',
+  'predictive': 'Smart Predict & Insights',
+  'security': 'Security & Teams',
+  'lifecycle': 'Lifecycle Management',
+  'interview': 'Interview Quick Reference'
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.classList.add('active');
+    document.getElementById('main').scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) {
+      n.classList.add('active');
+    }
+  });
+  document.getElementById('breadcrumb-current').textContent = pages[id] || id;
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('light') ? '☾ Dark Mode' : '☀ Light Mode';
+}
+
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.style.display = (!v || n.textContent.toLowerCase().includes(v)) ? '' : 'none';
+  });
+}
+
+// Progress bar on scroll
+const mainEl = document.getElementById('main');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.transform = `scaleX(${total > 0 ? scrolled/total : 0})`;
+  document.getElementById('totop').classList.toggle('visible', scrolled > 300);
+});
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP S/4HANA — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #30363d;
+  --border: #30363d; --border2: #21262d;
+  --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+  --accent: #0ea5e9; --accent2: #38bdf8; --green: #3fb950;
+  --orange: #f0883e; --purple: #a371f7; --red: #f85149;
+  --yellow: #d29922; --teal: #2dd4bf; --sidebar-w: 280px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+#sidebar { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-logo .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: rgba(14,165,233,.12); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+.sidebar-logo h1 { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.sidebar-search { padding: 12px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+.sidebar-search input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .2s; }
+.sidebar-search input:focus { border-color: var(--accent); }
+.sidebar-nav { padding: 8px 0; flex: 1; }
+.nav-section-title { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 10px 20px 4px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 20px; cursor: pointer; font-size: 13px; color: var(--text2); border-left: 2px solid transparent; transition: all .15s; text-decoration: none; }
+.nav-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(14,165,233,.08); }
+.nav-item .nav-icon { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+#main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+.topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-breadcrumb { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+.topbar-breadcrumb span { color: var(--text2); }
+.theme-toggle { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.page { display: none; }
+.page.active { display: block; }
+.page-content { max-width: 860px; padding: 48px 48px 80px; }
+.page-hero { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border2); }
+.page-hero .badge { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
+.badge-blue { background: rgba(14,165,233,.15); color: var(--accent2); }
+.badge-green { background: rgba(63,185,80,.15); color: var(--green); }
+.badge-orange { background: rgba(240,136,62,.15); color: var(--orange); }
+.badge-purple { background: rgba(163,113,247,.15); color: var(--purple); }
+.badge-teal { background: rgba(45,212,191,.15); color: var(--teal); }
+.badge-red { background: rgba(248,81,73,.15); color: var(--red); }
+.page-hero h1 { font-size: 32px; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 10px; }
+.page-hero .lead { font-size: 16px; color: var(--text2); line-height: 1.7; max-width: 680px; }
+h2 { font-size: 20px; font-weight: 600; color: var(--text); margin: 36px 0 12px; padding-top: 4px; }
+h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+p { color: var(--text2); margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; }
+.info-box { background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.info-box strong { color: var(--accent2); }
+.warn-box { background: rgba(240,136,62,.07); border: 1px solid rgba(240,136,62,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.warn-box strong { color: var(--orange); }
+.tip-box { background: rgba(63,185,80,.07); border: 1px solid rgba(63,185,80,.25); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.tip-box strong { color: var(--green); }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0 20px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+th { background: var(--bg3); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.6; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: border-color .2s; }
+.card:hover { border-color: var(--border); }
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.card-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.card p { font-size: 12.5px; color: var(--text2); margin: 0; line-height: 1.6; }
+code { font-family: 'DM Mono', monospace; font-size: 12.5px; background: var(--bg3); color: var(--teal); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+pre { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; overflow-x: auto; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--teal); margin: 14px 0; line-height: 1.6; }
+ul, ol { padding-left: 0; list-style: none; margin: 10px 0 14px; }
+ul li, ol li { font-size: 14px; color: var(--text2); padding: 4px 0 4px 20px; position: relative; line-height: 1.65; }
+ul li::before { content: "→"; position: absolute; left: 0; color: var(--text3); font-size: 12px; }
+ol { counter-reset: li; }
+ol li { counter-increment: li; }
+ol li::before { content: counter(li); position: absolute; left: 0; color: var(--accent); font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace; top: 6px; }
+.highlight { color: var(--accent2); font-weight: 500; }
+.step-list { margin: 14px 0; }
+.step-item { display: flex; gap: 14px; margin-bottom: 16px; }
+.step-num { width: 26px; height: 26px; background: rgba(14,165,233,.15); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; font-family: 'DM Mono', monospace; }
+.step-content { flex: 1; }
+.step-content strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 3px; }
+.step-content p { margin: 0; font-size: 13px; }
+body.light { --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e4e7eb; --border: #d0d7de; --border2: #eaeef2; --text: #1f2328; --text2: #4b5563; --text3: #8b949e; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+#progress { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--teal)); transform-origin: left; transform: scaleX(0); transition: transform .1s; z-index: 200; }
+#totop { position: fixed; bottom: 24px; right: 24px; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; pointer-events: none; transition: all .2s; font-size: 16px; z-index: 100; }
+#totop.visible { opacity: 1; pointer-events: all; }
+#totop:hover { background: var(--accent); color: white; border-color: var(--accent); }
+@media (max-width: 768px) { #sidebar { transform: translateX(-100%); transition: transform .3s; } #sidebar.open { transform: translateX(0); } #main { margin-left: 0; } .page-content { padding: 24px 20px 60px; } .topbar { padding: 12px 20px; } .card-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="progress"></div><div id="totop" onclick="scrollToTop()">↑</div>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">Reference Guide</div>
+    <h1>SAP S/4HANA</h1>
+    <p>Architecture & Analytics Integration</p>
+  </div>
+  <div class="sidebar-search"><input type="text" id="searchInput" placeholder="Search topics..." oninput="filterNav(this.value)"></div>
+  <div class="sidebar-nav" id="navTree">
+    <div class="nav-section-title">Getting Started</div>
+    <a class="nav-item active" onclick="showPage('overview')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">◈</span>Overview & Simplification</a>
+    <a class="nav-item" onclick="showPage('deployment')"><span class="nav-icon" style="background:rgba(14,165,233,.15);color:var(--accent)">⬡</span>Deployment Options</a>
+    
+    <div class="nav-section-title">Data Architecture</div>
+    <a class="nav-item" onclick="showPage('acdoca')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">🗄️</span>The Universal Journal</a>
+    <a class="nav-item" onclick="showPage('cdsviews')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">👁️</span>Core Data Services (CDS)</a>
+    <a class="nav-item" onclick="showPage('fiori')"><span class="nav-icon" style="background:rgba(63,185,80,.15);color:var(--green)">📱</span>Fiori UX & Embedded Analytics</a>
+
+    <div class="nav-section-title">SAP Analytics Cloud (SAC)</div>
+    <a class="nav-item" onclick="showPage('sacin')"><span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">📊</span>Embedded vs Enterprise SAC</a>
+    <a class="nav-item" onclick="showPage('sacconnect')"><span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">⟷</span>Live & Import Connections</a>
+    <a class="nav-item" onclick="showPage('sacplanning')"><span class="nav-icon" style="background:rgba(209,153,34,.15);color:var(--yellow)">📝</span>Planning Write-back</a>
+
+    <div class="nav-section-title">SAP Datasphere</div>
+    <a class="nav-item" onclick="showPage('dsconnect')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🔗</span>Connection Types (ODP, Cloud)</a>
+    <a class="nav-item" onclick="showPage('dsonboard')"><span class="nav-icon" style="background:rgba(163,113,247,.15);color:var(--purple)">🧠</span>Semantic Onboarding</a>
+
+    <div class="nav-section-title">Interview Prep</div>
+    <a class="nav-item" onclick="showPage('interview')"><span class="nav-icon" style="background:rgba(248,81,73,.15);color:var(--red)">★</span>Interview Quick Ref</a>
+  </div>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">SAP S/4HANA <span>›</span> <span id="breadcrumb-current">Overview & Simplification</span></div>
+    <div class="topbar-right"><button class="theme-toggle" onclick="toggleTheme()">☀ Light Mode</button></div>
+  </div>
+
+  <!-- PAGE: OVERVIEW -->
+  <div class="page active" id="page-overview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Overview & Simplification</h1>
+      <p class="lead">SAP S/4HANA (SAP Business Suite 4 SAP HANA) is SAP's next-generation Enterprise Resource Planning (ERP) suite, built entirely on the advanced in-memory platform, SAP HANA.</p>
+    </div>
+
+    <h2>The Core Philosophy: Simplification</h2>
+    <p>Unlike its predecessor, SAP ECC, S/4HANA drastically simplifies the underlying data model. By leveraging the speed of the HANA database, SAP eliminated redundant tables, indices, and aggregate tables that were previously necessary for performance on traditional databases.</p>
+
+    <ul>
+      <li><strong>Smaller Data Footprint:</strong> Removing aggregate tables significantly reduces database size and maintenance costs.</li>
+      <li><strong>Real-Time Analytics:</strong> OLTP (Transaction Processing) and OLAP (Analytical Processing) are merged into a single system. You can report on live transactional data instantly without waiting for overnight ETL batches.</li>
+      <li><strong>New User Experience:</strong> The traditional SAP GUI is largely replaced by the modern, role-based SAP Fiori web interface.</li>
+    </ul>
+
+    <h2>The Simplification Item Catalog</h2>
+    <p>For customers migrating from ECC to S/4HANA, SAP provides the Simplification Item Catalog. This is a comprehensive list of what has changed, been replaced, or been deprecated. For example, traditional vendor and customer master data transactions (<code>XK01</code>, <code>XD01</code>) are replaced by a single Business Partner (<code>BP</code>) transaction.</p>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DEPLOYMENT -->
+  <div class="page" id="page-deployment">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-blue">Getting Started</div>
+      <h1>Deployment Options</h1>
+      <p class="lead">SAP offers S/4HANA in several deployment models to accommodate different IT strategies, customization needs, and cloud readiness.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(14,165,233,.15)">☁️</div><div class="card-title">Public Cloud Edition</div></div>
+        <p>A pure SaaS model. Highly standardized, fast time-to-value, managed entirely by SAP. Customizations are strictly limited to in-app extensions or side-by-side extensibility via SAP BTP. Upgrades are automatic and mandatory.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(163,113,247,.15)">🏢</div><div class="card-title">Private Cloud Edition (RISE)</div></div>
+        <p>A dedicated cloud environment offering the flexibility of an on-premise system with the benefits of cloud infrastructure. Allows for classic ABAP enhancements and full system control, while SAP manages the technical backend.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-icon" style="background:rgba(63,185,80,.15)">🖥️</div><div class="card-title">On-Premise</div></div>
+        <p>Traditional deployment hosted in the customer's own data center or chosen IaaS provider. Maximum control over infrastructure, data residency, and upgrade cycles. Full customization allowed.</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: ACDOCA -->
+  <div class="page" id="page-acdoca">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Architecture</div>
+      <h1>The Universal Journal (ACDOCA)</h1>
+      <p class="lead">The most profound architectural change in S/4HANA Finance is the introduction of the Universal Journal, represented by a single database table: <code>ACDOCA</code>.</p>
+    </div>
+
+    <h2>Eliminating Data Silos</h2>
+    <p>In SAP ECC, financial data was stored across dozens of separate tables depending on the sub-module: General Ledger (BSEG/BKPF), Controlling (COEP), Asset Accounting (ANEK/ANEP), and Material Ledger (MLIT). This required constant reconciliation programs at month-end to ensure FI and CO matched.</p>
+
+    <p>In S/4HANA, all of these modules write their transactional line items into one single table: <span class="highlight">ACDOCA</span>.</p>
+
+    <h2>Benefits of the Universal Journal</h2>
+    <ul>
+      <li><strong>Single Source of Truth:</strong> Financial Accounting (FI) and Controlling (CO) are instantly and always reconciled by design.</li>
+      <li><strong>Multi-Dimensional Reporting:</strong> You can query profitability, asset values, and general ledger balances from one table simultaneously.</li>
+      <li><strong>High Speed:</strong> Because there is only one table, database inserts and reads are exponentially faster, enabling real-time financial close capabilities.</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>Logistics Equivalent:</strong> A similar simplification occurred in Logistics with the introduction of table <code>MATDOC</code>, which consolidates inventory management tables (MKPF, MSEG) into a single material document table.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: CDS VIEWS -->
+  <div class="page" id="page-cdsviews">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Architecture</div>
+      <h1>Core Data Services (CDS) Views</h1>
+      <p class="lead">CDS Views are the foundation of SAP's new programming model and analytics strategy, replacing traditional ABAP dictionary views.</p>
+    </div>
+
+    <h2>What are CDS Views?</h2>
+    <p>CDS is a data modeling infrastructure. Instead of just joining tables, CDS views add rich business semantics (like currency conversions, authorizations, and analytical aggregations) directly at the database level.</p>
+    <p>Because CDS logic is executed in the HANA database layer (Code-to-Data paradigm), they are incredibly fast and form the basis of the <span class="highlight">Virtual Data Model (VDM)</span> in S/4HANA.</p>
+
+    <h2>The Virtual Data Model Architecture</h2>
+    <p>SAP organizes CDS views into a layered architecture to build complex analytics from simple tables:</p>
+    <table>
+      <tr><th>Layer</th><th>View Type</th><th>Purpose</th></tr>
+      <tr><td><strong>Basic Views</strong></td><td><code>I_</code> (Interface)</td><td>Directly read from raw tables (e.g., ACDOCA). Contains no complex calculations. Reusable foundations.</td></tr>
+      <tr><td><strong>Composite Views</strong></td><td><code>I_</code> (Interface)</td><td>Join multiple Basic Views together. Perform calculations, currency translations, and complex aggregations.</td></tr>
+      <tr><td><strong>Consumption Views</strong></td><td><code>C_</code> (Consumption)</td><td>The final layer exposed to the end-user or UI. Tailored for specific Fiori apps, SAC reports, or external APIs. Often includes OData annotations.</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- PAGE: FIORI -->
+  <div class="page" id="page-fiori">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-green">Data Architecture</div>
+      <h1>Fiori UX & Embedded Analytics</h1>
+      <p class="lead">Fiori is the modern face of SAP, transforming the user experience from complex, transaction-code-driven screens to role-based, intuitive web apps.</p>
+    </div>
+
+    <h2>Fiori Launchpad</h2>
+    <p>The central entry point for S/4HANA. Users log into a web portal tailored to their role (e.g., Accounts Payable Clerk, Plant Manager) containing only the tiles (apps) they need.</p>
+
+    <h2>S/4HANA Embedded Analytics</h2>
+    <p>Because S/4HANA runs on the HANA database, it provides powerful analytics directly inside the ERP system without needing a separate BW system. This is known as Embedded Analytics.</p>
+
+    <ul>
+      <li><strong>Analytical List Pages (ALPs):</strong> Interactive dashboards blending charts and transactional data grids.</li>
+      <li><strong>Overview Pages (OVPs):</strong> High-level dashboards showing multiple KPIs at a glance.</li>
+      <li><strong>Multi-Dimensional Reports:</strong> Pivot-table style reporting inside Fiori, driven directly by underlying CDS Views.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>Embedded vs. Enterprise Analytics:</strong> S/4HANA Embedded Analytics is strictly for real-time operational reporting on data <em>within</em> the S/4HANA system. If you need to blend S/4HANA data with Salesforce, SuccessFactors, or historical BW data, you need an Enterprise solution like SAP Datasphere or SAP Analytics Cloud.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SAC EMBEDDED -->
+  <div class="page" id="page-sacin">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">SAP Analytics Cloud</div>
+      <h1>Embedded vs Enterprise SAC</h1>
+      <p class="lead">SAP Analytics Cloud (SAC) interacts with S/4HANA in two distinct ways: Embedded within the ERP, or as a standalone Enterprise tenant.</p>
+    </div>
+
+    <h2>Embedded SAC in S/4HANA Cloud</h2>
+    <p>SAP embeds a lightweight version of SAC directly into S/4HANA Cloud (and it is also available for On-Premise via specific setups). This is accessed through the Fiori Launchpad.</p>
+    <ul>
+      <li><strong>Use Case:</strong> Creating highly formatted operational dashboards directly on live S/4HANA data.</li>
+      <li><strong>Capabilities:</strong> Story building and Data Analyzer.</li>
+      <li><strong>Limitations:</strong> No planning features, no Smart Predict, and you cannot connect to external non-S/4HANA data sources. The tenant is managed by the S/4HANA system.</li>
+    </ul>
+
+    <h2>Enterprise SAC</h2>
+    <p>This is the full, standalone SAP Analytics Cloud product. It connects to S/4HANA as a source system, alongside other data sources.</p>
+    <ul>
+      <li><strong>Use Case:</strong> Cross-enterprise reporting, financial planning, and augmented analytics.</li>
+      <li><strong>Capabilities:</strong> Full suite (BI, Planning, Predictive). Can blend S/4HANA data with HR, CRM, and flat files.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SAC CONNECT -->
+  <div class="page" id="page-sacconnect">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">SAP Analytics Cloud</div>
+      <h1>Live & Import Connections</h1>
+      <p class="lead">When connecting Enterprise SAC to S/4HANA, architects must choose between Live and Import connections based on the reporting requirements.</p>
+    </div>
+
+    <h2>Live Data Connection</h2>
+    <p>In a Live connection, SAC only queries the S/4HANA CDS Views when the user opens the dashboard. The data never leaves the ERP system.</p>
+    <ul>
+      <li><strong>Technology:</strong> SAC connects to S/4HANA via the Information Access (InA) service over HTTPS. For on-premise systems, this requires configuring CORS (Cross-Origin Resource Sharing) and SAML SSO so the user's browser can securely request data from the ERP.</li>
+      <li><strong>Security:</strong> Authorizations defined in S/4HANA (PFCG roles, DCLs on CDS views) are strictly respected.</li>
+      <li><strong>Best For:</strong> Real-time operational reporting on highly sensitive data.</li>
+    </ul>
+
+    <h2>Import Data Connection</h2>
+    <p>Data is extracted from S/4HANA and physically stored in SAC's internal HANA database.</p>
+    <ul>
+      <li><strong>Technology:</strong> Connects to S/4HANA via OData Services. For on-premise, this requires the SAP Cloud Connector and SAC Agent to facilitate the secure tunnel.</li>
+      <li><strong>Best For:</strong> Complex data blending, utilizing Smart Predict features, and establishing the base data for Enterprise Planning models.</li>
+    </ul>
+
+  </div>
+  </div>
+
+  <!-- PAGE: SAC PLANNING -->
+  <div class="page" id="page-sacplanning">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-yellow">SAP Analytics Cloud</div>
+      <h1>Planning Write-back</h1>
+      <p class="lead">S/4HANA integrates bidirectionally with SAC, allowing organizations to execute complex financial plans in the cloud and push the results back into the ERP.</p>
+    </div>
+
+    <h2>Integrated Financial Planning</h2>
+    <p>SAP provides standard Business Content in SAC specifically for S/4HANA Integrated Financial Planning (IFP). This includes pre-built models for OPEX, CAPEX, Sales, and Headcount planning.</p>
+
+    <h2>The Write-back Process</h2>
+    <p>Once planners have finished simulating budgets in SAC, the approved plan data needs to be pushed back into S/4HANA (specifically into the <code>ACDOCP</code> table, which is the planning equivalent of ACDOCA).</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>OData API Setup</strong>
+          <p>An OData service for financial plan data write-back must be activated in S/4HANA.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Data Export Service</strong>
+          <p>Within SAC, an Export Job is configured targeting the S/4HANA OData connection.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Execution</strong>
+          <p>When triggered (manually or via a Multi-Action), SAC maps its dimensions to the S/4HANA fields and sends the records back, where they are stored as Plan versions in S/4HANA for variance reporting against Actuals.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DS CONNECT -->
+  <div class="page" id="page-dsconnect">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">SAP Datasphere</div>
+      <h1>Connection Types (ODP, Cloud)</h1>
+      <p class="lead">SAP Datasphere acts as the Business Data Fabric, and connecting it to S/4HANA is the most critical integration point for enterprise analytics.</p>
+    </div>
+
+    <h2>Connecting S/4HANA On-Premise</h2>
+    <p>Connecting an on-premise S/4HANA system to the cloud-based Datasphere requires secure tunneling and extraction agents.</p>
+    <ul>
+      <li><strong>SAP Cloud Connector:</strong> The fundamental tunnel that allows Datasphere to securely ping the on-premise network without opening firewalls.</li>
+      <li><strong>Data Provisioning Agent (DP Agent):</strong> Installed locally, the DP Agent handles the actual data transfer protocols (Smart Data Integration - SDI).</li>
+    </ul>
+
+    <h2>Connecting S/4HANA Cloud</h2>
+    <p>Connecting S/4HANA Public Cloud is much simpler, as it is already a cloud-native SaaS product. It relies on direct HTTPS connections and standardized communication arrangements.</p>
+
+    <h2>Extraction via ODP Framework</h2>
+    <p>Datasphere extracts data from S/4HANA using the <span class="highlight">Operational Data Provisioning (ODP)</span> framework. Instead of extracting raw tables, Datasphere connects to ODP-enabled ABAP CDS Views.</p>
+    <div class="info-box">
+      <strong>Delta Capability:</strong> By utilizing ODP-CDS extractors, Datasphere can subscribe to Delta queues. When a new transaction happens in S/4HANA, only the changed record is sent to Datasphere, ensuring high-performance replication.
+    </div>
+
+  </div>
+  </div>
+
+  <!-- PAGE: DS ONBOARD -->
+  <div class="page" id="page-dsonboard">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-purple">SAP Datasphere</div>
+      <h1>Semantic Onboarding</h1>
+      <p class="lead">Extracting data is only half the battle. Preserving the business context (semantics) when moving data from S/4HANA to Datasphere is crucial.</p>
+    </div>
+
+    <h2>What is Semantic Onboarding?</h2>
+    <p>When you import an S/4HANA CDS View into Datasphere, Semantic Onboarding ensures that the rich metadata associated with that view is not lost.</p>
+
+    <ul>
+      <li><strong>Associations (Joins):</strong> If an S/4HANA Sales Order CDS view has an association defined pointing to a Customer view, Datasphere automatically recognizes this relationship and builds the corresponding join in its Data Builder.</li>
+      <li><strong>Texts and Descriptions:</strong> Technical field names are automatically mapped to their business descriptions in multiple languages.</li>
+      <li><strong>Hierarchies:</strong> Financial Statement Versions (FSVs) or Cost Center hierarchies defined in S/4HANA are imported natively into Datasphere so they function perfectly in downstream SAC reporting.</li>
+    </ul>
+
+    <h2>Federation vs Replication</h2>
+    <p>Once connected, Datasphere allows you to build models using two approaches:</p>
+    <table>
+      <tr><th>Approach</th><th>How it works</th><th>Use Case</th></tr>
+      <tr><td><strong>Federation (Remote)</strong></td><td>Data stays in S/4HANA. Datasphere translates queries into SQL and pushes them to S/4HANA at runtime.</td><td>Real-time operational queries, highly sensitive data, infrequent access.</td></tr>
+      <tr><td><strong>Replication (Snapshot/Delta)</strong></td><td>Data is physically copied into Datasphere's HANA Cloud database via ODP.</td><td>Heavy historical analysis, blending S/4HANA data with massive external datasets, performance optimization.</td></tr>
+    </table>
+
+  </div>
+  </div>
+
+  <!-- PAGE: INTERVIEW -->
+  <div class="page" id="page-interview">
+  <div class="page-content">
+    <div class="page-hero">
+      <div class="badge badge-red">Quick Reference</div>
+      <h1>Interview Quick Reference</h1>
+      <p class="lead">Key concepts and common interview questions across S/4HANA architecture and analytics integrations.</p>
+    </div>
+
+    <h2>Key Terms to Know Cold</h2>
+    <ul>
+      <li><strong>Universal Journal (ACDOCA):</strong> The single source of truth table combining FI and CO line items.</li>
+      <li><strong>CDS Views:</strong> Core Data Services; the semantic modeling layer built on the HANA database replacing traditional ABAP views.</li>
+      <li><strong>Virtual Data Model (VDM):</strong> The layered architecture of CDS views (Basic > Composite > Consumption).</li>
+      <li><strong>Fiori:</strong> The modern, role-based HTML5 user experience for S/4HANA.</li>
+      <li><strong>ODP-CDS:</strong> Operational Data Provisioning. The framework used to extract delta records from S/4HANA to Datasphere.</li>
+    </ul>
+
+    <h2>Common Interview Questions</h2>
+    <ol>
+      <li>What is the main difference in the financial data model between SAP ECC and S/4HANA? (Explain ACDOCA).</li>
+      <li>Explain the Virtual Data Model (VDM) in S/4HANA and the different types of CDS views.</li>
+      <li>What is the difference between Embedded SAC within S/4HANA and Enterprise SAC?</li>
+      <li>If a customer wants real-time reporting from S/4HANA in SAC without moving data, what connection type do you use and what are the security implications?</li>
+      <li>How do you write planning data from SAP Analytics Cloud back into S/4HANA?</li>
+      <li>When connecting an On-Premise S/4HANA system to SAP Datasphere, what components must be installed in the customer's landscape?</li>
+      <li>What is the benefit of "Semantic Onboarding" when bringing S/4HANA CDS views into SAP Datasphere?</li>
+      <li>In SAP Datasphere, when would you choose to Federate S/4HANA data versus Replicating it?</li>
+    </ol>
+
+  </div>
+  </div>
+
+</div>
+
+<script>
+const pages = ['overview', 'deployment', 'acdoca', 'cdsviews', 'fiori', 'sacin', 'sacconnect', 'sacplanning', 'dsconnect', 'dsonboard', 'interview'];
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); document.getElementById('main').scrollTop = 0; window.scrollTo(0, 0); }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) { n.classList.add('active'); }
+  });
+}
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('light') ? '☾ Dark Mode' : '☀ Light Mode';
+}
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(n => { n.style.display = (!v || n.textContent.toLowerCase().includes(v)) ? '' : 'none'; });
+}
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.transform = `scaleX(${total > 0 ? scrolled/total : 0})`;
+  document.getElementById('totop').classList.toggle('visible', scrolled > 300);
+});
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>
