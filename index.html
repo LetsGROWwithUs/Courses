@@ -1647,6 +1647,309 @@
       .form-group.has-error .form-error {
         display: block;
       }
+      /* ── UPI PAYMENT ── */
+      .payment-section {
+        margin-bottom: 50px;
+      }
+
+      .payment-wrapper {
+        background: linear-gradient(
+          145deg,
+          rgba(13, 26, 46, 0.97),
+          rgba(8, 15, 30, 0.95)
+        );
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        overflow: hidden;
+        position: relative;
+        backdrop-filter: blur(12px);
+      }
+      .payment-wrapper::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 229, 160, 0.1),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .payment-wrapper::after {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: -60px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 87, 255, 0.07),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .payment-header {
+        padding: 32px 36px 24px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: relative;
+        z-index: 1;
+      }
+      .payment-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 229, 160, 0.18),
+          rgba(0, 212, 255, 0.08)
+        );
+        border: 1px solid rgba(0, 229, 160, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      .payment-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 30px;
+        letter-spacing: 2px;
+        color: var(--green);
+        line-height: 1;
+      }
+      .payment-sub {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 300;
+        margin-top: 4px;
+      }
+      .payment-body {
+        padding: 32px 36px 36px;
+        position: relative;
+        z-index: 1;
+      }
+      @media (max-width: 500px) {
+        .payment-header {
+          padding: 24px 20px 20px;
+        }
+        .payment-body {
+          padding: 24px 20px 28px;
+        }
+      }
+
+      .pay-type-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .pay-type-option {
+        display: none;
+      }
+      .pay-type-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 400;
+        transition: all 0.25s ease;
+        user-select: none;
+        flex: 1;
+        justify-content: center;
+        white-space: nowrap;
+      }
+      .pay-type-label:hover {
+        border-color: rgba(0, 212, 255, 0.3);
+        color: var(--text);
+        background: rgba(0, 212, 255, 0.04);
+      }
+      .pay-type-option:checked + .pay-type-label {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.08);
+        color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+
+      .pay-panel {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+      .pay-panel.active {
+        display: flex;
+      }
+
+      .pay-note {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.6;
+      }
+
+      .pay-amount-display {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 87, 255, 0.08),
+          rgba(0, 212, 255, 0.05)
+        );
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-top: 4px;
+      }
+      .pay-amount-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .pay-amount-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 1.5px;
+        background: linear-gradient(135deg, var(--gold), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+
+      .pay-preset-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .pay-preset-btn {
+        flex: 1;
+        min-width: 120px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14.5px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+      .pay-preset-btn span {
+        display: block;
+        color: var(--muted);
+        font-size: 10.5px;
+        font-weight: 300;
+        margin-top: 3px;
+      }
+      .pay-preset-btn:hover {
+        border-color: rgba(0, 212, 255, 0.3);
+        background: rgba(0, 212, 255, 0.04);
+      }
+      .pay-preset-btn.active {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.1);
+        color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+      .pay-preset-btn.active span {
+        color: var(--accent);
+      }
+
+      .pay-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #00b37a, var(--green));
+        border: none;
+        border-radius: 12px;
+        color: #02160f;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 19px;
+        letter-spacing: 2.5px;
+        cursor: pointer;
+        margin-top: 18px;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .pay-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 229, 160, 0.35);
+      }
+      .pay-btn:active {
+        transform: translateY(0);
+      }
+      .pay-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .pay-qr-wrap {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 24px;
+        padding-top: 22px;
+        border-top: 1px solid var(--border);
+      }
+      .pay-qr-wrap.show {
+        display: flex;
+      }
+      .pay-qr-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .pay-qr-img {
+        width: 176px;
+        height: 176px;
+        border-radius: 14px;
+        background: #fff;
+        padding: 12px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+      .pay-qr-id {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.5px;
+      }
+      .pay-qr-id strong {
+        color: var(--text);
+        font-weight: 400;
+      }
+      .pay-disclaimer {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 300;
+        text-align: center;
+        margin-top: 16px;
+        line-height: 1.6;
+      }
       /* ── FLOATING CTA ── */
       .floating-cta {
         position: fixed;
@@ -2161,6 +2464,43 @@
         background: rgba(0, 212, 255, 0.04);
         box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
       }
+
+      /* ── BOOK SESSION BUTTON (Training card) ── */
+      .book-session-btn {
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        background: linear-gradient(135deg, #0057ff, #00d4ff);
+        border: none;
+        border-radius: 12px;
+        color: #fff;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        box-shadow: 0 4px 18px rgba(0, 87, 255, 0.35);
+        width: 100%;
+        justify-content: center;
+      }
+      .book-session-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 87, 255, 0.5);
+      }
+      .book-session-btn:active {
+        transform: translateY(0);
+      }
+      .book-session-btn.cert-btn {
+        background: linear-gradient(135deg, #a855f7, #e564ff);
+        box-shadow: 0 4px 18px rgba(168, 85, 247, 0.35);
+      }
+      .book-session-btn.cert-btn:hover {
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.5);
+      }
     </style>
   </head>
   <body>
@@ -2186,6 +2526,7 @@
       <div class="nav-dot" data-section="learn" title="What You Get"></div>
       <div class="nav-dot" data-section="how" title="How It Works"></div>
       <div class="nav-dot" data-section="enquiry" title="Enquiry"></div>
+      <div class="nav-dot" data-section="payment" title="Payment"></div>
       <div class="nav-dot" data-section="contact" title="Contact"></div>
     </nav>
 
@@ -2302,8 +2643,11 @@
               <span class="service-tag">S/4HANA</span>
               <span class="service-tag">BDC</span>
             </div>
-            <button class="service-cta" onclick="scrollToEnquiry()">
-              Book a session →
+            <button
+              class="book-session-btn"
+              onclick="scrollToEnquiryWith('SAP Module Training')"
+            >
+              🎓 Book a Session →
             </button>
           </div>
 
@@ -2324,8 +2668,11 @@
               <span class="service-tag">C_SAC_2302</span>
               <span class="service-tag">C_BW4H_214</span>
             </div>
-            <button class="service-cta" onclick="scrollToEnquiry()">
-              Start prep →
+            <button
+              class="book-session-btn cert-btn"
+              onclick="scrollToEnquiryWith('SAP Certification Assist')"
+            >
+              🏅 Start Prep →
             </button>
           </div>
         </div>
@@ -2696,6 +3043,345 @@
                 >
               </div>
 
+              <!-- ── SAP MODULE TRAINING SUB-PANEL ── -->
+              <div id="sub-training" style="display: none" class="sub-panel">
+                <div class="sub-panel-step" id="stp-mod">
+                  <div class="sub-label">📚 Choose your SAP Module</div>
+                  <div class="sub-mod-grid">
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP Analytics Cloud', '📊')"
+                    >
+                      <span>📊</span><span>SAP Analytics Cloud</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP BPC', '📋')"
+                    >
+                      <span>📋</span><span>SAP BPC</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP Datasphere', '🌐')"
+                    >
+                      <span>🌐</span><span>SAP Datasphere</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP BDC', '🔗')"
+                    >
+                      <span>🔗</span><span>SAP BDC</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP BW/BW4HANA', '🏗️')"
+                    >
+                      <span>🏗️</span><span>SAP BW / BW4HANA</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP S/4HANA', '⚡')"
+                    >
+                      <span>⚡</span><span>SAP S/4HANA</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn"
+                      onclick="fSelectModule('SAP MM', '📦')"
+                    >
+                      <span>📦</span><span>SAP MM</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-mod-btn sub-others"
+                      onclick="fSelectModule('Others', '💬')"
+                    >
+                      <span>💬</span><span>Others</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="sub-panel-step" id="stp-dur" style="display: none">
+                  <button
+                    type="button"
+                    class="sub-back"
+                    onclick="fTrainingReset()"
+                  >
+                    ← Back
+                  </button>
+                  <div class="sub-label" id="stp-dur-title">
+                    ⏱ Choose Training Duration
+                  </div>
+                  <div class="sub-dur-grid">
+                    <button
+                      type="button"
+                      class="sub-dur-btn"
+                      onclick="fSelectDuration(15, 5)"
+                    >
+                      <div class="sub-dur-days">15</div>
+                      <div class="sub-dur-lbl">Days</div>
+                      <div class="sub-dur-disc">5% OFF</div>
+                      <div class="sub-dur-rate">₹1,425/day</div>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-dur-btn"
+                      onclick="fSelectDuration(30, 10)"
+                    >
+                      <div class="sub-dur-days">30</div>
+                      <div class="sub-dur-lbl">Days</div>
+                      <div class="sub-dur-disc">10% OFF</div>
+                      <div class="sub-dur-rate">₹1,350/day</div>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-dur-btn"
+                      onclick="fSelectDuration(45, 15)"
+                    >
+                      <div class="sub-dur-days">45</div>
+                      <div class="sub-dur-lbl">Days</div>
+                      <div class="sub-dur-disc">15% OFF</div>
+                      <div class="sub-dur-rate">₹1,275/day</div>
+                    </button>
+                  </div>
+                </div>
+                <div class="sub-panel-step" id="stp-pay" style="display: none">
+                  <button type="button" class="sub-back" onclick="fDurReset()">
+                    ← Change Duration
+                  </button>
+                  <div class="sub-price-card">
+                    <div class="sub-price-row">
+                      <span class="spl">Module</span
+                      ><span class="spv" id="sp-mod">—</span>
+                    </div>
+                    <div class="sub-price-row">
+                      <span class="spl">Duration</span
+                      ><span class="spv" id="sp-days">—</span>
+                    </div>
+                    <div class="sub-price-row">
+                      <span class="spl">Base (₹1,500/day)</span
+                      ><span class="spv strike" id="sp-base">—</span>
+                    </div>
+                    <div class="sub-price-row">
+                      <span class="spl" id="sp-disc-lbl">Discount</span
+                      ><span class="spv green" id="sp-disc">—</span>
+                    </div>
+                    <div class="sub-price-row">
+                      <span class="spl">Total Fee</span
+                      ><span class="spv" id="sp-total">—</span>
+                    </div>
+                    <div class="sub-price-row total">
+                      <span class="spl">Advance (25%)</span
+                      ><span class="spv big" id="sp-advance">—</span>
+                    </div>
+                  </div>
+                  <p class="sub-pay-note">
+                    Pay <strong id="sp-note-amt">₹0</strong> now to confirm your
+                    slot. Remaining 75% due on completion.
+                  </p>
+                  <button
+                    type="button"
+                    class="sub-pay-btn"
+                    id="fPayBtn"
+                    onclick="fInitiatePayment()"
+                  >
+                    💳 Pay Advance via UPI →
+                  </button>
+                  <div class="sub-qr-wrap" id="fQrWrap">
+                    <img id="fQrImg" src="" alt="UPI QR" />
+                    <div class="sub-qr-hint">Scan with any UPI app</div>
+                  </div>
+                </div>
+                <!-- Others: no payment -->
+                <div
+                  class="sub-panel-step"
+                  id="stp-others"
+                  style="display: none"
+                >
+                  <div class="sub-others-msg">
+                    <div style="font-size: 36px; margin-bottom: 10px">💬</div>
+                    <div class="sub-others-title">No Payment Needed!</div>
+                    <p class="sub-others-desc">
+                      For other modules, just fill and submit this form — we'll
+                      reach out and tailor a plan for you.
+                    </p>
+                    <button
+                      type="button"
+                      class="sub-back"
+                      onclick="fTrainingReset()"
+                      style="margin-top: 14px"
+                    >
+                      ← Back to modules
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── CERTIFICATION SUB-PANEL ── -->
+              <div id="sub-cert" style="display: none" class="sub-panel">
+                <div class="sub-label">
+                  🏅 Which certification are you preparing for?
+                </div>
+                <div class="sub-cert-grid">
+                  <label class="sub-cert-opt"
+                    ><input
+                      type="radio"
+                      name="cert-pick"
+                      value="C_SAC_2302 – SAP Analytics Cloud"
+                    />
+                    <span>📊 C_SAC_2302 – SAP Analytics Cloud</span></label
+                  >
+                  <label class="sub-cert-opt"
+                    ><input
+                      type="radio"
+                      name="cert-pick"
+                      value="C_BW4H_214 – SAP BW/4HANA"
+                    />
+                    <span>🏗️ C_BW4H_214 – SAP BW/4HANA</span></label
+                  >
+                  <label class="sub-cert-opt"
+                    ><input
+                      type="radio"
+                      name="cert-pick"
+                      value="C_HANAIMP_18 – SAP HANA"
+                    />
+                    <span>⚡ C_HANAIMP_18 – SAP HANA</span></label
+                  >
+                  <label class="sub-cert-opt"
+                    ><input
+                      type="radio"
+                      name="cert-pick"
+                      value="C_S4FIN_2023 – S/4HANA Finance"
+                    />
+                    <span>💼 C_S4FIN_2023 – S/4HANA Finance</span></label
+                  >
+                  <label class="sub-cert-opt"
+                    ><input
+                      type="radio"
+                      name="cert-pick"
+                      value="Other SAP Certification"
+                    />
+                    <span>💬 Other SAP Certification</span></label
+                  >
+                </div>
+                <p class="sub-pay-note" style="margin-top: 12px">
+                  No advance payment needed — submit this form and we'll reach
+                  out with a tailored prep plan.
+                </p>
+              </div>
+
+              <!-- ── MOCK INTERVIEW SUB-PANEL ── -->
+              <div id="sub-interview" style="display: none" class="sub-panel">
+                <div class="sub-label">
+                  🎯 Which module / skill for the interview?
+                </div>
+                <div class="sub-mod-grid" style="margin-bottom: 16px">
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP Analytics Cloud')"
+                  >
+                    <span>📊</span><span>SAP Analytics Cloud</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP BPC')"
+                  >
+                    <span>📋</span><span>SAP BPC</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP Datasphere')"
+                  >
+                    <span>🌐</span><span>SAP Datasphere</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP BDC')"
+                  >
+                    <span>🔗</span><span>SAP BDC</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP BW/BW4HANA')"
+                  >
+                    <span>🏗️</span><span>SAP BW/BW4HANA</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP S/4HANA')"
+                  >
+                    <span>⚡</span><span>SAP S/4HANA</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn"
+                    onclick="fIntSelect('SAP MM')"
+                  >
+                    <span>📦</span><span>SAP MM</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="sub-mod-btn sub-others"
+                    onclick="fIntSelect('General SAP Skills')"
+                  >
+                    <span>🌟</span><span>General SAP Skills</span>
+                  </button>
+                </div>
+                <!-- Duration pick - hidden until module chosen -->
+                <div id="int-dur-pick" style="display: none">
+                  <div class="sub-label" id="int-dur-title">
+                    ⏱ Session Duration
+                  </div>
+                  <div class="sub-int-dur-grid">
+                    <button
+                      type="button"
+                      class="sub-int-dur"
+                      onclick="fIntPayment(500, 30)"
+                      id="int-30"
+                    >
+                      <div class="sub-dur-days" style="font-size: 24px">
+                        30 min
+                      </div>
+                      <div class="sub-dur-disc" style="margin-top: 6px">
+                        ₹500
+                      </div>
+                      <div class="sub-dur-rate">Full payment upfront</div>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-int-dur"
+                      onclick="fIntPayment(750, 60)"
+                      id="int-60"
+                    >
+                      <div class="sub-dur-days" style="font-size: 24px">
+                        1 hour
+                      </div>
+                      <div class="sub-dur-disc" style="margin-top: 6px">
+                        ₹750
+                      </div>
+                      <div class="sub-dur-rate">Full payment upfront</div>
+                    </button>
+                  </div>
+                  <div class="sub-qr-wrap" id="intQrWrap" style="display: none">
+                    <img id="intQrImg" src="" alt="UPI QR" />
+                    <div class="sub-qr-hint">
+                      Scan with any UPI app · or tap button above
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <button
                 class="submit-btn"
                 id="submitBtn"
@@ -2717,6 +3403,7 @@
           </div>
         </div>
       </section>
+
       <!-- FOOTER -->
       <footer class="footer reveal">
         <div class="footer-inner">
@@ -2862,7 +3549,15 @@
       });
 
       // ── NAV DOTS ──
-      const sections = ["hero", "skills", "learn", "how", "Enquiry", "contact"];
+      const sections = [
+        "hero",
+        "skills",
+        "learn",
+        "how",
+        "enquiry",
+        "payment",
+        "contact",
+      ];
       const dots = document.querySelectorAll(".nav-dot");
       function updateDots() {
         let current = 0;
@@ -3132,6 +3827,11 @@
         document.getElementById("enquiryForm").style.display = "none";
         document.getElementById("formSuccess").classList.add("show");
       }
+      // ── UPI PAYMENT ──
+      function formatINR(n) {
+        return "₹" + Math.round(n).toLocaleString("en-IN");
+      }
+
       // ── MODULE DATA ──
       var moduleData = {
         "SAP Analytics Cloud": {
@@ -3305,32 +4005,1352 @@
         setTimeout(function () {
           var el = document.getElementById("enquiry");
           if (el) el.scrollIntoView({ behavior: "smooth" });
-          document.getElementById("f-interest").value = "Learning Session";
         }, 350);
       }
 
-      function scrollToInterview() {
+      function scrollToEnquiryWith(type) {
         closeModalDirect();
         setTimeout(function () {
           var el = document.getElementById("enquiry");
           if (el) el.scrollIntoView({ behavior: "smooth" });
-          document.getElementById("f-interest").value = "Mock Interview";
+          var sel = document.getElementById("f-desc");
+          sel.value = type;
+          // trigger the change handler to show right sub-panel
+          sel.dispatchEvent(new Event("change"));
         }, 350);
       }
-      // ── OTHER FIELD TOGGLE ──
+
+      function scrollToInterview() {
+        scrollToEnquiryWith("Mock Interview \u2013 SAP Modules");
+      }
+
+      // ── ENQUIRY TYPE SMART SUB-PANELS ──
       document.getElementById("f-desc").addEventListener("change", function () {
-        var otherGroup = document.getElementById("grp-other");
-        if (this.value === "Other") {
-          otherGroup.style.display = "flex";
-        } else {
-          otherGroup.style.display = "none";
-          document.getElementById("f-other").value = "";
+        var v = this.value;
+        // hide all sub-panels first
+        document.getElementById("grp-other").style.display = "none";
+        document.getElementById("f-other").value = "";
+        document.getElementById("sub-training").style.display = "none";
+        document.getElementById("sub-cert").style.display = "none";
+        document.getElementById("sub-interview").style.display = "none";
+
+        if (v === "Other") {
+          document.getElementById("grp-other").style.display = "flex";
+        } else if (v === "SAP Module Training") {
+          document.getElementById("sub-training").style.display = "block";
+          // reset training sub-panel state
+          fTrainingReset();
+        } else if (v === "SAP Certification Assist") {
+          document.getElementById("sub-cert").style.display = "block";
+        } else if (v === "Mock Interview \u2013 SAP Modules") {
+          document.getElementById("sub-interview").style.display = "block";
         }
       });
       // Close on Escape key
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") closeModalDirect();
+        if (e.key === "Escape") {
+          closeModalDirect();
+          closeBookingModal();
+        }
       });
+    </script>
+
+    <!-- ═══════════════════════════════════════════════
+         MODULE BOOKING MODAL — styles + HTML + JS
+    ════════════════════════════════════════════════ -->
+    <style>
+      /* ══════════════════════════════════
+         ENQUIRY FORM SMART SUB-PANELS
+      ══════════════════════════════════ */
+      .sub-panel {
+        margin-top: 16px;
+      }
+      .sub-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 14px;
+      }
+      .sub-mod-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+        margin-bottom: 4px;
+      }
+      .sub-mod-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        border-radius: 12px;
+        cursor: pointer;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 13.5px;
+        transition: all 0.2s ease;
+        text-align: left;
+        width: 100%;
+      }
+      .sub-mod-btn:hover {
+        border-color: rgba(0, 212, 255, 0.4);
+        background: rgba(0, 212, 255, 0.06);
+        transform: translateY(-1px);
+      }
+      .sub-mod-btn.active {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+      .sub-mod-btn.sub-others {
+        border-style: dashed;
+        border-color: rgba(255, 209, 102, 0.3);
+      }
+      .sub-mod-btn.sub-others:hover {
+        border-color: rgba(255, 209, 102, 0.6);
+        background: rgba(255, 209, 102, 0.06);
+      }
+      .sub-back {
+        background: none;
+        border: 1px solid #162a44;
+        border-radius: 8px;
+        padding: 7px 14px;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        margin-bottom: 14px;
+        display: inline-block;
+      }
+      .sub-back:hover {
+        border-color: rgba(0, 212, 255, 0.3);
+        color: var(--text);
+      }
+      .sub-dur-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .sub-dur-btn {
+        padding: 16px 10px;
+        border-radius: 12px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        text-align: center;
+        transition: all 0.2s ease;
+        width: 100%;
+      }
+      .sub-dur-btn:hover {
+        border-color: rgba(0, 212, 255, 0.35);
+        background: rgba(0, 212, 255, 0.05);
+      }
+      .sub-dur-btn.active {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+      .sub-dur-days {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, var(--gold), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+      .sub-dur-lbl {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 3px 0 5px;
+      }
+      .sub-dur-disc {
+        display: inline-block;
+        background: rgba(0, 229, 160, 0.12);
+        border: 1px solid rgba(0, 229, 160, 0.2);
+        color: var(--green);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        padding: 2px 7px;
+        border-radius: 20px;
+      }
+      .sub-dur-rate {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .sub-price-card {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 87, 255, 0.09),
+          rgba(0, 212, 255, 0.06)
+        );
+        border: 1px solid rgba(0, 212, 255, 0.18);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 14px;
+      }
+      .sub-price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+        font-size: 13px;
+      }
+      .sub-price-row:last-child {
+        margin-bottom: 0;
+      }
+      .sub-price-row .spl {
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .sub-price-row .spv {
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+      }
+      .sub-price-row .spv.strike {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+      .sub-price-row .spv.green {
+        color: var(--green);
+      }
+      .sub-price-row.total {
+        border-top: 1px solid rgba(0, 212, 255, 0.12);
+        padding-top: 10px;
+        margin-top: 4px;
+      }
+      .sub-price-row.total .spl {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .sub-price-row .spv.big {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, var(--gold), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .sub-pay-note {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+      .sub-pay-note strong {
+        color: var(--accent);
+      }
+      .sub-pay-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #00b37a, var(--green));
+        border: none;
+        border-radius: 12px;
+        color: #02160f;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 18px;
+        letter-spacing: 2.5px;
+        cursor: pointer;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+        margin-bottom: 14px;
+      }
+      .sub-pay-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(0, 229, 160, 0.35);
+      }
+      .sub-qr-wrap {
+        text-align: center;
+        padding: 16px;
+        background: rgba(0, 229, 160, 0.05);
+        border: 1px solid rgba(0, 229, 160, 0.15);
+        border-radius: 12px;
+        margin-top: 10px;
+      }
+      .sub-qr-wrap img {
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto 8px;
+        max-width: 180px;
+      }
+      .sub-qr-hint {
+        font-size: 10px;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 1px;
+      }
+      .sub-cert-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+      .sub-cert-opt {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 13.5px;
+        color: var(--text);
+        transition: all 0.2s ease;
+      }
+      .sub-cert-opt:hover {
+        border-color: rgba(229, 100, 255, 0.3);
+        background: rgba(229, 100, 255, 0.04);
+      }
+      .sub-cert-opt input[type="radio"] {
+        accent-color: #e564ff;
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+      .sub-int-dur-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .sub-int-dur {
+        padding: 20px 14px;
+        border-radius: 14px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        text-align: center;
+        transition: all 0.2s ease;
+        width: 100%;
+      }
+      .sub-int-dur:hover {
+        border-color: rgba(255, 209, 102, 0.4);
+        background: rgba(255, 209, 102, 0.06);
+      }
+      .sub-int-dur.active {
+        border-color: var(--gold);
+        background: rgba(255, 209, 102, 0.1);
+        box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.1);
+      }
+      .sub-others-msg {
+        text-align: center;
+        padding: 20px 12px;
+      }
+      .sub-others-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 1.5px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+      .sub-others-desc {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      /* ── BOOKING MODAL OVERLAY ── */
+      .bk-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(3, 8, 15, 0.88);
+        backdrop-filter: blur(14px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        animation: bkFadeIn 0.25s ease both;
+      }
+      .bk-overlay.open {
+        display: flex;
+      }
+      @keyframes bkFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .bk-modal {
+        background: linear-gradient(145deg, #0d1a2e, #080f1e);
+        border: 1px solid #162a44;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 620px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        animation: bkSlideUp 0.3s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+        scrollbar-width: thin;
+        scrollbar-color: #162a44 transparent;
+      }
+      @keyframes bkSlideUp {
+        from {
+          transform: translateY(40px) scale(0.96);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .bk-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #6a8fb0;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        z-index: 2;
+      }
+      .bk-close:hover {
+        background: rgba(255, 87, 87, 0.15);
+        color: #ff6b6b;
+        border-color: rgba(255, 87, 87, 0.3);
+      }
+
+      .bk-header {
+        padding: 28px 32px 20px;
+        border-bottom: 1px solid #162a44;
+      }
+      .bk-step-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 212, 255, 0.07);
+        border: 1px solid rgba(0, 212, 255, 0.18);
+        color: var(--accent);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 40px;
+        margin-bottom: 14px;
+      }
+      .bk-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        letter-spacing: 2px;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .bk-sub {
+        font-size: 12.5px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .bk-body {
+        padding: 24px 32px 32px;
+      }
+
+      /* ── MODULE GRID ── */
+      .bk-modules-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 4px;
+      }
+      @media (max-width: 480px) {
+        .bk-modules-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .bk-mod-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.22s ease;
+        text-align: left;
+        width: 100%;
+      }
+      .bk-mod-btn:hover {
+        border-color: rgba(0, 212, 255, 0.35);
+        background: rgba(0, 212, 255, 0.05);
+        transform: translateY(-2px);
+      }
+      .bk-mod-btn.selected {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+      .bk-mod-icon {
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .bk-mod-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        letter-spacing: 1px;
+        color: #fff;
+        line-height: 1.1;
+      }
+      .bk-mod-tag {
+        font-size: 10.5px;
+        color: var(--muted);
+        font-weight: 300;
+        margin-top: 2px;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.5px;
+      }
+      .bk-mod-btn.others-btn {
+        border-style: dashed;
+        border-color: rgba(255, 209, 102, 0.3);
+        background: rgba(255, 209, 102, 0.04);
+      }
+      .bk-mod-btn.others-btn:hover {
+        border-color: rgba(255, 209, 102, 0.6);
+        background: rgba(255, 209, 102, 0.08);
+      }
+      .bk-mod-btn.others-btn .bk-mod-name {
+        color: var(--gold);
+      }
+
+      /* ── DURATION STEP ── */
+      .bk-step {
+        display: none;
+      }
+      .bk-step.active {
+        display: block;
+        animation: bkSlideUp 0.25s ease both;
+      }
+
+      .bk-dur-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .bk-dur-btn {
+        padding: 18px 12px;
+        border-radius: 14px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid #162a44;
+        text-align: center;
+        transition: all 0.22s ease;
+        width: 100%;
+      }
+      .bk-dur-btn:hover {
+        border-color: rgba(0, 212, 255, 0.35);
+        background: rgba(0, 212, 255, 0.05);
+      }
+      .bk-dur-btn.selected {
+        border-color: var(--accent);
+        background: rgba(0, 212, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      }
+      .bk-dur-days {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, var(--gold), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+      .bk-dur-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 4px 0 6px;
+      }
+      .bk-dur-disc {
+        display: inline-block;
+        background: rgba(0, 229, 160, 0.12);
+        border: 1px solid rgba(0, 229, 160, 0.2);
+        color: var(--green);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9.5px;
+        letter-spacing: 1px;
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .bk-dur-price {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ── PRICE SUMMARY ── */
+      .bk-price-card {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 87, 255, 0.09),
+          rgba(0, 212, 255, 0.06)
+        );
+        border: 1px solid rgba(0, 212, 255, 0.18);
+        border-radius: 16px;
+        padding: 20px 22px;
+        margin-bottom: 18px;
+      }
+      .bk-price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+      .bk-price-row:last-child {
+        margin-bottom: 0;
+      }
+      .bk-price-row .lbl {
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .bk-price-row .val {
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+      }
+      .bk-price-row .val.strike {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+      .bk-price-row.total {
+        border-top: 1px solid rgba(0, 212, 255, 0.12);
+        padding-top: 10px;
+        margin-top: 6px;
+      }
+      .bk-price-row.total .lbl {
+        color: var(--text);
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .bk-price-row.total .val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, var(--gold), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .bk-price-note {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.6;
+        margin-bottom: 18px;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.3px;
+      }
+      .bk-price-note strong {
+        color: var(--accent);
+      }
+
+      /* ── BACK BUTTON ── */
+      .bk-back {
+        background: none;
+        border: 1px solid #162a44;
+        border-radius: 10px;
+        padding: 10px 18px;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        margin-bottom: 16px;
+      }
+      .bk-back:hover {
+        border-color: rgba(0, 212, 255, 0.3);
+        color: var(--text);
+      }
+
+      /* ── PAY BTN ── */
+      .bk-pay-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #00b37a, var(--green));
+        border: none;
+        border-radius: 12px;
+        color: #02160f;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        letter-spacing: 3px;
+        cursor: pointer;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+        margin-top: 4px;
+      }
+      .bk-pay-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 229, 160, 0.35);
+      }
+      .bk-pay-btn:active {
+        transform: translateY(0);
+      }
+      .bk-pay-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ── QR WRAP inside booking modal ── */
+      .bk-qr-wrap {
+        display: none;
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 229, 160, 0.05);
+        border: 1px solid rgba(0, 229, 160, 0.15);
+        border-radius: 14px;
+        margin-top: 16px;
+      }
+      .bk-qr-wrap.show {
+        display: block;
+        animation: bkFadeIn 0.3s ease both;
+      }
+      .bk-qr-wrap img {
+        border-radius: 10px;
+        display: block;
+        margin: 0 auto 10px;
+        max-width: 200px;
+      }
+      .bk-qr-hint {
+        font-size: 11px;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 1px;
+      }
+
+      /* ── OTHERS MSG ── */
+      .bk-others-msg {
+        text-align: center;
+        padding: 28px 16px;
+        animation: bkSlideUp 0.25s ease both;
+      }
+      .bk-others-msg .icon {
+        font-size: 48px;
+        margin-bottom: 14px;
+      }
+      .bk-others-msg .title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        letter-spacing: 2px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+      .bk-others-msg .desc {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+      .bk-others-msg .desc a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+    </style>
+
+    <!-- BOOKING MODAL -->
+    <div class="bk-overlay" id="bkOverlay" onclick="bkOverlayClick(event)">
+      <div class="bk-modal" id="bkModal">
+        <button class="bk-close" onclick="closeBookingModal()">✕</button>
+
+        <!-- STEP 1: Module Selection -->
+        <div id="bk-step1">
+          <div class="bk-header">
+            <div class="bk-step-badge">
+              <span class="pulse"></span> Step 1 of 3
+            </div>
+            <div class="bk-title">Choose Your SAP Module</div>
+            <div class="bk-sub">Select the module you want to train in</div>
+          </div>
+          <div class="bk-body">
+            <div class="bk-modules-grid">
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule(
+                    'SAP Analytics Cloud',
+                    '📊',
+                    'EPM · Analytics · Planning',
+                  )
+                "
+              >
+                <span class="bk-mod-icon">📊</span>
+                <div>
+                  <div class="bk-mod-name">SAP Analytics Cloud</div>
+                  <div class="bk-mod-tag">EPM · Analytics · Planning</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule('SAP BPC', '📋', 'Planning · Consolidation')
+                "
+              >
+                <span class="bk-mod-icon">📋</span>
+                <div>
+                  <div class="bk-mod-name">SAP BPC</div>
+                  <div class="bk-mod-tag">Planning · Consolidation</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule(
+                    'SAP Datasphere',
+                    '🌐',
+                    'Data Warehousing · Integration',
+                  )
+                "
+              >
+                <span class="bk-mod-icon">🌐</span>
+                <div>
+                  <div class="bk-mod-name">SAP Datasphere</div>
+                  <div class="bk-mod-tag">Data Warehousing · Integration</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule('SAP BDC', '🔗', 'Data Cloud · Architecture')
+                "
+              >
+                <span class="bk-mod-icon">🔗</span>
+                <div>
+                  <div class="bk-mod-name">SAP BDC</div>
+                  <div class="bk-mod-tag">Data Cloud · Architecture</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule(
+                    'SAP BW / BW4HANA',
+                    '🏗️',
+                    'Data Warehousing · BW',
+                  )
+                "
+              >
+                <span class="bk-mod-icon">🏗️</span>
+                <div>
+                  <div class="bk-mod-name">SAP BW / BW4HANA</div>
+                  <div class="bk-mod-tag">Data Warehousing · BW</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule(
+                    'SAP S/4HANA',
+                    '⚡',
+                    'ERP · Finance · Integration',
+                  )
+                "
+              >
+                <span class="bk-mod-icon">⚡</span>
+                <div>
+                  <div class="bk-mod-name">SAP S/4HANA</div>
+                  <div class="bk-mod-tag">ERP · Finance · Integration</div>
+                </div>
+              </button>
+              <button
+                class="bk-mod-btn"
+                onclick="
+                  bkSelectModule('SAP MM', '📦', 'Materials Management · MM')
+                "
+              >
+                <span class="bk-mod-icon">📦</span>
+                <div>
+                  <div class="bk-mod-name">SAP MM</div>
+                  <div class="bk-mod-tag">Materials Management · MM</div>
+                </div>
+              </button>
+              <button class="bk-mod-btn others-btn" onclick="bkSelectOthers()">
+                <span class="bk-mod-icon">💬</span>
+                <div>
+                  <div class="bk-mod-name">Others</div>
+                  <div class="bk-mod-tag">Other module / discuss first</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Duration -->
+        <div id="bk-step2" style="display: none">
+          <div class="bk-header">
+            <div class="bk-step-badge">
+              <span class="pulse"></span> Step 2 of 3
+            </div>
+            <div class="bk-title" id="bk-s2-title">
+              Choose Training Duration
+            </div>
+            <div class="bk-sub">
+              All sessions spread across 45 days — pick your coverage
+            </div>
+          </div>
+          <div class="bk-body">
+            <button class="bk-back" onclick="bkGoStep(1)">
+              ← Back to modules
+            </button>
+            <div class="bk-dur-group">
+              <button
+                class="bk-dur-btn"
+                onclick="bkSelectDuration(15, 5)"
+                id="dur-15"
+              >
+                <div class="bk-dur-days">15</div>
+                <div class="bk-dur-label">Days</div>
+                <div class="bk-dur-disc">5% OFF</div>
+                <div class="bk-dur-price">₹1,425/day</div>
+              </button>
+              <button
+                class="bk-dur-btn"
+                onclick="bkSelectDuration(30, 10)"
+                id="dur-30"
+              >
+                <div class="bk-dur-days">30</div>
+                <div class="bk-dur-label">Days</div>
+                <div class="bk-dur-disc">10% OFF</div>
+                <div class="bk-dur-price">₹1,350/day</div>
+              </button>
+              <button
+                class="bk-dur-btn"
+                onclick="bkSelectDuration(45, 15)"
+                id="dur-45"
+              >
+                <div class="bk-dur-days">45</div>
+                <div class="bk-dur-label">Days</div>
+                <div class="bk-dur-disc">15% OFF</div>
+                <div class="bk-dur-price">₹1,275/day</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Payment Summary -->
+        <div id="bk-step3" style="display: none">
+          <div class="bk-header">
+            <div class="bk-step-badge">
+              <span class="pulse"></span> Step 3 of 3
+            </div>
+            <div class="bk-title">Pay Advance & Confirm</div>
+            <div class="bk-sub" id="bk-s3-sub">
+              Pay 25% now to lock your slot
+            </div>
+          </div>
+          <div class="bk-body">
+            <button class="bk-back" onclick="bkGoStep(2)">
+              ← Change duration
+            </button>
+
+            <div class="bk-price-card">
+              <div class="bk-price-row">
+                <span class="lbl">Module</span>
+                <span class="val" id="bk-sum-module">—</span>
+              </div>
+              <div class="bk-price-row">
+                <span class="lbl">Duration</span>
+                <span class="val" id="bk-sum-days">—</span>
+              </div>
+              <div class="bk-price-row">
+                <span class="lbl">Rate (₹1,500/day)</span>
+                <span class="val strike" id="bk-sum-base">—</span>
+              </div>
+              <div class="bk-price-row">
+                <span class="lbl" id="bk-disc-lbl">Discount</span>
+                <span class="val" id="bk-sum-disc" style="color: var(--green)"
+                  >—</span
+                >
+              </div>
+              <div class="bk-price-row">
+                <span class="lbl">Total Course Fee</span>
+                <span class="val" id="bk-sum-total">—</span>
+              </div>
+              <div class="bk-price-row total">
+                <span class="lbl">Advance Due (25%)</span>
+                <span class="val" id="bk-sum-advance">—</span>
+              </div>
+            </div>
+
+            <p class="bk-price-note">
+              Pay <strong id="bk-note-amt">₹0</strong> now as a booking
+              advance.<br />
+              The remaining 75% is settled on course completion — as agreed with
+              your mentor.
+            </p>
+
+            <button
+              class="bk-pay-btn"
+              id="bkPayBtn"
+              onclick="bkInitiatePayment()"
+            >
+              💳 Pay Advance via UPI →
+            </button>
+
+            <div class="bk-qr-wrap" id="bkQrWrap">
+              <img id="bkQrImg" src="" alt="UPI QR Code" />
+              <div class="bk-qr-hint">
+                Scan with any UPI app · or tap button above
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OTHERS: No Payment Needed -->
+        <div id="bk-others" style="display: none">
+          <div class="bk-body">
+            <div class="bk-others-msg">
+              <div class="icon">💬</div>
+              <div class="title">Let's Connect First!</div>
+              <p class="desc">
+                For modules outside our standard curriculum, no advance payment
+                is needed.<br /><br />
+                Reach out directly and we'll tailor a session plan for you.<br /><br />
+                📞 <a href="tel:+918871644954">+91 88716 44954</a> &nbsp;·&nbsp;
+                ✉️
+                <a href="mailto:naresh20kabra@gmail.com"
+                  >naresh20kabra@gmail.com</a
+                >
+              </p>
+              <br />
+              <button
+                class="bk-back"
+                onclick="bkGoStep(1)"
+                style="margin: 0 auto; display: block"
+              >
+                ← Back to modules
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ══════════════════════════════════════
+         BOOKING MODAL STATE & LOGIC
+      ══════════════════════════════════════ */
+      var bkState = { module: "", days: 0, discPct: 0 };
+      var BK_UPI = "naresh20kabra@okicici";
+      var BK_RATE = 1500;
+
+      function openModuleBooking() {
+        bkState = { module: "", days: 0, discPct: 0 };
+        bkShowSection("step1");
+        document.getElementById("bkOverlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeBookingModal() {
+        document.getElementById("bkOverlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function bkOverlayClick(e) {
+        if (e.target === document.getElementById("bkOverlay"))
+          closeBookingModal();
+      }
+      function bkShowSection(s) {
+        ["bk-step1", "bk-step2", "bk-step3", "bk-others"].forEach(
+          function (id) {
+            document.getElementById(id).style.display = "none";
+          },
+        );
+        document.getElementById("bk-" + s).style.display = "block";
+        document.getElementById("bkModal").scrollTop = 0;
+      }
+      function bkGoStep(n) {
+        bkShowSection("step" + n);
+      }
+
+      function bkSelectModule(name, icon, tag) {
+        bkState.module = name;
+        document.getElementById("bk-s2-title").textContent =
+          icon + "  " + name + " Training";
+        bkShowSection("step2");
+        // clear duration selection
+        ["dur-15", "dur-30", "dur-45"].forEach(function (id) {
+          document.getElementById(id).classList.remove("selected");
+        });
+      }
+
+      function bkSelectOthers() {
+        bkShowSection("others");
+      }
+
+      function bkSelectDuration(days, discPct) {
+        bkState.days = days;
+        bkState.discPct = discPct;
+        ["dur-15", "dur-30", "dur-45"].forEach(function (id) {
+          document.getElementById(id).classList.remove("selected");
+        });
+        document.getElementById("dur-" + days).classList.add("selected");
+        // calc
+        var base = BK_RATE * days; // e.g. 1500 * 15 = 22500
+        var discAmt = (base * discPct) / 100;
+        var afterDisc = base - discAmt;
+        var advance = Math.round(afterDisc * 0.25);
+
+        // populate summary
+        document.getElementById("bk-sum-module").textContent = bkState.module;
+        document.getElementById("bk-sum-days").textContent = days + " days";
+        document.getElementById("bk-sum-base").textContent =
+          "₹" + base.toLocaleString("en-IN");
+        document.getElementById("bk-disc-lbl").textContent =
+          "Discount (" + discPct + "%)";
+        document.getElementById("bk-sum-disc").textContent =
+          "−₹" + discAmt.toLocaleString("en-IN");
+        document.getElementById("bk-sum-total").textContent =
+          "₹" + afterDisc.toLocaleString("en-IN");
+        document.getElementById("bk-sum-advance").textContent =
+          "₹" + advance.toLocaleString("en-IN");
+        document.getElementById("bk-note-amt").textContent =
+          "₹" + advance.toLocaleString("en-IN");
+        document.getElementById("bk-s3-sub").textContent =
+          "Booking advance for " + bkState.module;
+
+        // reset QR
+        document.getElementById("bkQrWrap").classList.remove("show");
+        document.getElementById("bkPayBtn").textContent =
+          "💳 Pay ₹" + advance.toLocaleString("en-IN") + " via UPI →";
+
+        // store advance on button for payment
+        document.getElementById("bkPayBtn").dataset.amt = advance;
+        bkShowSection("step3");
+      }
+
+      function bkInitiatePayment() {
+        var btn = document.getElementById("bkPayBtn");
+        var advance = parseInt(btn.dataset.amt, 10);
+        if (!advance) return;
+        var note = encodeURIComponent(
+          "Advance for " + bkState.module + " (" + bkState.days + " days)",
+        );
+        var upiUri =
+          "upi://pay?pa=" +
+          BK_UPI +
+          "&pn=SAP+Training" +
+          "&am=" +
+          advance +
+          "&cu=INR&tn=" +
+          note;
+        // show QR
+        var qrWrap = document.getElementById("bkQrWrap");
+        var qrImg = document.getElementById("bkQrImg");
+        qrImg.src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
+          encodeURIComponent(upiUri);
+        qrWrap.classList.add("show");
+        // deep link on mobile
+        window.location.href = upiUri;
+      }
+
+      /* ══════════════════════════════════════
+         ENQUIRY FORM SUB-PANEL LOGIC
+      ══════════════════════════════════════ */
+      var BK_UPI2 = "naresh20kabra@okicici";
+      var fState = { module: "", days: 0, discPct: 0 };
+      var fIntModule = "";
+
+      function fTrainingReset() {
+        fState = { module: "", days: 0, discPct: 0 };
+        document
+          .querySelectorAll("#sub-training .sub-mod-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        document.getElementById("stp-mod").style.display = "block";
+        document.getElementById("stp-dur").style.display = "none";
+        document.getElementById("stp-pay").style.display = "none";
+        document.getElementById("stp-others").style.display = "none";
+      }
+
+      function fDurReset() {
+        document
+          .querySelectorAll("#stp-dur .sub-dur-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        document.getElementById("stp-dur").style.display = "block";
+        document.getElementById("stp-pay").style.display = "none";
+        document.getElementById("fQrWrap").style.display = "none";
+      }
+
+      function fSelectModule(name, icon) {
+        if (name === "Others") {
+          document.getElementById("stp-mod").style.display = "none";
+          document.getElementById("stp-dur").style.display = "none";
+          document.getElementById("stp-pay").style.display = "none";
+          document.getElementById("stp-others").style.display = "block";
+          return;
+        }
+        fState.module = name;
+        document
+          .querySelectorAll("#sub-training .sub-mod-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        event.currentTarget.classList.add("active");
+        document.getElementById("stp-dur-title").textContent =
+          icon + " " + name + " — Choose Duration";
+        document.getElementById("stp-mod").style.display = "none";
+        document.getElementById("stp-dur").style.display = "block";
+        document.getElementById("stp-pay").style.display = "none";
+        document.getElementById("stp-others").style.display = "none";
+        document
+          .querySelectorAll("#stp-dur .sub-dur-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        document.getElementById("fQrWrap").style.display = "none";
+      }
+
+      function fSelectDuration(days, discPct) {
+        fState.days = days;
+        fState.discPct = discPct;
+        document
+          .querySelectorAll("#stp-dur .sub-dur-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        event.currentTarget.classList.add("active");
+
+        var base = 1500 * days;
+        var discAmt = (base * discPct) / 100;
+        var afterDisc = base - discAmt;
+        var advance = Math.round(afterDisc * 0.25);
+
+        document.getElementById("sp-mod").textContent = fState.module;
+        document.getElementById("sp-days").textContent = days + " days";
+        document.getElementById("sp-base").textContent =
+          "\u20b9" + base.toLocaleString("en-IN");
+        document.getElementById("sp-disc-lbl").textContent =
+          "Discount (" + discPct + "%)";
+        document.getElementById("sp-disc").textContent =
+          "\u2212\u20b9" + discAmt.toLocaleString("en-IN");
+        document.getElementById("sp-total").textContent =
+          "\u20b9" + afterDisc.toLocaleString("en-IN");
+        document.getElementById("sp-advance").textContent =
+          "\u20b9" + advance.toLocaleString("en-IN");
+        document.getElementById("sp-note-amt").textContent =
+          "\u20b9" + advance.toLocaleString("en-IN");
+        document.getElementById("fPayBtn").dataset.amt = advance;
+        document.getElementById("fPayBtn").textContent =
+          "\uD83D\uDCB3 Pay \u20b9" +
+          advance.toLocaleString("en-IN") +
+          " via UPI \u2192";
+        document.getElementById("fQrWrap").style.display = "none";
+
+        document.getElementById("stp-dur").style.display = "none";
+        document.getElementById("stp-pay").style.display = "block";
+      }
+
+      function fInitiatePayment() {
+        var advance = parseInt(
+          document.getElementById("fPayBtn").dataset.amt,
+          10,
+        );
+        if (!advance) return;
+        var note = encodeURIComponent(
+          "Advance: " + fState.module + " " + fState.days + " days",
+        );
+        var upiUri =
+          "upi://pay?pa=" +
+          BK_UPI2 +
+          "&pn=SAP+Training&am=" +
+          advance +
+          "&cu=INR&tn=" +
+          note;
+        var qrWrap = document.getElementById("fQrWrap");
+        var qrImg = document.getElementById("fQrImg");
+        qrImg.src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+          encodeURIComponent(upiUri);
+        qrWrap.style.display = "block";
+        window.location.href = upiUri;
+      }
+
+      // ── INTERVIEW SUB-PANEL ──
+      function fIntSelect(module) {
+        fIntModule = module;
+        document
+          .querySelectorAll("#sub-interview .sub-mod-btn")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        event.currentTarget.classList.add("active");
+        document.getElementById("int-dur-title").textContent =
+          "\u23F1 Session Duration — " + module;
+        document.getElementById("int-dur-pick").style.display = "block";
+        document.querySelectorAll(".sub-int-dur").forEach(function (b) {
+          b.classList.remove("active");
+        });
+        document.getElementById("intQrWrap").style.display = "none";
+      }
+
+      function fIntPayment(amt, mins) {
+        document.querySelectorAll(".sub-int-dur").forEach(function (b) {
+          b.classList.remove("active");
+        });
+        event.currentTarget.classList.add("active");
+        var note = encodeURIComponent(
+          "Mock Interview: " + fIntModule + " " + mins + "min",
+        );
+        var upiUri =
+          "upi://pay?pa=" +
+          BK_UPI2 +
+          "&pn=SAP+Training&am=" +
+          amt +
+          "&cu=INR&tn=" +
+          note;
+        var qrWrap = document.getElementById("intQrWrap");
+        var qrImg = document.getElementById("intQrImg");
+        qrImg.src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+          encodeURIComponent(upiUri);
+        qrWrap.style.display = "block";
+        window.location.href = upiUri;
+      }
     </script>
   </body>
 </html>
