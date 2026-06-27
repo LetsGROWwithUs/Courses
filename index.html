@@ -3385,7 +3385,7 @@
               <button
                 class="submit-btn"
                 id="submitBtn"
-                onclick="submitEnquiry()"
+                onclick="handleFormAction()"
               >
                 Submit Enquiry →
               </button>
@@ -3398,6 +3398,43 @@
                 Thank you for reaching out.<br />We'll get back to you within
                 <strong style="color: var(--accent)">24 hours</strong
                 >.<br /><br />Meanwhile, feel free to WhatsApp or call directly.
+              </p>
+            </div>
+
+            <div class="form-success" id="paySuccess" style="display: none">
+              <span class="success-icon">💸</span>
+              <div class="success-title">Payment Initiated!</div>
+              <p class="success-msg" id="paySuccessMsg">
+                Your UPI payment is in progress.<br />
+                Once done,
+                <strong style="color: var(--accent)"
+                  >share your payment screenshot or UTR number</strong
+                >
+                on WhatsApp so we can confirm your slot instantly.<br /><br />
+                <a
+                  id="paySuccessWA"
+                  href="#"
+                  target="_blank"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: 12px;
+                    background: linear-gradient(135deg, #25d366, #128c7e);
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 11px 22px;
+                    border-radius: 50px;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 12px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+                  "
+                >
+                  📲 Share on WhatsApp
+                </a>
               </p>
             </div>
           </div>
@@ -3729,14 +3766,90 @@
       }
       animate();
       // ── ENQUIRY FORM SUBMIT ──
-      async function submitEnquiry() {
-        const name = document.getElementById("f-name");
-        const email = document.getElementById("f-email");
-        const mobile = document.getElementById("f-mobile");
-        const qual = document.getElementById("f-qual");
-        const status = document.querySelector('input[name="status"]:checked');
+      var SHEET_URL =
+        "https://script.google.com/macros/s/AKfycbwhqIuyKY3UQ3Xef5AEz7lFEZuUbCj-cLa2ycaQvdO-LJGvjx2QbdDj2oJB2NpNkYgi/exec";
+      var formDetailsSubmitted = false;
 
-        let valid = true;
+      // Returns true if current enquiry type has a payment flow
+      function isPaymentType() {
+        var v = document.getElementById("f-desc").value;
+        return (
+          v === "SAP Module Training" || v === "Mock Interview – SAP Modules"
+        );
+      }
+
+      // Update the submit/next button label based on enquiry type
+      function updateSubmitBtn() {
+        var btn = document.getElementById("submitBtn");
+        if (isPaymentType()) {
+          btn.textContent = "Next — Save Details →";
+        } else {
+          btn.textContent = "Submit Enquiry →";
+        }
+        // Reset lock state whenever type changes
+        formDetailsSubmitted = false;
+        lockPaymentSections();
+      }
+
+      function lockPaymentSections() {
+        // Training
+        var tp = document.getElementById("train-pay-body");
+        var tl = document.getElementById("train-lock-notice");
+        var tu = document.getElementById("train-unlock-badge");
+        if (tp) {
+          tp.classList.remove("unlocked");
+          tp.classList.add("pay-section-locked");
+        }
+        if (tl) tl.style.display = "flex";
+        if (tu) tu.classList.remove("show");
+        // Interview
+        var ip = document.getElementById("int-pay-body");
+        var il = document.getElementById("int-lock-notice");
+        var iu = document.getElementById("int-unlock-badge");
+        if (ip) {
+          ip.classList.remove("unlocked");
+          ip.classList.add("pay-section-locked");
+        }
+        if (il) il.style.display = "flex";
+        if (iu) iu.classList.remove("show");
+        // Reset QRs
+        var fq = document.getElementById("fQrWrap");
+        if (fq) fq.style.display = "none";
+        var iq = document.getElementById("intQrWrap");
+        if (iq) iq.style.display = "none";
+      }
+
+      function unlockPaymentSections() {
+        // Training
+        var tp = document.getElementById("train-pay-body");
+        var tl = document.getElementById("train-lock-notice");
+        var tu = document.getElementById("train-unlock-badge");
+        if (tp) {
+          tp.classList.add("unlocked");
+          tp.classList.remove("pay-section-locked");
+        }
+        if (tl) tl.style.display = "none";
+        if (tu) tu.classList.add("show");
+        // Interview
+        var ip = document.getElementById("int-pay-body");
+        var il = document.getElementById("int-lock-notice");
+        var iu = document.getElementById("int-unlock-badge");
+        if (ip) {
+          ip.classList.add("unlocked");
+          ip.classList.remove("pay-section-locked");
+        }
+        if (il) il.style.display = "none";
+        if (iu) iu.classList.add("show");
+      }
+
+      function validateFormFields() {
+        var name = document.getElementById("f-name");
+        var email = document.getElementById("f-email");
+        var mobile = document.getElementById("f-mobile");
+        var qual = document.getElementById("f-qual");
+        var status = document.querySelector('input[name="status"]:checked');
+        var desc = document.getElementById("f-desc");
+        var valid = true;
 
         [
           "grp-name",
@@ -3745,84 +3858,138 @@
           "grp-qual",
           "grp-status",
           "grp-desc",
-        ].forEach((id) => {
+        ].forEach(function (id) {
           document.getElementById(id).classList.remove("has-error");
         });
-
         document.getElementById("status-error").style.display = "none";
 
         if (!name.value.trim()) {
           document.getElementById("grp-name").classList.add("has-error");
           valid = false;
         }
-
-        const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailReg.test(email.value.trim())) {
           document.getElementById("grp-email").classList.add("has-error");
           valid = false;
         }
-
-        const mobClean = mobile.value.replace(/\s/g, "");
+        var mobClean = mobile.value.replace(/\s/g, "");
         if (!/^[+]?[0-9]{10,13}$/.test(mobClean)) {
           document.getElementById("grp-mobile").classList.add("has-error");
           valid = false;
         }
-
         if (!qual.value) {
           document.getElementById("grp-qual").classList.add("has-error");
           valid = false;
         }
-
         if (!status) {
           document.getElementById("grp-status").classList.add("has-error");
           document.getElementById("status-error").style.display = "block";
           valid = false;
         }
-        const desc = document.getElementById("f-desc");
         if (!desc.value) {
           document.getElementById("grp-desc").classList.add("has-error");
           document.getElementById("desc-error").style.display = "block";
           valid = false;
         }
-
-        const otherText = document.getElementById("f-other");
+        var otherText = document.getElementById("f-other");
         if (desc.value === "Other" && !otherText.value.trim()) {
           document.getElementById("grp-other").classList.add("has-error");
           document.getElementById("other-error").style.display = "block";
           valid = false;
         }
+        return valid;
+      }
 
-        if (!valid) return;
-
-        const btn = document.getElementById("submitBtn");
-        btn.disabled = true;
-        btn.textContent = "Submitting…";
-
+      async function sendToSheet(params) {
         try {
-          await fetch(
-            "https://script.google.com/macros/s/AKfycbwhqIuyKY3UQ3Xef5AEz7lFEZuUbCj-cLa2ycaQvdO-LJGvjx2QbdDj2oJB2NpNkYgi/exec",
-            {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: new URLSearchParams({
-                name: name.value.trim(),
-                email: email.value.trim(),
-                mobile: mobile.value.trim(),
-                qualification: qual.value,
-                status: status.value,
-                interest: document.getElementById("f-interest").value,
-                enquiryType:
-                  document.getElementById("f-desc").value === "Other"
-                    ? "Other: " +
-                      document.getElementById("f-other").value.trim()
-                    : document.getElementById("f-desc").value,
-              }),
-            },
-          );
+          await fetch(SHEET_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(params),
+          });
         } catch (e) {
           console.error(e);
         }
+      }
+
+      // Main button handler — "Next" for payment types, "Submit" for others
+      async function handleFormAction() {
+        if (!validateFormFields()) return;
+        if (isPaymentType()) {
+          await handleNext();
+        } else {
+          await submitEnquiry();
+        }
+      }
+
+      async function handleNext() {
+        var btn = document.getElementById("submitBtn");
+        btn.disabled = true;
+        btn.textContent = "Saving…";
+
+        var name = document.getElementById("f-name").value.trim();
+        var email = document.getElementById("f-email").value.trim();
+        var mobile = document.getElementById("f-mobile").value.trim();
+        var qual = document.getElementById("f-qual").value;
+        var status = document.querySelector(
+          'input[name="status"]:checked',
+        ).value;
+        var desc = document.getElementById("f-desc").value;
+        var enqType =
+          desc === "Other"
+            ? "Other: " + document.getElementById("f-other").value.trim()
+            : desc;
+
+        await sendToSheet({
+          name: name,
+          email: email,
+          mobile: mobile,
+          qualification: qual,
+          status: status,
+          interest: document.getElementById("f-interest").value,
+          enquiryType: enqType,
+          stage: "Enquiry",
+        });
+
+        formDetailsSubmitted = true;
+        unlockPaymentSections();
+
+        btn.disabled = false;
+        btn.textContent = "✅ Details Saved — Complete Payment Below";
+        btn.style.background = "linear-gradient(135deg,#0057ff,#00d4ff)";
+        btn.style.cursor = "default";
+        btn.onclick = null; // disable further clicks
+      }
+
+      async function submitEnquiry() {
+        var btn = document.getElementById("submitBtn");
+        btn.disabled = true;
+        btn.textContent = "Submitting…";
+
+        var name = document.getElementById("f-name").value.trim();
+        var email = document.getElementById("f-email").value.trim();
+        var mobile = document.getElementById("f-mobile").value.trim();
+        var qual = document.getElementById("f-qual").value;
+        var status = document.querySelector(
+          'input[name="status"]:checked',
+        ).value;
+        var desc = document.getElementById("f-desc").value;
+        var enqType =
+          desc === "Other"
+            ? "Other: " + document.getElementById("f-other").value.trim()
+            : desc;
+
+        await sendToSheet({
+          name: name,
+          email: email,
+          mobile: mobile,
+          qualification: qual,
+          status: status,
+          interest: document.getElementById("f-interest").value,
+          enquiryType: enqType,
+          stage: "Enquiry",
+        });
 
         document.getElementById("enquiryForm").style.display = "none";
         document.getElementById("formSuccess").classList.add("show");
@@ -4045,6 +4212,17 @@
         } else if (v === "Mock Interview \u2013 SAP Modules") {
           document.getElementById("sub-interview").style.display = "block";
         }
+
+        // Update Next/Submit button and reset payment locks
+        updateSubmitBtn();
+        lockPaymentSections();
+        // Reset submit button style in case it was in "saved" state
+        var btn = document.getElementById("submitBtn");
+        btn.style.background = "";
+        btn.style.cursor = "";
+        btn.onclick = function () {
+          handleFormAction();
+        };
       });
       // Close on Escape key
       document.addEventListener("keydown", function (e) {
