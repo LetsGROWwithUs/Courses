@@ -950,10 +950,12 @@
       gap: 8px;
       flex-wrap: wrap;
     }
+
     .testi-name {
       font-weight: 600;
       font-size: 14px;
     }
+
     .testi-linkedin {
       display: inline-flex;
       align-items: center;
@@ -968,13 +970,23 @@
       text-decoration: none;
       transition: background 0.15s, transform 0.15s;
     }
-    .testi-linkedin:hover { background: #d6e6f7; transform: translateY(-1px); }
-    .testi-linkedin svg { width: 11px; height: 11px; fill: #0a66c2; }
+
+    .testi-linkedin:hover {
+      background: #d6e6f7;
+      transform: translateY(-1px);
+    }
+
+    .testi-linkedin svg {
+      width: 11px;
+      height: 11px;
+      fill: #0a66c2;
+    }
 
     /* Recent (live) stories — auto-rendered from the sheet */
     .recent-stories {
       margin-top: 36px;
     }
+
     .recent-stories-head {
       display: flex;
       align-items: center;
@@ -983,21 +995,25 @@
       flex-wrap: wrap;
       margin-bottom: 16px;
     }
+
     .recent-stories-head h3 {
       font-size: 18px;
       font-weight: 600;
       color: var(--text);
     }
+
     .recent-stories-head .count {
       font-size: 12px;
       color: var(--muted);
       font-family: var(--font-mono);
     }
+
     .recent-stories-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
     }
+
     .recent-story {
       background: #fff;
       border: 1px solid var(--border);
@@ -1008,21 +1024,25 @@
       gap: 10px;
       transition: transform 0.15s, box-shadow 0.15s;
     }
+
     .recent-story:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 24px -16px rgba(15, 23, 42, 0.2);
     }
+
     .recent-story .recent-stars {
       color: var(--warn);
       font-size: 13px;
       letter-spacing: 2px;
     }
+
     .recent-story .recent-quote {
       font-size: 14px;
       color: var(--text-2);
       line-height: 1.55;
       flex: 1;
     }
+
     .recent-story .recent-meta {
       display: flex;
       align-items: center;
@@ -1030,16 +1050,19 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
+
     .recent-story .recent-name {
       font-weight: 600;
       font-size: 13px;
       color: var(--text);
     }
+
     .recent-story .recent-role {
       font-size: 12px;
       color: var(--muted);
       font-family: var(--font-mono);
     }
+
     .recent-story .recent-li {
       display: inline-flex;
       align-items: center;
@@ -1055,8 +1078,18 @@
       margin-left: auto;
       transition: background 0.15s, transform 0.15s;
     }
-    .recent-story .recent-li:hover { background: #d6e6f7; transform: translateY(-1px); }
-    .recent-story .recent-li svg { width: 11px; height: 11px; fill: #0a66c2; }
+
+    .recent-story .recent-li:hover {
+      background: #d6e6f7;
+      transform: translateY(-1px);
+    }
+
+    .recent-story .recent-li svg {
+      width: 11px;
+      height: 11px;
+      fill: #0a66c2;
+    }
+
     .recent-stories-empty {
       text-align: center;
       padding: 24px;
@@ -1066,7 +1099,12 @@
       border-radius: var(--radius-xl);
       background: #fff;
     }
-    .recent-stories-empty strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+    .recent-stories-empty strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
 
     /* ===== Feedback ===== */
     .feedback-section {
@@ -1589,6 +1627,7 @@
       color: rgba(255, 255, 255, 0.9);
       margin: 10px 0 0;
     }
+
     #demoModal .live-channel a {
       display: inline-block;
       margin-top: 4px;
@@ -1602,6 +1641,7 @@
       text-decoration: none;
       transition: background 0.15s, transform 0.15s;
     }
+
     #demoModal .live-channel a:hover {
       background: rgba(255, 255, 255, 0.28);
       transform: translateY(-1px);
@@ -1779,7 +1819,8 @@
       </nav>
       <div class="header-cta">
         <a href="https://wa.me/918871644954" target="_blank" rel="noopener" class="btn btn-ghost">💬 WhatsApp</a>
-        <a href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener" class="btn btn-ghost" title="Join our WhatsApp Channel">📢 Channel</a>
+        <a href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener"
+          class="btn btn-ghost" title="Join our WhatsApp Channel">📢 Channel</a>
         <a href="#enquiry" class="btn btn-primary">Get in touch</a>
       </div>
     </div>
@@ -1998,7 +2039,7 @@
       <div class="section-header">
         <span class="eyebrow">// Live demo sessions</span>
         <h2>Join a free demo</h2>
-        <p>Free hands-on sessions. Register and we'll continue on WhatsApp with the meeting link.</p>
+        <p>Free hands-on sessions. Register and we'll email you the meeting link.</p>
       </div>
       <div id="demoList" class="demo-list"></div>
       <div id="pastDemos" style="display: none;">
@@ -2318,7 +2359,9 @@
         <h3>Got it — we'll be in touch!</h3>
         <p>You'll hear back within 24 hours. For a quicker conversation, <a href="https://wa.me/918871644954"
             target="_blank" rel="noopener">message us on WhatsApp</a>.</p>
-        <p style="margin-top: 6px;">Want ongoing updates? <a href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener">Join our WhatsApp Channel</a> for announcements &amp; session reminders.</p>
+        <p style="margin-top: 6px;">Want ongoing updates? <a
+            href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener">Join our
+            WhatsApp Channel</a> for announcements &amp; session reminders.</p>
         <div class="form-actions" style="justify-content: center;">
           <button class="btn btn-secondary" type="button" onclick="closeBookingModal()">Close</button>
         </div>
@@ -2333,10 +2376,11 @@
       <div class="live-hero">
         <span class="live-badge"><span class="live-dot"></span>Live now</span>
         <h2 class="live-title">A demo is happening right now</h2>
-        <p class="live-sub">Drop your details and we'll continue the conversation on WhatsApp with the meeting link.</p>
+        <p class="live-sub">Drop your details below — we'll email the meeting link to you.</p>
         <p class="live-channel">
           Prefer just the announcement?
-          <a href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener">📢 Join our WhatsApp Channel</a>
+          <a href="https://whatsapp.com/channel/0029Vb8q9rJ5K3zabUGxWj2B" target="_blank" rel="noopener">📢 Join our
+            WhatsApp Channel</a>
         </p>
       </div>
       <div id="demoFormWrap" class="modal-body">
@@ -2359,14 +2403,14 @@
           </div>
         </div>
         <div class="form-actions">
-          <button class="btn btn-primary btn-block" type="button" onclick="submitDemo()">Continue on WhatsApp →</button>
+          <button class="btn btn-primary btn-block" type="button" onclick="submitDemo()">Register for the demo
+            →</button>
         </div>
       </div>
       <div class="form-success" id="demoSuccess">
         <div class="icon">✓</div>
-        <h3>Opening WhatsApp…</h3>
-        <p>If WhatsApp didn't open, <a id="demoWhatsappLink" href="#" target="_blank" rel="noopener">tap here to message
-            us</a> directly.</p>
+        <h3>Successfully registered for the demo</h3>
+        <p>Check your mailbox for the demo details.</p>
         <div class="form-actions" style="justify-content: center;">
           <button class="btn btn-secondary" type="button" onclick="closeDemoModal()">Close</button>
         </div>
@@ -2382,6 +2426,9 @@
     // Same Apps Script, but served as JSON. Set this after adding the doGet snippet
     // (see the README/guide) so the recent-stories section can pull from the sheet.
     const STORIES_API_URL = ''; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+    // Same endpoint also serves meeting links (type=meetingLinks).
+    // Per-demo hardcoded `meetingLink` on each DEMOS entry takes priority as a fallback.
+    let meetLinksCache = {}; // { 'SAP Datasphere': 'https://meet.google.com/...', ... }
 
     const MODULES = [
       { id: 'sac', name: 'SAP Analytics Cloud', emoji: '📊' },
@@ -2394,13 +2441,21 @@
       { id: 'other', name: 'Others', emoji: '💬' },
     ];
 
-    // Demo config — flip the `live` flag to surface a demo on the page
+    // Demo config — flip the `live` flag to surface a demo on the page.
+    // Set `meetingLink` to hardcode (used as fallback before the sheet fetch lands).
+    // The sheet column 'Meeting Link' will OVERRIDE this when MEETING_LINKS_API_URL is wired.
     const DEMOS = [
-      { date: '2026-Oct-21', time: '03:00 PM IST', module: 'SAP Datasphere', pdf: 'downloads/BDC_DSP_Roadmap.pdf', live: false },
+      { date: '2026-Oct-21', time: '03:00 PM IST', module: 'SAP Datasphere', pdf: 'downloads/BDC_DSP_Roadmap.pdf', live: false, meetingLink: '' /* ← paste the new meeting URL for each demo session */ },
       { date: '2026-Sep-27', time: '11:00 AM IST', module: 'SAP Analytics Cloud', pdf: 'downloads/SAC_Roadmap.pdf', live: false },
       { date: '2026-Sep-07', time: '07:00 PM IST', module: 'SAP Business Data Cloud', pdf: 'downloads/SAC_Roadmap.pdf', live: false },
       { module: 'No live demos currently scheduled', live: false, placeholder: true },
     ];
+
+    // ── Resolve the meeting link for a demo: sheet cache wins, fallback to hardcoded.
+    function resolveMeetingLink(demo) {
+      if (!demo) return '';
+      return meetLinksCache[demo.module] || demo.meetingLink || '';
+    }
 
     // ── Helper: fire-and-forget POST to Google Sheet ──
     function postToSheet(params) {
@@ -2488,33 +2543,24 @@
       if (!name || !validEmail || !validMobile) return;
 
       const demo = DEMOS.filter(d => d.live)[selectedDemoIdx];
-      const msg = `Hi! I'd like to register for the ${demo.module} demo on ${demo.date} at ${demo.time} IST.
+      const meetingLink = resolveMeetingLink(demo);
 
-Name: ${name}
-Email: ${email}
-Mobile: ${mobile}
-
-Please share the meeting link. Thanks!`;
-      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-
-      // Open WhatsApp
-      window.open(waLink, '_blank');
-
-      // Log to sheet (best-effort)
+      // Log to sheet — Apps Script reads `demoMeetingLink` (key name MUST match
+      // line ~520 of appscript.txt). Apps Script then emails the link to the user.
       postToSheet({
         name, email, mobile,
         enquiryType: 'Demo Registration',
         demoModule: demo.module,
         demoDate: demo.date,
         demoTime: demo.time,
+        demoMeetingLink: meetingLink, // → sheet column T → confirmation email
         stage: 'Demo Registered',
       });
       track('demo_registration', { module: demo.module });
 
-      // Show success
+      // Show success (no WhatsApp anywhere in the flow)
       document.getElementById('demoFormWrap').style.display = 'none';
       document.getElementById('demoSuccess').classList.add('show');
-      document.getElementById('demoWhatsappLink').href = waLink;
     }
 
     // ── Booking modal (Register Interest) ──
@@ -2733,7 +2779,7 @@ Please share the meeting link. Thanks!`;
         .then(r => r.json())
         .then(data => {
           const stories = (data && data.stories) ? data.stories : [];
-          try { localStorage.setItem('recentStoriesCache', JSON.stringify({ ts: Date.now(), stories })); } catch (e) {}
+          try { localStorage.setItem('recentStoriesCache', JSON.stringify({ ts: Date.now(), stories })); } catch (e) { }
           finish(stories);
         });
 
@@ -2765,9 +2811,9 @@ Please share the meeting link. Thanks!`;
     // open DevTools console and run:  purgeLocalStories()
     // (also clears the last-good cache)
     window.purgeLocalStories = function () {
-      try { localStorage.removeItem('recentStoriesLocal'); } catch (e) {}
-      try { localStorage.removeItem('recentStoriesCache'); } catch (e) {}
-      try { sessionStorage.removeItem('liveDemoPopupDismissed'); } catch (e) {}
+      try { localStorage.removeItem('recentStoriesLocal'); } catch (e) { }
+      try { localStorage.removeItem('recentStoriesCache'); } catch (e) { }
+      try { sessionStorage.removeItem('liveDemoPopupDismissed'); } catch (e) { }
       renderRecentStories();
       return 'purged';
     };
@@ -2776,6 +2822,26 @@ Please share the meeting link. Thanks!`;
     initDemos();
     initFeedbackStars();
     renderRecentStories();
+    fetchMeetingLinks();
+
+    // ── Meeting link loader (sheet-backed, with hardcoded fallback) ──
+    function fetchMeetingLinks() {
+      // Hardcoded entries seed the cache so per-demo `meetingLink` works even
+      // before MEETING_LINKS_API_URL is configured.
+      DEMOS.forEach(d => { if (d.meetingLink) meetLinksCache[d.module] = d.meetingLink; });
+
+      const apiUrl = STORIES_API_URL || SHEET_URL; // same Apps Script serves both
+      if (!apiUrl) return;
+
+      fetch(`${apiUrl}?type=meetingLinks&t=${Date.now()}`, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(data => {
+          if (data && data.links) {
+            Object.assign(meetLinksCache, data.links);
+          }
+        })
+        .catch(() => { /* keep hardcoded cache; will retry on next page load */ });
+    }
 
     // Auto-open the live demo popup if any demo is flagged `live: true` and the
     // user hasn't already dismissed it this session. Past demos are ignored.
