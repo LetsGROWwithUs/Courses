@@ -2059,7 +2059,9 @@
           <a href="#contact" class="btn btn-primary btn-lg"
             >Start your journey</a
           >
-          <a href="#demos" class="btn btn-secondary btn-lg">Join a live demo</a>
+          <a href="#demos" class="btn btn-secondary btn-lg" id="heroDemoCta"
+            >Join a live demo</a
+          >
         </div>
         <div class="hero-modules">
           <span class="hero-module">📊 SAC</span>
@@ -2352,9 +2354,9 @@
     <section id="demos">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// Live demo sessions</span>
-          <h2>Join a free demo</h2>
-          <p>
+          <span class="eyebrow" id="demosEyebrow">// Live demo sessions</span>
+          <h2 id="demosHeading">Join a free demo</h2>
+          <p id="demosSub">
             Free hands-on sessions. Register and we'll email you the meeting
             link.
           </p>
@@ -3149,7 +3151,7 @@
           time: "07:00 PM IST",
           module: "SAP Business Data Cloud",
           pdf: "downloads/DSP,BDC,SAC.pdf",
-          live: flase,
+          live: false,
           course: {
             title:
               "SAP Datasphere + Business Data Cloud + Analytics Cloud — 45-Module Curriculum",
@@ -3172,11 +3174,23 @@
             "" /* ← paste the new meeting URL for each demo session */,
         },
         {
+          // Placeholder only — NOT a registrable session. `getLiveDemos()`
+          // excludes placeholders, so this can never trigger the popup or a
+          // registration form. To schedule a session, flip `live: true` on one
+          // of the real entries above.
           module: "No live demos currently scheduled",
           live: false,
           placeholder: true,
         },
       ];
+
+      // ── Live demos: single source of truth ──
+      // A demo is registrable only when it is flagged `live: true` AND is not a
+      // placeholder. When this returns an empty array there is nothing to
+      // register for — no auto-popup, no registration button, no form.
+      function getLiveDemos() {
+        return DEMOS.filter((d) => d.live && !d.placeholder);
+      }
 
       // ── Resolve the meeting link for a demo: sheet cache wins, fallback to hardcoded.
       function resolveMeetingLink(demo) {
@@ -3205,9 +3219,29 @@
 
       // ── Demos ──
       function initDemos() {
-        const live = DEMOS.filter((d) => d.live);
+        const live = getLiveDemos();
         const past = DEMOS.filter((d) => d.past);
         const list = document.getElementById("demoList");
+
+        // Header copy follows availability — don't promise a registration
+        // when there is no session to register for.
+        const eyebrow = document.getElementById("demosEyebrow");
+        const heading = document.getElementById("demosHeading");
+        const sub = document.getElementById("demosSub");
+        const heroCta = document.getElementById("heroDemoCta");
+        if (live.length === 0) {
+          eyebrow.textContent = "// Demo sessions";
+          heading.textContent = "No live demo scheduled right now";
+          sub.textContent =
+            "New sessions are announced here first. Message us on WhatsApp and we'll notify you when the next one is on the calendar.";
+          heroCta.textContent = "Get demo updates";
+        } else {
+          eyebrow.textContent = "// Live demo sessions";
+          heading.textContent = "Join a free demo";
+          sub.textContent =
+            "Free hands-on sessions. Register and we'll email you the meeting link.";
+          heroCta.textContent = "Join a live demo";
+        }
 
         if (live.length === 0) {
           list.innerHTML = `
@@ -3284,9 +3318,10 @@
           refLink.hidden = true;
         }
 
-        document.getElementById("demoCourseAudience").innerHTML = course.audience
-          ? `<strong>Who it's for:</strong> ${course.audience}`
-          : "";
+        document.getElementById("demoCourseAudience").innerHTML =
+          course.audience
+            ? `<strong>Who it's for:</strong> ${course.audience}`
+            : "";
 
         document.getElementById("demoCourseTopics").innerHTML = (
           course.topics || []
@@ -3302,10 +3337,12 @@
       }
 
       function openDemoModal(idx) {
+        const demo = getLiveDemos()[idx];
+        // Guard: never open registration for a demo that isn't live.
+        if (!demo) return;
         selectedDemoIdx = idx;
-        const demo = DEMOS.filter((d) => d.live)[idx];
         document.getElementById("demoSelectedInfo").textContent =
-          `${demo.module} — ${demo.date} at ${demo.time} IST`;
+          `${demo.module} — ${demo.date} at ${demo.time}`;
         renderDemoCourse(demo);
         document.getElementById("demoFormWrap").style.display = "block";
         document.getElementById("demoSuccess").classList.remove("show");
@@ -3345,7 +3382,8 @@
           .classList.toggle("has-error", !validMobile);
         if (!name || !validEmail || !validMobile) return;
 
-        const demo = DEMOS.filter((d) => d.live)[selectedDemoIdx];
+        const demo = getLiveDemos()[selectedDemoIdx];
+        if (!demo) return;
         const meetingLink = resolveMeetingLink(demo);
 
         // Log to sheet — Apps Script reads `demoMeetingLink` (key name MUST match
@@ -3750,10 +3788,11 @@
 
       // Auto-open the live demo popup if any demo is flagged `live: true` and the
       // user hasn't already dismissed it this session. Past demos are ignored.
+      // When nothing is live, there is no popup — and no registration either.
       (function autoOpenLiveDemo() {
         const dismissed =
           sessionStorage.getItem("liveDemoPopupDismissed") === "1";
-        const liveDemos = DEMOS.filter((d) => d.live);
+        const liveDemos = getLiveDemos();
         if (!dismissed && liveDemos.length > 0) {
           // Small delay so the page settles before the modal animates in
           setTimeout(() => openDemoModal(0), 600);
