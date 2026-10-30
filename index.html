@@ -1694,6 +1694,108 @@
         margin-bottom: 18px;
       }
 
+      /* ===== Live demo list inside the popup (all sessions in one place) ===== */
+      #demoModal .demo-live-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      #demoModal .demo-live-item {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 14px;
+        padding: 16px 18px;
+      }
+
+      #demoModal .demo-live-date {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 6px;
+      }
+
+      #demoModal .demo-live-module {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      #demoModal .demo-live-course {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 14px;
+      }
+
+      #demoModal .demo-live-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      #demoModal .demo-live-btn {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        color: #4f46e5;
+        background: #fff;
+        border: 0;
+        border-radius: 10px;
+        padding: 9px 14px;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+
+      #demoModal .demo-live-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.4);
+      }
+
+      #demoModal .demo-live-doc {
+        font-family: "Inter", sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+        padding-bottom: 1px;
+      }
+
+      #demoModal .demo-live-doc:hover {
+        color: #fff;
+      }
+
+      #demoModal .demo-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        padding: 6px 14px;
+        margin-bottom: 16px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      #demoModal .demo-back-btn:hover {
+        background: rgba(255, 255, 255, 0.24);
+      }
+
       /* ===== Course details block inside the demo popup ===== */
       /* The [hidden] attribute must win over the display rules below, otherwise
          `display: inline-flex` on the links would keep them visible. */
@@ -2610,9 +2712,10 @@
               Which SAP modules do you cover? <span class="icon">+</span>
             </summary>
             <div class="faq-a">
-              SAP Analytics Cloud (SAC), BPC, Datasphere, BW/4HANA, SAP MM, S/4HANA, and
-              SAP Business Data Cloud (BDC). Click any module in the "Pick a
-              module" section above to open its detailed reference guide.
+              SAP Analytics Cloud (SAC), BPC, Datasphere, BW/4HANA, SAP MM,
+              S/4HANA, and SAP Business Data Cloud (BDC). Click any module in
+              the "Pick a module" section above to open its detailed reference
+              guide.
             </div>
           </details>
           <details class="faq-item">
@@ -2949,10 +3052,16 @@
           ×
         </button>
         <div class="live-hero">
-          <span class="live-badge"><span class="live-dot"></span>Live now</span>
-          <h2 class="live-title">A demo is happening right now</h2>
-          <p class="live-sub">
-            Drop your details below — we'll email the meeting link to you.
+          <span class="live-badge"
+            ><span class="live-dot"></span
+            ><span id="demoHeroBadge">Live now</span></span
+          >
+          <h2 class="live-title" id="demoHeroTitle">
+            Live demo sessions are open
+          </h2>
+          <p class="live-sub" id="demoHeroSub">
+            Choose a session below and register — we'll email you the meeting
+            link.
           </p>
           <p class="live-channel">
             Prefer just the announcement?
@@ -2964,7 +3073,21 @@
             >
           </p>
         </div>
-        <div id="demoFormWrap" class="modal-body">
+
+        <!-- ── View 1: every live demo listed together ── -->
+        <div id="demoListView" class="modal-body">
+          <div id="demoLiveList" class="demo-live-list"></div>
+        </div>
+
+        <!-- ── View 2: registration form for the chosen demo ── -->
+        <div id="demoFormWrap" class="modal-body" hidden>
+          <button
+            class="demo-back-btn"
+            type="button"
+            onclick="backToDemoList()"
+          >
+            ← All live sessions
+          </button>
           <div class="demo-modal-info" id="demoSelectedInfo"></div>
           <div class="demo-course-panel" id="demoCoursePanel" hidden>
             <div class="demo-course-title" id="demoCourseTitle"></div>
@@ -3190,6 +3313,40 @@
         return DEMOS.filter((d) => d.live && !d.placeholder);
       }
 
+      // ── Friendly date: "2026-Nov-22" → "22 Nov 2026"
+      const DEMO_MONTHS = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      function formatDemoDate(raw) {
+        const m = /^(\d{4})-([A-Za-z]{3})-(\d{1,2})$/.exec(raw || "");
+        if (!m) return raw || "";
+        const label = m[2][0].toUpperCase() + m[2].slice(1).toLowerCase();
+        const mo = DEMO_MONTHS.indexOf(label);
+        if (mo < 0) return raw;
+        return `${m[3]} ${DEMO_MONTHS[mo]} ${m[1]}`;
+      }
+
+      // ── Signature of the current live-demo set ──
+      // The popup is dismissed per set of live demos: dismissing it for one set
+      // must not suppress it later, when a NEW session is flipped live. When
+      // this changes, the popup is eligible to open again.
+      function liveDemoSignature() {
+        return getLiveDemos()
+          .map((d) => `${d.module}|${d.date}|${d.time}`)
+          .join("~~");
+      }
+
       // ── Resolve the meeting link for a demo: sheet cache wins, fallback to hardcoded.
       function resolveMeetingLink(demo) {
         if (!demo) return "";
@@ -3257,7 +3414,7 @@
             <div class="demo-date">${d.date} at ${d.time}</div>
             <div class="demo-module">${d.module}</div>
             ${d.pdf ? `<a href="${d.pdf}" target="_blank" rel="noopener" class="demo-link">View course details →</a>` : ""}
-            <button class="demo-btn" type="button" onclick="openDemoModal(${i})">Register for this demo</button>
+            <button class="demo-btn" type="button" onclick="openDemoForm(${i})">Register for this demo</button>
           </div>
         `,
             )
@@ -3277,6 +3434,65 @@
 
       // ── Demo modal ──
       let selectedDemoIdx = -1;
+
+      // ── Switch the popup between its two views:
+      //    "list"  → every live demo, each with its own Register button
+      //    "form"  → registration form for the demo the user picked
+      //    "success" → confirmation after a successful registration
+      function setDemoView(view) {
+        document.getElementById("demoListView").hidden = view !== "list";
+        document.getElementById("demoFormWrap").hidden = view !== "form";
+        document
+          .getElementById("demoSuccess")
+          .classList.toggle("show", view === "success");
+      }
+
+      // ── Header copy in the popup scales with the number of live sessions ──
+      function updateDemoHero() {
+        const live = getLiveDemos();
+        const badge = document.getElementById("demoHeroBadge");
+        const title = document.getElementById("demoHeroTitle");
+        const sub = document.getElementById("demoHeroSub");
+        if (badge) {
+          badge.textContent =
+            live.length === 1 ? "Live now" : `${live.length} sessions live`;
+        }
+        if (title) {
+          title.textContent =
+            live.length === 1
+              ? "A demo session is open for registration"
+              : `${live.length} demo sessions are open for registration`;
+        }
+        if (sub) {
+          sub.textContent =
+            "Pick a session below — drop your details and we'll email you the meeting link.";
+        }
+      }
+
+      // ── Render every live demo into the popup's list view ──
+      function renderDemoList() {
+        const live = getLiveDemos();
+        const list = document.getElementById("demoLiveList");
+        if (!list) return;
+
+        updateDemoHero();
+
+        list.innerHTML = live
+          .map(
+            (d, i) => `
+          <div class="demo-live-item">
+            <div class="demo-live-date">${escText(formatDemoDate(d.date))} · ${escText(d.time)}</div>
+            <div class="demo-live-module">${escText(d.module)}</div>
+            ${d.course && d.course.title ? `<div class="demo-live-course">${escText(d.course.title)}</div>` : ""}
+            <div class="demo-live-actions">
+              <button class="demo-live-btn" type="button" onclick="openDemoForm(${i})">Register for this session →</button>
+              ${d.pdf ? `<a class="demo-live-doc" href="${escText(d.pdf)}" target="_blank" rel="noopener">📄 View course details</a>` : ""}
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+      }
 
       // ── Populate the "course details" block for the selected demo ──
       function renderDemoCourse(demo) {
@@ -3334,16 +3550,27 @@
         more.classList.remove("open");
       }
 
-      function openDemoModal(idx) {
+      // ── Open the popup on the list view (all live demos) ──
+      function openDemoModal() {
+        const live = getLiveDemos();
+        if (live.length === 0) return;
+        renderDemoList();
+        setDemoView("list");
+        document.getElementById("demoModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      // ── Open the registration form for one specific live demo ──
+      function openDemoForm(idx) {
         const demo = getLiveDemos()[idx];
         // Guard: never open registration for a demo that isn't live.
         if (!demo) return;
         selectedDemoIdx = idx;
+        updateDemoHero();
         document.getElementById("demoSelectedInfo").textContent =
-          `${demo.module} — ${demo.date} at ${demo.time}`;
+          `${demo.module} — ${formatDemoDate(demo.date)} at ${demo.time}`;
         renderDemoCourse(demo);
-        document.getElementById("demoFormWrap").style.display = "block";
-        document.getElementById("demoSuccess").classList.remove("show");
+        setDemoView("form");
         ["d-name", "d-email", "d-mobile"].forEach((id) => {
           const el = document.getElementById(id);
           el.value = "";
@@ -3352,12 +3579,35 @@
         document.getElementById("demoModal").classList.add("open");
         document.body.style.overflow = "hidden";
       }
+
+      // ── Back to the list of all live demos ──
+      function backToDemoList() {
+        selectedDemoIdx = -1;
+        renderDemoList();
+        setDemoView("list");
+      }
+
       function closeDemoModal() {
-        document.getElementById("demoModal").classList.remove("open");
+        const modal = document.getElementById("demoModal");
+        const wasOpen = modal.classList.contains("open");
+        modal.classList.remove("open");
         document.body.style.overflow = "";
         selectedDemoIdx = -1;
-        // Don't auto-pop again this session after the user closes it
-        sessionStorage.setItem("liveDemoPopupDismissed", "1");
+        // Don't auto-pop again for this set of live demos. The signature is
+        // stored so that a NEW session going live re-opens the popup.
+        // Only record the dismissal if the popup was actually showing —
+        // otherwise closing a modal that never opened would silently
+        // suppress the popup for the whole session.
+        if (wasOpen) {
+          try {
+            sessionStorage.setItem(
+              "liveDemoPopupDismissed",
+              liveDemoSignature(),
+            );
+          } catch (e) {
+            /* noop */
+          }
+        }
       }
       function submitDemo() {
         const name = document.getElementById("d-name").value.trim();
@@ -3400,8 +3650,7 @@
         track("demo_registration", { module: demo.module });
 
         // Show success (no WhatsApp anywhere in the flow)
-        document.getElementById("demoFormWrap").style.display = "none";
-        document.getElementById("demoSuccess").classList.add("show");
+        setDemoView("success");
       }
 
       // ── Booking modal (Register Interest) ──
@@ -3785,16 +4034,32 @@
       }
 
       // Auto-open the live demo popup if any demo is flagged `live: true` and the
-      // user hasn't already dismissed it this session. Past demos are ignored.
-      // When nothing is live, there is no popup — and no registration either.
+      // user hasn't already dismissed THIS set of live demos. Past demos are
+      // ignored. When nothing is live, there is no popup — and no registration.
+      //
+      // The dismissal is keyed on the live-demo signature, so scheduling a NEW
+      // session re-opens the popup even within the same browsing session.
       (function autoOpenLiveDemo() {
-        const dismissed =
-          sessionStorage.getItem("liveDemoPopupDismissed") === "1";
         const liveDemos = getLiveDemos();
-        if (!dismissed && liveDemos.length > 0) {
-          // Small delay so the page settles before the modal animates in
-          setTimeout(() => openDemoModal(0), 600);
+        if (liveDemos.length === 0) return;
+        let dismissed = "";
+        try {
+          dismissed = sessionStorage.getItem("liveDemoPopupDismissed") || "";
+        } catch (e) {
+          /* noop */
         }
+        // Legacy value "1" (from the old boolean flag) never matches a
+        // signature, so those users see the popup again — which is correct,
+        // since the old flag blocked it permanently.
+        if (dismissed && dismissed === liveDemoSignature()) return;
+        // Small delay so the page settles before the modal animates in
+        setTimeout(() => {
+          // If the user already opened the modal (e.g. clicked "Register"
+          // before the timer fired), leave them where they are.
+          if (document.getElementById("demoModal").classList.contains("open"))
+            return;
+          openDemoModal();
+        }, 600);
       })();
 
       // Esc closes any open modal
