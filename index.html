@@ -3,42 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LetsGrowWithUs – Learn SAP from a working consultant</title>
+    <title>LetsGrowWithUs – Growth Starts With People</title>
 
     <!-- ── SEO ── -->
     <meta
       name="description"
-      content="Learn SAP the practical way — 1-on-1 training, mock interviews, certification prep and job support in SAP Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC. Connect directly with a working SAP expert."
+      content="Practical SAP support for people and teams — mentoring and mock interviews for individuals, and workforce support for organisations, across Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC."
     />
     <meta
       name="keywords"
-      content="SAP training, SAP Datasphere, SAP Analytics Cloud, SAC, BW/4HANA, SAP MM, SAP BPC, S/4HANA, SAP BDC, SAP certification, SAP mock interview"
+      content="SAP training, SAP staffing, IT resource solutions, SAP project delivery, HR staffing, HR advisory, SAP SuccessFactors, SAP Datasphere, SAP Analytics Cloud, SAC, BW/4HANA, SAP MM, SAP BPC, S/4HANA, SAP BDC, SAP certification, SAP mock interview"
     />
     <meta name="author" content="Naresh Kabra" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#4f46e5" />
-    <link rel="canonical" href="https://saplearninghub.github.io/Courses/" />
+    <link rel="canonical" href="https://letsgrowwithus.in/" />
 
     <!-- ── Open Graph ── -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LetsGrowWithUs" />
-    <meta property="og:title" content="Learn SAP – Connect with an Expert" />
+    <meta
+      property="og:title"
+      content="Growth Starts With People | LetsGrowWithUs"
+    />
     <meta
       property="og:description"
-      content="1-on-1 SAP training, mock interviews, certification prep and job support across Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC."
+      content="Practical SAP support for people and teams — mentoring and mock interviews for individuals, and workforce support for organisations, across Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC."
     />
     <meta
       property="og:url"
-      content="https://saplearninghub.github.io/Courses/"
+      content="https://letsgrowwithus.in/"
     />
     <meta property="og:locale" content="en_IN" />
 
     <!-- ── Twitter Card ── -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Learn SAP – Connect with an Expert" />
+    <meta
+      name="twitter:title"
+      content="Growth Starts With People | LetsGrowWithUs"
+    />
     <meta
       name="twitter:description"
-      content="1-on-1 SAP training, mock interviews, certification prep and job support across Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC."
+      content="Practical SAP support for people and teams — mentoring and mock interviews for individuals, and workforce support for organisations, across Datasphere, SAC, BW/4HANA, BPC, S/4HANA and BDC."
     />
 
     <!-- ── Favicon (inline SVG) ── -->
@@ -449,7 +455,7 @@
       /* ===== Services ===== */
       .services-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
       }
 
@@ -658,6 +664,83 @@
         font-size: 11px;
         font-weight: 700;
         margin-top: 2px;
+      }
+
+      /* ===== Dual-track bands (individuals / teams) ===== */
+      .tracks {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      @media (max-width: 900px) {
+        .tracks {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Applied together with .learn-section (the existing surface card shell).
+         This rule comes later in the stylesheet, so its padding wins. */
+      .track {
+        display: flex;
+        flex-direction: column;
+        padding: 32px 28px;
+      }
+
+      .track--org {
+        border-top: 3px solid var(--accent);
+      }
+
+      .track-eyebrow {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 5px 12px;
+        border-radius: 999px;
+        margin-bottom: 14px;
+        align-self: flex-start;
+      }
+
+      .track h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .track-intro {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .track-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 18px 0 24px;
+        flex: 1;
+      }
+
+      .track-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      /* Buttons placed inside a section header (used by the demo CTA) */
+      .section-header .btn {
+        margin-top: 14px;
+      }
+
+      /* Keep anchor targets clear of the 64px sticky header */
+      section,
+      .track {
+        scroll-margin-top: 84px;
       }
 
       /* ===== Quote ===== */
@@ -1166,59 +1249,6 @@
         color: var(--warn);
       }
 
-      /* ===== FAQ ===== */
-      .faq-list {
-        max-width: 760px;
-        margin: 0 auto;
-      }
-
-      .faq-item {
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        margin-bottom: 10px;
-        overflow: hidden;
-      }
-
-      .faq-item[open] {
-        border-color: var(--border-strong);
-      }
-
-      .faq-q {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: 18px 20px;
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--text);
-        text-align: left;
-        list-style: none;
-      }
-
-      .faq-q::-webkit-details-marker {
-        display: none;
-      }
-
-      .faq-q .icon {
-        font-size: 20px;
-        color: var(--muted);
-        transition: transform 0.2s;
-        font-weight: 300;
-      }
-
-      .faq-item[open] .faq-q .icon {
-        transform: rotate(45deg);
-      }
-
-      .faq-a {
-        padding: 0 20px 18px;
-        font-size: 14px;
-        color: var(--text-2);
-        line-height: 1.65;
-      }
-
       /* ===== Forms ===== */
       .form-section {
         background: #fff;
@@ -1316,6 +1346,426 @@
         flex-wrap: wrap;
         gap: 10px;
         align-items: center;
+      }
+
+      /* ===== Enquiry chat ===== */
+      /* Hidden until the chat reveals it (a field is moved into the chat
+         when its question comes up). */
+      .is-collapsed {
+        display: none !important;
+      }
+
+      .chat {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .chat-progress {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 22px;
+      }
+
+      .chat-step-dot {
+        height: 4px;
+        flex: 1;
+        border-radius: 999px;
+        background: var(--border);
+        transition: background 0.25s;
+      }
+
+      .chat-step-dot.done {
+        background: var(--accent);
+      }
+
+      .chat-log {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .chat-msg {
+        display: flex;
+        max-width: 86%;
+      }
+
+      .chat-msg.bot {
+        align-self: flex-start;
+      }
+
+      .chat-msg.user {
+        align-self: flex-end;
+      }
+
+      .chat-bubble {
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .chat-msg.bot .chat-bubble {
+        background: var(--surface-2);
+        color: var(--text);
+        border-bottom-left-radius: 5px;
+      }
+
+      .chat-msg.user .chat-bubble {
+        background: var(--accent);
+        color: #fff;
+        border-bottom-right-radius: 5px;
+      }
+
+      .chat-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .chat-step {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+      }
+
+      .chat-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .chat-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chat-option {
+        border: 1px solid var(--border-strong);
+        background: #fff;
+        border-radius: 999px;
+        padding: 9px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-2);
+        transition:
+          border-color 0.15s,
+          color 0.15s,
+          background 0.15s;
+      }
+
+      .chat-option:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .chat-field {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .chat-field .form-group {
+        flex: 1;
+        min-width: 220px;
+      }
+
+      .chat-field .btn {
+        margin-top: 22px;
+      }
+
+      .chat-foot {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 22px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .chat-restart {
+        margin-left: auto;
+        font-size: 13px;
+        color: var(--accent);
+        font-weight: 500;
+        text-decoration: underline;
+      }
+
+      /* The chat reveals the send button only at the last step — until then
+         the enquiry form's own submit row stays hidden. */
+      #enquiryForm > .form-actions {
+        display: none;
+      }
+
+      /* ===== Enquiry tabs (individual / company) ===== */
+      .enq-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      @media (max-width: 640px) {
+        .enq-tabs {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .enq-tab {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: var(--radius-lg);
+        padding: 16px 18px;
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .enq-tab:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .enq-tab.is-active {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .enq-tab-icon {
+        font-size: 22px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .enq-tab-label {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .enq-tab-label strong {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .enq-tab-label em {
+        font-style: normal;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .enq-hint {
+        font-size: 13px;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 4px;
+      }
+
+      .enq-hint.is-hidden {
+        display: none;
+      }
+
+      /* The fields appear under the tabs once a branch is picked. */
+      #enquiryFields {
+        margin-top: 22px;
+      }
+
+      /* ===== Floating assistant ===== */
+      .assistant-fab {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 80;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 999px;
+        padding: 13px 20px 13px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: var(--shadow-md);
+        transition:
+          background 0.15s,
+          transform 0.15s;
+      }
+
+      .assistant-fab:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+      }
+
+      .assistant-fab-icon {
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .assistant-fab.is-open {
+        display: none;
+      }
+
+      .assistant-panel {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 90;
+        width: 380px;
+        max-width: calc(100vw - 32px);
+        height: 520px;
+        max-height: calc(100vh - 48px);
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+      }
+
+      .assistant-panel.is-open {
+        display: flex;
+      }
+
+      .assistant-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 16px 18px;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .assistant-head-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+      }
+
+      .assistant-head-text strong {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .assistant-head-text span {
+        font-size: 12px;
+        opacity: 0.85;
+      }
+
+      .assistant-close {
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        opacity: 0.85;
+        padding: 0 2px;
+      }
+
+      .assistant-close:hover {
+        opacity: 1;
+      }
+
+      .assistant-log {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: var(--surface);
+      }
+
+      .assistant-msg {
+        max-width: 86%;
+        padding: 11px 14px;
+        border-radius: 14px;
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      .assistant-msg.bot {
+        align-self: flex-start;
+        background: #fff;
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-bottom-left-radius: 5px;
+      }
+
+      .assistant-msg.user {
+        align-self: flex-end;
+        background: var(--accent);
+        color: #fff;
+        border-bottom-right-radius: 5px;
+      }
+
+      .assistant-msg a {
+        text-decoration: underline;
+        font-weight: 500;
+      }
+
+      .assistant-suggest {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 12px 14px 0;
+        background: var(--surface);
+      }
+
+      .assistant-chip {
+        border: 1px solid var(--border-strong);
+        background: #fff;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 12px;
+        color: var(--text-2);
+      }
+
+      .assistant-chip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .assistant-input {
+        display: flex;
+        gap: 8px;
+        padding: 12px 14px 14px;
+        border-top: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .assistant-input .form-input {
+        flex: 1;
+      }
+
+      @media (max-width: 520px) {
+        .assistant-panel {
+          right: 16px;
+          bottom: 16px;
+          width: calc(100vw - 32px);
+          height: min(520px, calc(100vh - 32px));
+        }
+        .assistant-fab {
+          right: 16px;
+          bottom: 16px;
+        }
       }
 
       /* Form success (replaces the form when complete) */
@@ -1480,7 +1930,9 @@
       .footer {
         background: #fff;
         border-top: 1px solid var(--border);
-        padding: 32px 0;
+        /* Extra room so the floating assistant button never sits on top of
+           the footer links. */
+        padding: 32px 0 92px;
       }
 
       .footer-inner {
@@ -1796,7 +2248,7 @@
         background: rgba(255, 255, 255, 0.24);
       }
 
-      /* ===== Course details block inside the demo popup ===== */
+      /* ===== Session details block inside the demo popup ===== */
       /* The [hidden] attribute must win over the display rules below, otherwise
          `display: inline-flex` on the links would keep them visible. */
       #demoModal [hidden] {
@@ -2113,11 +2565,10 @@
         </a>
         <nav class="nav">
           <a href="#services">Services</a>
-          <a href="#skills">Modules</a>
-          <a href="#demos">Demos</a>
-          <a href="#testimonials">Stories</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Contact</a>
+          <a href="#track-individuals">Individuals</a>
+          <a href="#track-organisations">Teams</a>
+          <a href="#demos">Sessions</a>
+          <a href="#enquiry" onclick="assistantOpen(); return false;">Ask us</a>
         </nav>
         <div class="header-cta">
           <a
@@ -2147,31 +2598,31 @@
       <div class="container hero-inner">
         <div class="hero-badge">
           <span class="dot"></span>
-          Expert Mentoring · Available Now
+          For people &amp; teams · Enquiries Open
         </div>
         <h1>
-          Learn SAP from a<br />
-          <span class="gradient">working consultant</span>
+          Growth starts<br />
+          <span class="gradient">with people.</span>
         </h1>
         <p class="hero-sub">
-          1-on-1 training, mock interviews, certification prep, and job support
-          across Analytics, Planning, Data Warehousing &amp; ERP.
+          Every good project runs on good people. Build your craft, or build
+          your team's capability — we help you grow either way.
         </p>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary btn-lg"
-            >Start your journey</a
+          <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            onclick="trackCta('for_individuals', 'hero'); openBookingModal();"
           >
-          <a href="#demos" class="btn btn-secondary btn-lg" id="heroDemoCta"
-            >Join a live demo</a
+            For individuals
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary btn-lg"
+            onclick="trackCta('for_organisations', 'hero'); focusEnquiry('', 'company');"
           >
-        </div>
-        <div class="hero-modules">
-          <span class="hero-module">📊 SAC</span>
-          <span class="hero-module">🌐 Datasphere</span>
-          <span class="hero-module">📋 BPC</span>
-          <span class="hero-module">🏗️ BW/4HANA</span>
-          <span class="hero-module">⚡ S/4HANA</span>
-          <span class="hero-module">🔗 BDC</span>
+            For teams
+          </button>
         </div>
       </div>
     </section>
@@ -2180,14 +2631,17 @@
     <section id="services">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">What we offer</span>
-          <h2>Services</h2>
-          <p>Beyond training — we support your entire SAP career journey.</p>
+          <span class="eyebrow">Service pillars</span>
+          <h2>Services we offer</h2>
+          <p>
+            Four ways we work together, built around people — whichever one you
+            need, you work with the same hands-on team.
+          </p>
         </div>
         <div class="services-grid">
           <article class="service-card">
             <div class="service-icon">🖥️</div>
-            <h3>IT Resources &amp; Staffing</h3>
+            <h3>IT Staffing &amp; Resource Solutions</h3>
             <p>
               End-to-end IT resource solutions — sourcing skilled SAP
               professionals, contract staffing, project bench, and resource
@@ -2199,15 +2653,21 @@
               <span class="service-tag">Project Bench</span>
               <span class="service-tag">Resource Mapping</span>
             </div>
-            <a href="#contact" class="service-cta">Connect with us →</a>
+            <button
+              class="service-cta"
+              type="button"
+              onclick="trackCta('staffing', 'services'); focusEnquiry('IT Resource / Staffing');"
+            >
+              Enquire about staffing →
+            </button>
           </article>
           <article class="service-card">
             <div class="service-icon">🎓</div>
-            <h3>Training &amp; Development</h3>
+            <h3>SAP Learning &amp; Capability Building</h3>
             <p>
-              Structured 1-on-1 and group SAP training across all major modules.
-              Designed for freshers, career switchers, and working
-              professionals.
+              Structured 1-on-1 and group SAP training, certification prep,
+              mentoring and mock interviews across all major modules — designed
+              for freshers, career switchers, and working professionals.
             </p>
             <div class="service-tags">
               <span class="service-tag">SAC</span>
@@ -2217,181 +2677,179 @@
               <span class="service-tag">S/4HANA</span>
               <span class="service-tag">BDC</span>
             </div>
-            <button class="service-cta" onclick="openBookingModal()">
+            <button
+              class="service-cta"
+              type="button"
+              onclick="trackCta('learning', 'services'); openBookingModal();"
+            >
               Book a session →
             </button>
           </article>
           <article class="service-card">
-            <div class="service-icon">🏅</div>
-            <h3>Certification Assist</h3>
+            <div class="service-icon">🚀</div>
+            <h3>Projects &amp; Development</h3>
             <p>
-              Targeted preparation for SAP certification exams — topic-wise
-              coverage, practice questions, exam strategy, and last-mile
-              revision support.
+              Websites, web applications and SAP implementations — scoped, built
+              and delivered end to end by the same hands-on team.
             </p>
             <div class="service-tags">
-              <span class="service-tag">Exam Strategy</span>
-              <span class="service-tag">Topic Revision</span>
-              <span class="service-tag">Mock Tests</span>
+              <span class="service-tag">Web Development</span>
+              <span class="service-tag">Websites &amp; Web Apps</span>
+              <span class="service-tag">SAP Implementation</span>
+              <span class="service-tag">Project Delivery</span>
             </div>
-            <button class="service-cta" onclick="openBookingModal()">
-              Start prep →
+            <button
+              class="service-cta"
+              type="button"
+              onclick="trackCta('delivery', 'services'); focusEnquiry('Project Delivery &amp; Web Development');"
+            >
+              Discuss a project →
+            </button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">👥</div>
+            <h3>HR &amp; Workforce Services</h3>
+            <p>
+              HR staffing and recruitment support for client teams, HR technology
+              implementation including SAP SuccessFactors and SAP HCM, and
+              advisory for your workforce function.
+            </p>
+            <div class="service-tags">
+              <span class="service-tag">HR Staffing</span>
+              <span class="service-tag">Recruitment</span>
+              <span class="service-tag">HR Tech Implementation</span>
+              <span class="service-tag">HR Advisory</span>
+            </div>
+            <button
+              class="service-cta"
+              type="button"
+              onclick="trackCta('hr', 'services'); focusEnquiry('HR Staffing &amp; Recruitment');"
+            >
+              Discuss HR support →
             </button>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ── SKILLS / MODULES ── -->
-    <section id="skills" class="skills-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">// Modules you can learn</span>
-          <h2>Pick a module</h2>
-          <p>
-            Click any module to open its quick reference guide with topics,
-            architecture notes, and interview prep.
-          </p>
-        </div>
-        <div class="skills-grid">
-          <a
-            class="skill-card"
-            href="Refs/sac_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">📊</div>
-            <h3>SAP Analytics Cloud</h3>
-            <p>
-              Stories, Planning Models, Data Actions, Scripting, Live
-              Connectivity, Security
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-          <a
-            class="skill-card"
-            href="Refs/bpc_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">📋</div>
-            <h3>SAP BPC</h3>
-            <p>
-              Business Planning &amp; Consolidation Standard / Embedded, BPC to
-              SAC migration
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-          <a
-            class="skill-card"
-            href="Refs/datasphere_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">🌐</div>
-            <h3>SAP Datasphere</h3>
-            <p>
-              Data Modelling, Replication Flows, Analytical Models, Business
-              Builder
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-          <a
-            class="skill-card"
-            href="Refs/sap_business_data_cloud_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">🔗</div>
-            <h3>SAP BDC</h3>
-            <p>
-              Business Data Cloud architecture, data fabric, end-to-end SAP data
-              strategy
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-          <a
-            class="skill-card"
-            href="Refs/bw4hana_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">🏗️</div>
-            <h3>SAP BW / BW4HANA</h3>
-            <p>
-              Data Warehousing, InfoProviders, Transformations, migration &amp;
-              modelling
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-          <a
-            class="skill-card"
-            href="Refs/s4hana_reference.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="skill-icon">⚡</div>
-            <h3>SAP S/4HANA</h3>
-            <p>
-              Core ERP processes, CDS Views, OData, S/4HANA to SAC integration
-            </p>
-            <span class="arrow">Open reference →</span>
-          </a>
-        </div>
-        <div class="skills-extra">
-          <a
-            class="btn btn-secondary"
-            href="Refs/datasphere_interview_prep.html"
-            target="_blank"
-            rel="noopener"
-          >
-            📝 Datasphere interview prep — 28 questions
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WHAT YOU'LL GET ── -->
+    <!-- ── CHOOSE YOUR PATH (individuals / teams) ── -->
     <section>
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// What you'll gain</span>
-          <h2>What you'll get</h2>
+          <span class="eyebrow">Choose your path</span>
+          <h2>Built for individuals and teams</h2>
+          <p>
+            The same SAP depth, two different engagements — build your own
+            capability, or build yours around a delivery, staffing or HR
+            requirement.
+          </p>
         </div>
-        <div class="learn-section">
-          <div class="learn-grid">
-            <div class="learn-item">
-              <span class="check">✓</span> Practical, real-world SAP concepts
-              explained clearly
+        <div class="tracks">
+          <article class="learn-section track" id="track-individuals">
+            <span class="track-eyebrow">For individuals</span>
+            <h3>Learn SAP the practical way</h3>
+            <p class="track-intro">
+              1-on-1 and group SAP training, certification prep, mentoring and
+              mock interviews with a working SAP consultant.
+            </p>
+            <div class="track-list">
+              <div class="learn-item">
+                <span class="check">✓</span> Practical, real-world SAP concepts
+                explained clearly
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> One-on-one sessions at your own
+                pace
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Guidance for freshers entering the
+                SAP ecosystem
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> SAC scripting, planning &amp; data
+                modelling deep dives
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> BW / BW4HANA architecture &amp;
+                migration walkthroughs
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Interview prep for SAP consultant
+                roles
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> S/4HANA integration patterns &amp;
+                CDS View deep dives
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> BPC to SAC migration strategy &amp;
+                best practices
+              </div>
             </div>
-            <div class="learn-item">
-              <span class="check">✓</span> Guidance for freshers entering the
-              SAP ecosystem
+            <div class="track-cta">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="trackCta('for_individuals', 'band'); openBookingModal();"
+              >
+                Book a 1-on-1 session →
+              </button>
+              <a class="btn btn-ghost" href="#enquiry">Ask us anything →</a>
             </div>
-            <div class="learn-item">
-              <span class="check">✓</span> SAC scripting, planning &amp; data
-              modelling deep dives
+          </article>
+
+          <article class="learn-section track track--org" id="track-organisations">
+            <span class="track-eyebrow">For teams</span>
+            <h3>Capability that scales with you</h3>
+            <p class="track-intro">
+              SAP resource solutions, project delivery and HR &amp; workforce
+              services — plus structured training for your own team.
+            </p>
+            <div class="track-list">
+              <div class="learn-item">
+                <span class="check">✓</span> SAP professionals sourced and
+                mapped to your requirement
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Contract staffing, project bench
+                and resource mapping
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Implementation and rollout support
+                for live SAP projects
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Project execution support across
+                S/4HANA, BW/4HANA, SAC, BPC, Datasphere and BDC
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> HR staffing and recruitment
+                support for client teams
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> HR technology implementation — SAP
+                SuccessFactors and SAP HCM
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> HR advisory for workforce and
+                people-process questions
+              </div>
+              <div class="learn-item">
+                <span class="check">✓</span> Team training and capability
+                building for in-house SAP teams
+              </div>
             </div>
-            <div class="learn-item">
-              <span class="check">✓</span> BW / BW4HANA architecture &amp;
-              migration walkthroughs
+            <div class="track-cta">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="trackCta('for_organisations', 'band'); focusEnquiry('', 'company');"
+              >
+                Talk to us about your requirement →
+              </button>
+              <a class="btn btn-ghost" href="#how">How we work →</a>
             </div>
-            <div class="learn-item">
-              <span class="check">✓</span> Interview prep for SAP consultant
-              roles
-            </div>
-            <div class="learn-item">
-              <span class="check">✓</span> S/4HANA integration patterns &amp;
-              CDS View deep dives
-            </div>
-            <div class="learn-item">
-              <span class="check">✓</span> BPC to SAC migration strategy &amp;
-              best practices
-            </div>
-            <div class="learn-item">
-              <span class="check">✓</span> One-on-one sessions at your own pace
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -2401,12 +2859,13 @@
       <div class="container">
         <div class="quote">
           <p>
-            "SAP skills are among the most in-demand in enterprise technology.
-            The right guidance can compress years of learning into months — and
-            open doors to some of the highest-paying consulting careers in the
-            industry."
+            "Projects move at the speed of the people on them. We train
+            individuals to become that resource, and we staff, deliver and
+            support the teams that need them."
           </p>
-          <div class="quote-author">— From the desk of your SAP mentor</div>
+          <div class="quote-author">
+            — LetsGrowWithUs, from the consultant's desk
+          </div>
         </div>
       </div>
     </section>
@@ -2422,30 +2881,35 @@
     >
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// Simple 3-step process</span>
-          <h2>How it works</h2>
+          <span class="eyebrow">How we work</span>
+          <h2>How an engagement runs</h2>
         </div>
         <div class="steps">
           <div class="step">
             <div class="step-num">01</div>
             <div class="step-icon">📲</div>
-            <h3>Reach out</h3>
-            <p>Call, WhatsApp, or fill the form with your learning goal.</p>
+            <h3>Tell us what you need</h3>
+            <p>
+              Call, WhatsApp, or send the enquiry form — a module to learn, a
+              role to staff, a project to run, or an HR requirement.
+            </p>
           </div>
           <div class="step">
             <div class="step-num">02</div>
             <div class="step-icon">🗓️</div>
-            <h3>Schedule</h3>
+            <h3>We scope it together</h3>
             <p>
-              We align on timing that suits you — flexible slots, your pace.
+              We agree the outcome, the people involved and the timeline — one
+              learner session or a full project team.
             </p>
           </div>
           <div class="step">
             <div class="step-num">03</div>
             <div class="step-icon">🚀</div>
-            <h3>Learn &amp; grow</h3>
+            <h3>Deliver &amp; grow</h3>
             <p>
-              Live sessions with hands-on examples and real project context.
+              Live sessions, staffed projects and HR work delivered with real
+              SAP context — not theory.
             </p>
           </div>
         </div>
@@ -2456,16 +2920,24 @@
     <section id="demos">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow" id="demosEyebrow">// Live demo sessions</span>
-          <h2 id="demosHeading">Join a free demo</h2>
+          <span class="eyebrow" id="demosEyebrow">Free SAP demo sessions</span>
+          <h2 id="demosHeading">Join a free SAP demo</h2>
           <p id="demosSub">
-            Free hands-on sessions. Register and we'll email you the meeting
-            link.
+            Free hands-on sessions on live SAP topics. Register and we'll email
+            you the meeting link.
           </p>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="demoCta"
+            onclick="demoCtaClick();"
+          >
+            Join a free SAP demo
+          </button>
         </div>
         <div id="demoList" class="demo-list"></div>
         <div id="pastDemos" style="display: none">
-          <div class="past-demos-title">// Previous sessions</div>
+          <div class="past-demos-title">Previous sessions</div>
           <div class="past-demos" id="pastDemosList"></div>
         </div>
       </div>
@@ -2482,8 +2954,8 @@
     >
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// What learners say</span>
-          <h2>Learner stories</h2>
+          <span class="eyebrow">In their words</span>
+          <h2>Stories from our clients</h2>
         </div>
         <div class="testi-track">
           <article class="testi-card">
@@ -2526,7 +2998,7 @@
 
         <div class="recent-stories">
           <div class="recent-stories-head">
-            <h3>Recent learner stories</h3>
+            <h3>More stories from our clients</h3>
             <span class="count" id="recentStoriesCount"></span>
           </div>
           <div id="recentStoriesList" class="recent-stories-grid"></div>
@@ -2538,14 +3010,17 @@
     <section id="feedback">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// Share your experience</span>
-          <h2>Learner feedback</h2>
-          <p>Learned with us? Rate it and tell others.</p>
+          <span class="eyebrow">Share your experience</span>
+          <h2>Share your experience</h2>
+          <p>
+            Worked with us — as a learner or on a project? Rate your experience
+            and tell others.
+          </p>
         </div>
         <div class="feedback-section">
           <div id="feedbackForm">
             <div class="feedback-meta">
-              <strong>Instructor:</strong>
+              <strong>Your contact:</strong>
               <a
                 href="https://www.linkedin.com/in/sanskar-sharma-05372b211"
                 target="_blank"
@@ -2614,12 +3089,12 @@
                 />
               </div>
               <div class="form-group">
-                <label class="form-label" for="fb-role">Role / module</label>
+                <label class="form-label" for="fb-role">Role / company</label>
                 <input
                   class="form-input"
                   id="fb-role"
                   type="text"
-                  placeholder="e.g. SAC Learner"
+                  placeholder="e.g. Data Analyst · Acme Consulting"
                   maxlength="50"
                 />
               </div>
@@ -2643,7 +3118,7 @@
                   id="fb-msg"
                   rows="3"
                   maxlength="320"
-                  placeholder="What did you learn and how did it help? A line or two is perfect."
+                  placeholder="What did you work on, and how did it help? A line or two is perfect."
                 ></textarea>
                 <span class="form-error" id="fb-error"
                   >Please pick a rating, add your name and a short message</span
@@ -2663,83 +3138,8 @@
           <div class="form-success" id="fbSuccess">
             <div class="icon">✓</div>
             <h3>Thanks for sharing!</h3>
-            <p>Your review helps other learners find us.</p>
+            <p>Your review helps others find us.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FAQ ── -->
-    <section id="faq">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">// Common questions</span>
-          <h2>FAQ</h2>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary class="faq-q">
-              Are the sessions 1:1 or group? <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              Both are available. Most learners choose 1:1 for a fully
-              personalised pace and project-focused mentoring; small-group
-              batches are offered for select modules on request.
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-q">
-              How do I get started? <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              Just send a WhatsApp message or fill the contact / enquiry form
-              with your learning goal. We'll get back within 24 hours and align
-              on the right module, scope, and schedule for you.
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-q">
-              Do you help with certification prep? <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              Yes — targeted prep for exams like C_SAC_2302, C_BW4H_214,
-              C_HANAIMP_18 and more, covering topic-wise revision, practice
-              questions and exam strategy.
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-q">
-              Which SAP modules do you cover? <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              SAP Analytics Cloud (SAC), BPC, Datasphere, BW/4HANA, SAP MM,
-              S/4HANA, and SAP Business Data Cloud (BDC). Click any module in
-              the "Pick a module" section above to open its detailed reference
-              guide.
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-q">
-              I'm a complete fresher — is this for me?
-              <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              Absolutely. Programs are designed for freshers, career switchers
-              and working professionals alike. We start from fundamentals and
-              build up to real project scenarios.
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-q">
-              Do you also help with job support and freelance projects?
-              <span class="icon">+</span>
-            </summary>
-            <div class="faq-a">
-              Yes — live project assistance, mock interviews, resume guidance
-              and freelance project connections are all part of the offering.
-              Just mention what you need in the enquiry form.
-            </div>
-          </details>
         </div>
       </div>
     </section>
@@ -2748,8 +3148,12 @@
     <section id="contact" class="contact-section">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// Reach out</span>
-          <h2>Connect to start learning</h2>
+          <span class="eyebrow">Reach out</span>
+          <h2>Talk to us — individual or team</h2>
+          <p>
+            Learning, staffing, project delivery or HR support — WhatsApp, call,
+            or send the enquiry form below.
+          </p>
         </div>
         <div class="contact-grid">
           <a
@@ -2789,9 +3193,13 @@
     <section id="enquiry">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">// Send a message</span>
-          <h2>Enquiry form</h2>
-          <p>Fill in your details — we'll get back to you within 24 hours.</p>
+          <span class="eyebrow">Send a message</span>
+          <h2>Tell us what you need</h2>
+          <p>
+            Tell us who you're enquiring for and the form changes to match —
+            we'll get back to you within 24 hours. Individuals and teams are
+            both welcome.
+          </p>
         </div>
         <div class="form-section">
           <form
@@ -2802,8 +3210,44 @@
             "
             novalidate
           >
-            <div class="form-grid">
-              <div class="form-group">
+            <div
+              class="enq-tabs"
+              role="tablist"
+              aria-label="Who are you enquiring for?"
+            >
+              <button
+                type="button"
+                class="enq-tab"
+                data-branch="individual"
+                role="tab"
+                aria-selected="false"
+              >
+                <span class="enq-tab-icon">👤</span>
+                <span class="enq-tab-label">
+                  <strong>Individual</strong>
+                  <em>Training, mentoring, mock interviews</em>
+                </span>
+              </button>
+              <button
+                type="button"
+                class="enq-tab"
+                data-branch="company"
+                role="tab"
+                aria-selected="false"
+              >
+                <span class="enq-tab-icon">🏢</span>
+                <span class="enq-tab-label">
+                  <strong>Company</strong>
+                  <em>Staffing, projects, HR support</em>
+                </span>
+              </button>
+            </div>
+            <p class="enq-hint" id="enqHint">
+              Pick who you're enquiring for — the rest of the form changes to
+              match.
+            </p>
+            <div class="form-grid is-collapsed" id="enquiryFields">
+              <div class="form-group" id="fg-name">
                 <label class="form-label" for="f-name">Full name</label>
                 <input
                   class="form-input"
@@ -2814,7 +3258,7 @@
                   autocomplete="name"
                 />
               </div>
-              <div class="form-group">
+              <div class="form-group" id="fg-email">
                 <label class="form-label" for="f-email">Email</label>
                 <input
                   class="form-input"
@@ -2825,7 +3269,7 @@
                   autocomplete="email"
                 />
               </div>
-              <div class="form-group">
+              <div class="form-group" id="fg-mobile">
                 <label class="form-label" for="f-mobile">Mobile</label>
                 <input
                   class="form-input"
@@ -2836,22 +3280,67 @@
                   autocomplete="tel"
                 />
               </div>
-              <div class="form-group">
+              <div class="form-group" id="fg-interest">
                 <label class="form-label" for="f-interest"
-                  >I'm interested in</label
+                  >What do you need help with?</label
                 >
                 <select class="form-input" id="f-interest" required>
                   <option value="">Select…</option>
-                  <option>General enquiry</option>
-                  <option>SAP Module Training</option>
-                  <option>Mock Interview</option>
-                  <option>Job Support</option>
-                  <option>Freelancer Requirement</option>
-                  <option>Certification Prep</option>
-                  <option>IT Resource / Staffing</option>
+                  <optgroup label="Individual">
+                    <option data-branch="individual">SAP Module Training</option>
+                    <option data-branch="individual">Certification Prep</option>
+                    <option data-branch="individual">Mock Interview</option>
+                    <option data-branch="individual">Job Support</option>
+                    <option data-branch="individual">
+                      Mentoring &amp; 1-on-1 Coaching
+                    </option>
+                  </optgroup>
+                  <optgroup label="Company">
+                    <option data-branch="company">IT Resource / Staffing</option>
+                    <option data-branch="company">Freelancer Requirement</option>
+                    <option data-branch="company">
+                      Project Delivery &amp; Web Development
+                    </option>
+                    <option data-branch="company">
+                      Project Bench &amp; Resource Mapping
+                    </option>
+                    <option data-branch="company">HR Staffing &amp; Recruitment</option>
+                    <option data-branch="company">HR Tech Implementation</option>
+                    <option data-branch="company">HR Advisory</option>
+                    <option data-branch="company">
+                      Corporate Training &amp; Capability Building
+                    </option>
+                  </optgroup>
+                  <optgroup label="General">
+                    <option>General enquiry</option>
+                    <option>Something else</option>
+                  </optgroup>
                 </select>
               </div>
-              <div class="form-group full">
+              <div class="form-group full is-collapsed" id="fg-level">
+                <label class="form-label" for="f-level"
+                  >Where are you starting from today?</label
+                >
+                <select class="form-input" id="f-level">
+                  <option>Complete fresher</option>
+                  <option>Some exposure</option>
+                  <option>Working professional</option>
+                </select>
+              </div>
+              <div class="form-group full" id="fg-org">
+                <label class="form-label" for="f-org"
+                  >Organisation / company</label
+                >
+                <input
+                  class="form-input"
+                  id="f-org"
+                  type="text"
+                  placeholder="e.g. Acme Consulting Pvt Ltd"
+                  maxlength="80"
+                  autocomplete="organization"
+                />
+              </div>
+              <div class="form-group full" id="fg-notes">
                 <label class="form-label" for="f-notes"
                   >Tell us a little more
                   <span class="opt">(optional)</span></label
@@ -2860,7 +3349,7 @@
                   class="form-input"
                   id="f-notes"
                   rows="3"
-                  placeholder="Anything specific you want to share…"
+                  placeholder="Your learning goal, the role or module, the timeline, the project scope — anything that helps us respond usefully."
                 ></textarea>
               </div>
             </div>
@@ -2897,7 +3386,7 @@
     <!-- ── FOOTER ── -->
     <footer class="footer">
       <div class="container footer-inner">
-        <div>© 2026 · SAP Expert Mentoring · India (IST)</div>
+        <div>© 2026 · LetsGrowWithUs · Growth Starts With People · India (IST)</div>
         <div class="footer-links">
           <a href="https://wa.me/918871644954" target="_blank" rel="noopener"
             >WhatsApp</a
@@ -2924,10 +3413,11 @@
           ×
         </button>
         <div id="bookingStep1">
-          <h2>Register your interest</h2>
+          <h2>Book a 1-on-1 SAP session</h2>
           <p class="modal-sub">
             Pick a module and tell us your goal. We'll get back to you within 24
-            hours.
+            hours. For team requirements, please use the
+            <a href="#enquiry">enquiry form</a> instead.
           </p>
           <div class="form-label" style="margin-bottom: 10px">
             Choose a module
@@ -3057,7 +3547,7 @@
             ><span id="demoHeroBadge">Live now</span></span
           >
           <h2 class="live-title" id="demoHeroTitle">
-            Live demo sessions are open
+            Free SAP demo sessions are open
           </h2>
           <p class="live-sub" id="demoHeroSub">
             Choose a session below and register — we'll email you the meeting
@@ -3099,7 +3589,7 @@
                 href="#"
                 target="_blank"
                 rel="noopener"
-                >📄 View course document</a
+                >📄 View session outline</a
               >
               <a
                 class="demo-course-ref"
@@ -3118,7 +3608,7 @@
               aria-expanded="false"
               aria-controls="demoCourseMore"
             >
-              <span class="caret">▸</span> View course details
+              <span class="caret">▸</span> View session details
             </button>
             <div class="demo-course-more" id="demoCourseMore">
               <p class="demo-course-audience" id="demoCourseAudience"></p>
@@ -3166,13 +3656,13 @@
               type="button"
               onclick="submitDemo()"
             >
-              Register for the demo →
+              Register for this session →
             </button>
           </div>
         </div>
         <div class="form-success" id="demoSuccess">
           <div class="icon">✓</div>
-          <h3>Successfully registered for the demo</h3>
+          <h3>Successfully registered for the session</h3>
           <p>Check your mailbox for the demo details.</p>
           <div class="form-actions" style="justify-content: center">
             <button
@@ -3227,7 +3717,7 @@
             title: "SAP BDC + SAP Datasphere — 40-Hour Training Program",
             format: "1 session/day × 40 days + 5 Q&A clinics",
             audience:
-              "Freshers, non-SAP background professionals keen to work in SAP or SAP BW/BW4HANA consultants moving into cloud data & analytics roles, data engineers and integration consultants, and solution architects evaluating SAP Datasphere / SAP BDC.",
+              "Freshers, non-SAP background professionals keen to work in SAP, SAP BW/BW4HANA consultants moving into cloud data & analytics roles, data engineers and integration consultants, solution architects evaluating SAP Datasphere / SAP BDC, and in-house teams getting up to speed on a data & analytics rollout.",
             topics: [
               "Business Data Fabric architecture & Datasphere positioning",
               "Connections: S/4HANA, SAP BW, HANA & non-SAP databases",
@@ -3252,7 +3742,7 @@
             title: "SAP Analytics Cloud (SAC) — 40-Hour Training Program",
             format: "1 session/day × 40 days + 5 Q&A clinics",
             audience:
-              "SAP functional/technical consultants (BW, BPC, FI/CO, S/4HANA) transitioning to SAC, BI/Analytics consultants supporting SAC implementations, and solution architects evaluating SAC for reporting and planning use cases.",
+              "SAP functional/technical consultants (BW, BPC, FI/CO, S/4HANA) transitioning to SAC, BI/Analytics consultants supporting SAC implementations, solution architects evaluating SAC for reporting and planning use cases, and teams planning a reporting or planning landscape.",
             topics: [
               "Foundations, architecture & cloud connectivity models",
               "Data modeling — dimensions, measures, currency, versions & governance",
@@ -3372,6 +3862,11 @@
         if (typeof gtag === "function") gtag("event", name, params || {});
       }
 
+      // ── Helper: GA event for a CTA click (which button, and where it sat) ──
+      function trackCta(cta, placement) {
+        track("cta_click", { cta, placement });
+      }
+
       // ── Demos ──
       function initDemos() {
         const live = getLiveDemos();
@@ -3383,19 +3878,19 @@
         const eyebrow = document.getElementById("demosEyebrow");
         const heading = document.getElementById("demosHeading");
         const sub = document.getElementById("demosSub");
-        const heroCta = document.getElementById("heroDemoCta");
+        const demoCta = document.getElementById("demoCta");
         if (live.length === 0) {
-          eyebrow.textContent = "// Demo sessions";
+          eyebrow.textContent = "Free SAP demo sessions";
           heading.textContent = "No live demo scheduled right now";
           sub.textContent =
             "New sessions are announced here first. Message us on WhatsApp and we'll notify you when the next one is on the calendar.";
-          heroCta.textContent = "Get demo updates";
+          if (demoCta) demoCta.textContent = "Get demo updates";
         } else {
-          eyebrow.textContent = "// Live demo sessions";
-          heading.textContent = "Join a free demo";
+          eyebrow.textContent = "Free SAP demo sessions";
+          heading.textContent = "Join a free SAP demo";
           sub.textContent =
-            "Free hands-on sessions. Register and we'll email you the meeting link.";
-          heroCta.textContent = "Join a live demo";
+            "Free hands-on sessions on live SAP topics. Register and we'll email you the meeting link.";
+          if (demoCta) demoCta.textContent = "Join a free SAP demo";
         }
 
         if (live.length === 0) {
@@ -3413,8 +3908,8 @@
           <div class="demo-card">
             <div class="demo-date">${d.date} at ${d.time}</div>
             <div class="demo-module">${d.module}</div>
-            ${d.pdf ? `<a href="${d.pdf}" target="_blank" rel="noopener" class="demo-link">View course details →</a>` : ""}
-            <button class="demo-btn" type="button" onclick="openDemoForm(${i})">Register for this demo</button>
+            ${d.pdf ? `<a href="${d.pdf}" target="_blank" rel="noopener" class="demo-link">View session outline →</a>` : ""}
+            <button class="demo-btn" type="button" onclick="openDemoForm(${i})">Register for this session</button>
           </div>
         `,
             )
@@ -3429,6 +3924,16 @@
                 `<span class="past-demo-chip">${d.module} · ${d.date}</span>`,
             )
             .join("");
+        }
+      }
+
+      // ── Demo section CTA: opens the popup when a session is live,
+      //    otherwise sends the visitor to WhatsApp for updates.
+      function demoCtaClick() {
+        if (getLiveDemos().length > 0) {
+          openDemoModal();
+        } else {
+          window.open("https://wa.me/" + WHATSAPP_NUMBER, "_blank", "noopener");
         }
       }
 
@@ -3460,8 +3965,8 @@
         if (title) {
           title.textContent =
             live.length === 1
-              ? "A demo session is open for registration"
-              : `${live.length} demo sessions are open for registration`;
+              ? "A session is open for registration"
+              : `${live.length} sessions are open for registration`;
         }
         if (sub) {
           sub.textContent =
@@ -3486,7 +3991,7 @@
             ${d.course && d.course.title ? `<div class="demo-live-course">${escText(d.course.title)}</div>` : ""}
             <div class="demo-live-actions">
               <button class="demo-live-btn" type="button" onclick="openDemoForm(${i})">Register for this session →</button>
-              ${d.pdf ? `<a class="demo-live-doc" href="${escText(d.pdf)}" target="_blank" rel="noopener">📄 View course details</a>` : ""}
+              ${d.pdf ? `<a class="demo-live-doc" href="${escText(d.pdf)}" target="_blank" rel="noopener">📄 View session outline</a>` : ""}
             </div>
           </div>
         `,
@@ -3514,7 +4019,7 @@
           .map((t) => `<span class="demo-course-chip">${t}</span>`)
           .join("");
 
-        // "View course document" → opens the course PDF/roadmap in a new tab
+        // "View session outline" → opens the session PDF/roadmap in a new tab
         const docLink = document.getElementById("demoCourseDocLink");
         if (demo.pdf) {
           docLink.href = demo.pdf;
@@ -3728,13 +4233,463 @@
         document.getElementById("bookingSuccess").classList.add("show");
       }
 
+      // ── Enquiry tabs ─────────────────────────────────────────────────────
+      // The first step is a tab: are you enquiring for yourself, or for a
+      // company? The fields below change to match — an individual gets the
+      // learning options and an experience level, a company gets the service
+      // options and an organisation field.
+      //
+      // The answers still post to the SAME Google Sheet as every other form
+      // on this site (SHEET_URL, handled by the external Apps Script) using
+      // the SAME key set — name, email, mobile, interest, notes, stage — so
+      // the sheet columns and confirmation emails are unaffected. The extra
+      // answers (organisation, experience level) ride inside `notes`.
+
+      const ENQUIRY_BRANCHES = {
+        individual: [
+          "SAP Module Training",
+          "Certification Prep",
+          "Mock Interview",
+          "Job Support",
+          "Mentoring & 1-on-1 Coaching",
+        ],
+        company: [
+          "IT Resource / Staffing",
+          "Freelancer Requirement",
+          "Project Delivery & Web Development",
+          "Project Bench & Resource Mapping",
+          "HR Staffing & Recruitment",
+          "HR Tech Implementation",
+          "HR Advisory",
+          "Corporate Training & Capability Building",
+        ],
+      };
+
+      let enquiryBranch = null; // "individual" | "company"
+
+      // Show only the options that belong to the active branch. The General
+      // group stays visible for everyone.
+      function filterInterestOptions(branch) {
+        const sel = document.getElementById("f-interest");
+        if (!sel) return;
+        Array.from(sel.options).forEach((o) => {
+          if (!o.dataset.branch) return;
+          const hide = o.dataset.branch !== branch;
+          o.hidden = hide;
+          o.disabled = hide;
+        });
+        // If the current choice belongs to the other branch, clear it.
+        const current = sel.selectedOptions[0];
+        if (current && current.hidden) sel.value = "";
+      }
+
+      // Pick a branch: mark the tab, reveal the fields, and show the one
+      // branch-specific field that applies.
+      function setEnquiryBranch(branch) {
+        enquiryBranch = branch;
+        document.querySelectorAll(".enq-tab").forEach((tab) => {
+          const on = tab.dataset.branch === branch;
+          tab.classList.toggle("is-active", on);
+          tab.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        const fields = document.getElementById("enquiryFields");
+        if (fields) fields.classList.remove("is-collapsed");
+        const hint = document.getElementById("enqHint");
+        if (hint) hint.classList.add("is-hidden");
+        const level = document.getElementById("fg-level");
+        if (level) level.classList.toggle("is-collapsed", branch !== "individual");
+        const org = document.getElementById("fg-org");
+        if (org) org.classList.toggle("is-collapsed", branch !== "company");
+        filterInterestOptions(branch);
+        // The send button only makes sense once we know who they are.
+        const actions = document.querySelector("#enquiryForm > .form-actions");
+        if (actions) actions.style.display = "flex";
+      }
+
+      function initEnquiryTabs() {
+        document.querySelectorAll(".enq-tab").forEach((tab) => {
+          tab.addEventListener("click", () =>
+            setEnquiryBranch(tab.dataset.branch),
+          );
+        });
+      }
+
+      // ── Firm enquiry helper: jump to the form, pick the branch when known
+      //    and preselect the interest. Never posts anything itself.
+      function focusEnquiry(interest, path) {
+        // A firm visitor who has already committed to an enquiry should not be
+        // interrupted by the auto-opening demo popup.
+        try {
+          sessionStorage.setItem("demoPopupSuppressed", "1");
+        } catch (e) {
+          /* noop */
+        }
+        const section = document.getElementById("enquiry");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        // Work out the branch from the interest when the caller didn't say.
+        let branch = path;
+        if (!branch && interest) {
+          if (ENQUIRY_BRANCHES.company.indexOf(interest) >= 0)
+            branch = "company";
+          else if (ENQUIRY_BRANCHES.individual.indexOf(interest) >= 0)
+            branch = "individual";
+        }
+        if (branch) {
+          setEnquiryBranch(branch);
+          if (interest) {
+            const sel = document.getElementById("f-interest");
+            const match = Array.from(sel.options).find(
+              (o) => o.textContent.trim() === interest,
+            );
+            if (match) sel.value = match.value;
+          }
+          const first = document.querySelector("#enquiryFields .form-input");
+          if (first) {
+            setTimeout(() => first.focus({ preventScroll: true }), 450);
+          }
+        }
+      }
+
+      // ── Which audience does the enquiry belong to?
+      function audienceOf(interest) {
+        if (interest === "General enquiry") return "general";
+        if (enquiryBranch === "individual") return "individual";
+        if (enquiryBranch === "company") return "organisation";
+        return "unknown";
+      }
+
+      // ── Floating assistant ───────────────────────────────────────────────
+      // Answers common questions on the spot. The knowledge below is the FAQ
+      // that used to sit on the page — the assistant replies in its place.
+      const ASSISTANT_KB = [
+        {
+          q: "Do you work with companies as well as individuals?",
+          keywords: [
+            "company",
+            "companies",
+            "organisation",
+            "organization",
+            "firm",
+            "business",
+            "both",
+            "individual",
+            "individuals",
+          ],
+          a: "Yes. Individuals work with us for SAP training, mentoring and mock interviews. Companies work with us for staffing, project delivery and HR & workforce services. Same practice, two kinds of engagement — pick the tab that matches your need.",
+          action: { href: "#enquiry", label: "Start an enquiry →" },
+        },
+        {
+          q: "What does IT staffing include for companies?",
+          keywords: [
+            "staffing",
+            "staff",
+            "recruit",
+            "recruitment",
+            "resource",
+            "resources",
+            "bench",
+            "hiring",
+            "hire",
+            "contract",
+            "talent",
+          ],
+          a: "Sourcing SAP professionals, contract staffing, project bench support and resource mapping — so you can cover a role, a project or a support bench without building the whole team in-house.",
+        },
+        {
+          q: "What HR and workforce services do you offer?",
+          keywords: [
+            "hr",
+            "human resource",
+            "workforce",
+            "people",
+            "successfactors",
+            "hcm",
+            "recruitment",
+            "talent",
+            "advisory",
+          ],
+          a: "HR staffing and recruitment for client teams, HR technology implementation including SAP SuccessFactors and SAP HCM, and advisory on workforce and people processes.",
+        },
+        {
+          q: "Can you build websites and software, or only SAP projects?",
+          keywords: [
+            "web",
+            "website",
+            "websites",
+            "app",
+            "apps",
+            "software",
+            "development",
+            "develop",
+            "build",
+            "project",
+            "projects",
+            "delivery",
+          ],
+          a: "Both. Our Projects & Development pillar covers websites, web applications and SAP implementations — scoped, built and delivered end to end by the same hands-on team. It isn't SAP-only.",
+        },
+        {
+          q: "Can you support SAP implementation and rollout projects?",
+          keywords: [
+            "implementation",
+            "rollout",
+            "roll out",
+            "go live",
+            "golive",
+            "migration",
+            "s4hana",
+            "bw",
+            "bpc",
+            "sac",
+            "datasphere",
+            "bdc",
+          ],
+          a: "Yes. We support implementation and rollout work and provide project execution support, across S/4HANA, BW/4HANA, BPC, SAC, Datasphere and BDC.",
+        },
+        {
+          q: "Are the sessions 1:1 or group?",
+          keywords: ["1:1", "one on one", "one-to-one", "group", "batch", "batches", "session", "sessions", "format"],
+          a: "Both are available. Most learners choose 1:1 for a fully personalised pace and project-focused mentoring; small-group batches are offered for select modules on request. Teams can run the same formats as structured team sessions.",
+        },
+        {
+          q: "Do you help with certification prep?",
+          keywords: [
+            "certification",
+            "certify",
+            "exam",
+            "exams",
+            "c_sac",
+            "c_bw4h",
+            "c_hanaimp",
+            "certified",
+          ],
+          a: "Yes — targeted prep for exams like C_SAC_2302, C_BW4H_214, C_HANAIMP_18 and more, covering topic-wise revision, practice questions and exam strategy.",
+        },
+        {
+          q: "Which SAP modules do you cover?",
+          keywords: [
+            "module",
+            "modules",
+            "sac",
+            "analytics cloud",
+            "bpc",
+            "datasphere",
+            "bdc",
+            "business data cloud",
+            "bw4hana",
+            "s/4hana",
+            "mm",
+            "which sap",
+          ],
+          a: "SAP Analytics Cloud (SAC), BPC, Datasphere, BW/4HANA, SAP MM, S/4HANA, and SAP Business Data Cloud (BDC) — alongside the wider web and software work we take on. Ask us about a specific module and we'll point you to the right reference guide.",
+        },
+        {
+          q: "I'm a complete fresher — is this for me?",
+          keywords: ["fresher", "freshers", "beginner", "beginners", "new", "no experience", "career switch", "switcher"],
+          a: "Absolutely. Programs are designed for freshers, career switchers and working professionals alike. We start from fundamentals and build up to real project scenarios.",
+        },
+        {
+          q: "Do you also help with job support and freelance projects?",
+          keywords: ["job support", "job", "resume", "cv", "freelance", "freelancer", "portfolio", "interview"],
+          a: "Yes — live project assistance, mock interviews, resume guidance and freelance project connections are all part of the offering for individuals. Companies work with us on staffing, project delivery and HR support.",
+        },
+        {
+          q: "How does an engagement usually start and get priced?",
+          keywords: ["price", "pricing", "cost", "costs", "rate", "rates", "fee", "fees", "charges", "quote", "estimate", "commercials", "budget"],
+          a: "It depends on scope and duration. Send the requirement — role, module, project or HR scope — and we'll come back with a proposed approach, timeline and commercials, with no obligation.",
+        },
+        {
+          q: "How do I get started?",
+          keywords: ["start", "begin", "get in touch", "contact", "reach", "enquiry", "enquire", "talk", "whatsapp", "call", "email"],
+          a: "Pick the tab that matches you — Individual or Company — fill in the fields that appear, and we'll get back within 24 hours. For something quicker, WhatsApp us on +91 88716 44954.",
+          action: { href: "#enquiry", label: "Go to the enquiry form →" },
+        },
+        {
+          q: "Can you train our in-house team?",
+          keywords: ["in-house", "in house", "our team", "my team", "corporate", "workforce training", "team training", "capability building"],
+          a: "Yes — team training and capability building for in-house SAP teams is one of our pillars. Choose Company on the enquiry form and pick \"Corporate Training & Capability Building\".",
+          action: { href: "#enquiry", label: "Enquire about team training →" },
+        },
+        {
+          q: "Are there free demo sessions?",
+          keywords: [
+            "demo",
+            "demos",
+            "demo session",
+            "demo sessions",
+            "free demo",
+            "live demo",
+            "upcoming session",
+            "trial",
+            "sample class",
+            "webinar",
+          ],
+          a: "Yes — we run free hands-on sessions on live SAP topics. Register on the Sessions section of the page and we'll email you the meeting link.",
+          action: { href: "#demos", label: "See the upcoming sessions →" },
+        },
+        {
+          q: "Hello!",
+          keywords: [
+            "hello",
+            "hey",
+            "hi there",
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "greetings",
+          ],
+          a: "Hi there! I'm the LetsGrowWithUs assistant. Ask me about training, staffing, project delivery or HR services — or start an enquiry and a person will reply within 24 hours.",
+          action: { href: "#enquiry", label: "Start an enquiry →" },
+        },
+        {
+          q: "Who are you?",
+          keywords: ["who are you", "about", "letsgrowwithus", "company", "who", "what do you do", "what is this"],
+          a: "I'm the LetsGrowWithUs assistant. We help individuals build SAP skills and help companies get SAP, staffing, project and HR work delivered. Ask me anything about the services, or send an enquiry and a person will reply within 24 hours.",
+        },
+      ];
+
+      const ASSISTANT_SUGGESTIONS = [
+        "Do you work with companies?",
+        "What does IT staffing include?",
+        "Do you offer HR services?",
+        "Which SAP modules do you cover?",
+        "How does it cost?",
+      ];
+
+      function assistantSay(text, who, action) {
+        const log = document.getElementById("assistantLog");
+        if (!log) return;
+        const wrap = document.createElement("div");
+        wrap.className = "assistant-msg " + who;
+        const span = document.createElement("span");
+        span.textContent = text;
+        wrap.appendChild(span);
+        if (action && action.href) {
+          const link = document.createElement("a");
+          link.href = action.href;
+          link.textContent = action.label;
+          link.style.display = "block";
+          link.style.marginTop = "8px";
+          link.addEventListener("click", () => assistantClose());
+          wrap.appendChild(link);
+        }
+        log.appendChild(wrap);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      // Pick the best matching answer. A longer keyword hit scores higher,
+      // so "certification exam" beats a stray "sap".
+      function assistantMatch(query) {
+        const q = (query || "").toLowerCase();
+        let best = null;
+        let bestScore = 0;
+        ASSISTANT_KB.forEach((entry) => {
+          let score = 0;
+          entry.keywords.forEach((k) => {
+            if (q.indexOf(k) >= 0) score += k.length;
+          });
+          if (score > bestScore) {
+            bestScore = score;
+            best = entry;
+          }
+        });
+        return best;
+      }
+
+      function assistantAsk(query) {
+        const q = (query || "").trim();
+        if (!q) return;
+        assistantSay(q, "user");
+        const hit = assistantMatch(q);
+        if (hit) {
+          assistantSay(hit.a, "bot", hit.action);
+          return;
+        }
+        assistantSay(
+          "I'm not certain about that one. The quickest way to an answer is to send us the details — we reply within 24 hours — or WhatsApp us on +91 88716 44954.",
+          "bot",
+          { href: "#enquiry", label: "Start an enquiry →" },
+        );
+      }
+
+      function assistantOpen() {
+        const panel = document.getElementById("assistantPanel");
+        const fab = document.getElementById("assistantFab");
+        if (!panel) return;
+        panel.classList.add("is-open");
+        panel.setAttribute("aria-hidden", "false");
+        if (fab) fab.classList.add("is-open");
+        if (!panel.dataset.greeted) {
+          panel.dataset.greeted = "1";
+          assistantSay(
+            "Hi! I'm the LetsGrowWithUs assistant. Ask me about training, staffing, project delivery or HR services — or try one of the questions below.",
+            "bot",
+          );
+        }
+        const input = document.getElementById("assistantInput");
+        if (input) setTimeout(() => input.focus({ preventScroll: true }), 150);
+      }
+
+      function assistantClose() {
+        const panel = document.getElementById("assistantPanel");
+        const fab = document.getElementById("assistantFab");
+        if (panel) {
+          panel.classList.remove("is-open");
+          panel.setAttribute("aria-hidden", "true");
+        }
+        if (fab) fab.classList.remove("is-open");
+      }
+
+      function initAssistant() {
+        const fab = document.getElementById("assistantFab");
+        if (fab) fab.addEventListener("click", () => assistantOpen());        const close = document.getElementById("assistantClose");
+        if (close) close.addEventListener("click", () => assistantClose());
+        const form = document.getElementById("assistantForm");
+        if (form) {
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const input = document.getElementById("assistantInput");
+            if (!input) return;
+            const q = input.value;
+            input.value = "";
+            assistantAsk(q);
+          });
+        }
+        const holder = document.getElementById("assistantSuggest");
+        if (holder) {
+          ASSISTANT_SUGGESTIONS.forEach((s) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "assistant-chip";
+            btn.textContent = s;
+            btn.addEventListener("click", () => assistantAsk(s));
+            holder.appendChild(btn);
+          });
+        }
+      }
+
       // ── Enquiry form ──
       function submitEnquiry() {
         const name = document.getElementById("f-name").value.trim();
         const email = document.getElementById("f-email").value.trim();
         const mobile = document.getElementById("f-mobile").value.trim();
         const interest = document.getElementById("f-interest").value;
-        const notes = document.getElementById("f-notes").value.trim();
+        const notesRaw = document.getElementById("f-notes").value.trim();
+        const org = document.getElementById("f-org").value.trim();
+        const level = document.getElementById("f-level").value.trim();
+        // Posts to the same Google Sheet as every other form on this site —
+        // SHEET_URL, handled by the external Apps Script. That script accepts
+        // a fixed key set, so the extra answers travel inside the existing
+        // `notes` value rather than as new keys.
+        const parts = [];
+        if (enquiryBranch === "company" && org)
+          parts.push(`Organisation: ${org}`);
+        if (enquiryBranch === "individual" && level)
+          parts.push(`Experience: ${level}`);
+        if (notesRaw) parts.push(notesRaw);
+        const notes = parts.join(" — ");
         const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         const validMobile = /^[+]?[0-9 \-()]{8,15}$/.test(mobile);
         const fields = [
@@ -3743,6 +4698,8 @@
           ["f-mobile", validMobile],
           ["f-interest", !!interest],
         ];
+        // A company enquiry should say which company it is.
+        if (enquiryBranch === "company") fields.push(["f-org", !!org]);
         fields.forEach(([id, ok]) =>
           document
             .getElementById(id)
@@ -3752,7 +4709,7 @@
         if (!fields.every(([, ok]) => ok)) return;
 
         postToSheet({ name, email, mobile, interest, notes, stage: "Enquiry" });
-        track("generate_lead", { interest });
+        track("generate_lead", { interest, audience: audienceOf(interest) });
 
         document.getElementById("enquiryForm").style.display = "none";
         document.getElementById("enquirySuccess").classList.add("show");
@@ -3881,7 +4838,7 @@
             listEl.innerHTML = `
             <div class="recent-stories-empty" style="grid-column: 1 / -1;">
               <strong>Be the first to share!</strong>
-              Add your story in the <a href="#feedback">Learner feedback</a> section above. Your review, name, and LinkedIn will appear here.
+              Add your story in the <a href="#feedback">Share your experience</a> section above. Your review, name, and LinkedIn will appear here.
             </div>`;
             if (countEl) countEl.textContent = "";
             return;
@@ -3912,7 +4869,7 @@
             })
             .join("");
           if (countEl)
-            countEl.textContent = `${safe.length} stor${safe.length === 1 ? "y" : "ies"} from learners`;
+            countEl.textContent = `${safe.length} recent stor${safe.length === 1 ? "y" : "ies"}`;
         };
 
         // 1. Local mirror wins only for the submitter's tab RIGHT AFTER submitting.
@@ -3998,6 +4955,9 @@
         try {
           sessionStorage.removeItem("liveDemoPopupDismissed");
         } catch (e) {}
+        try {
+          sessionStorage.removeItem("demoPopupSuppressed");
+        } catch (e) {}
         renderRecentStories();
         return "purged";
       };
@@ -4007,6 +4967,13 @@
       initFeedbackStars();
       renderRecentStories();
       fetchMeetingLinks();
+      initEnquiryTabs();
+      // The assistant markup sits after this script, so wait for the parser.
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initAssistant);
+      } else {
+        initAssistant();
+      }
 
       // ── Meeting link loader (sheet-backed, with hardcoded fallback) ──
       function fetchMeetingLinks() {
@@ -4054,6 +5021,13 @@
         if (dismissed && dismissed === liveDemoSignature()) return;
         // Small delay so the page settles before the modal animates in
         setTimeout(() => {
+          // If the visitor already committed to an enquiry (e.g. clicked a
+          // firm CTA), don't drop the demo popup on top of the form.
+          try {
+            if (sessionStorage.getItem("demoPopupSuppressed") === "1") return;
+          } catch (e) {
+            /* noop */
+          }
           // If the user already opened the modal (e.g. clicked "Register"
           // before the timer fired), leave them where they are.
           if (document.getElementById("demoModal").classList.contains("open"))
@@ -4067,10 +5041,11 @@
         if (e.key === "Escape") {
           closeBookingModal();
           closeDemoModal();
+          assistantClose();
         }
       });
 
-      // Expand/collapse the "View course details" block inside the demo popup
+      // Expand/collapse the "View session details" block inside the demo popup
       document
         .getElementById("demoCourseToggle")
         .addEventListener("click", () => {
@@ -4080,5 +5055,52 @@
           toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
         });
     </script>
+
+    <!-- ── FLOATING ASSISTANT ── -->
+    <button
+      type="button"
+      class="assistant-fab"
+      id="assistantFab"
+      aria-label="Open the LetsGrowWithUs assistant"
+    >
+      <span class="assistant-fab-icon">💬</span>
+      <span>Ask us anything</span>
+    </button>
+
+    <div
+      class="assistant-panel"
+      id="assistantPanel"
+      role="dialog"
+      aria-label="LetsGrowWithUs assistant"
+      aria-hidden="true"
+    >
+      <div class="assistant-head">
+        <div class="assistant-head-text">
+          <strong>LetsGrowWithUs assistant</strong>
+          <span>Training · Staffing · Projects · HR</span>
+        </div>
+        <button
+          type="button"
+          class="assistant-close"
+          id="assistantClose"
+          aria-label="Close the assistant"
+        >
+          ×
+        </button>
+      </div>
+      <div class="assistant-log" id="assistantLog" aria-live="polite"></div>
+      <div class="assistant-suggest" id="assistantSuggest"></div>
+      <form class="assistant-input" id="assistantForm">
+        <input
+          class="form-input"
+          id="assistantInput"
+          type="text"
+          placeholder="Ask a question…"
+          autocomplete="off"
+          aria-label="Type your question"
+        />
+        <button class="btn btn-primary" type="submit" aria-label="Send">→</button>
+      </form>
+    </div>
   </body>
 </html>
